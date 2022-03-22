@@ -1,0 +1,83 @@
+html, body, #root, .App {
+    height: 100%;
+}
+
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: white;
+    overflow-x: hidden;
+    padding-top: 60px;
+    transition: 0.5s;
+    opacity: 0;
+}
+.sidebar.show {
+    width: 18%;
+    opacity: 1;
+}
+.list-group-item {
+    border: none !important;
+    padding: 18px !important;
+    font-size: 17px;
+}
+.list-group-item svg {
+    margin-top: -3px;
+}
+.list-group-item.active, .list-group-item:hover, .list-group-item:hover svg path{
+    background-color: white !important;
+    color: #4439F0 !important;
+    stroke: #4439F0;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/*------------------------------------------------------------------*/
+
+.purple {
+    color: #4439F0; 
+}
+.purple-bg {
+    background-color: #6C63F2; 
+    color: white;
+}
+.grey-bg {
+    background-color: #F5F5F5;
+}
+
+/*------------------------------------------------------------------*/
+
+.header {
+    background-color: white;
+}
+.header .fa {
+    font-size: 22px;
+}
+.header .profile-pic {
+    border: 1px solid black;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-top: -4px;
+}
+.header .dropdown {
+    display: inline;
+}
+.header .dropdown button, .header .btn-info.active {
+    background-color: white !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/*------------------------------------------------------------------*/
+
+.content {
+    transition: 0.5s;
+    margin-left: 0;
+}
+.content.shift {
+    margin-left: 18%;
+}
