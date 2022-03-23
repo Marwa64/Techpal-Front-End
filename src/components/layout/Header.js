@@ -1,8 +1,7 @@
 import Avatar from "../../assets/avatar.jpg"
 import { Dropdown } from "react-bootstrap"
-import { connect } from 'react-redux';
 import { toggleSidebar } from '../../store/actions';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 const Header = () => {
     const name = "Marwa Omar"

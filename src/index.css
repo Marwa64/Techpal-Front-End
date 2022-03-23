@@ -1,9 +1,6 @@
 html, body, #root, .App {
     height: 100%;
-    color: #403F3F;
-}
-.btn {
-    color: #403F3F !important;
+    color: #707070;
 }
 
 .sidebar {
@@ -40,7 +37,9 @@ html, body, #root, .App {
 }
 
 /*------------------------------------------------------------------*/
-
+h5 {
+    font-size: 19px !important;
+}
 .purple {
     color: #4439F0 !important; 
 }
@@ -48,8 +47,24 @@ html, body, #root, .App {
     background-color: #6C63F2; 
     color: white;
 }
+.btn-purple {
+    background-color: #4439F0;
+    color: white;
+    padding: 8px 37px;
+    border-radius: 0px;
+    font-weight: 500;
+    font-size: 15px;
+    border: none;
+    margin-top: 2px;
+}
 .grey-bg {
     background-color: #F5F5F5;
+}
+.btn {
+    color: #403F3F !important;
+    border-radius: 0px !important;
+    font-weight: 500 !important;
+    font-size: 15px !important;
 }
 
 /*------------------------------------------------------------------*/
@@ -60,12 +75,16 @@ html, body, #root, .App {
 .header .fa {
     font-size: 22px;
 }
-.header .profile-pic {
+.profile-pic {
     border: 1px solid black;
     border-radius: 50%;
+    width: 33px;
+    height: 33px;
+    margin-top: -4px;
+}
+.header .profile-pic {
     width: 40px;
     height: 40px;
-    margin-top: -4px;
 }
 .header .dropdown {
     display: inline;
@@ -92,7 +111,7 @@ html, body, #root, .App {
     background-color: white;
     padding: 40px;
     margin: 30px;
-    border-radius: 20px;
+    border-radius: 30px;
     text-align: center;
 }
 .overlap {
@@ -123,4 +142,45 @@ html, body, #root, .App {
     color: #a3a3a3;
     max-width: 70px;
     word-wrap:break-word;
+}
+
+/*------------------------------------------------------------------*/
+
+.points {
+    font-size: 36px;
+    font-weight: 500;
+    color: #4439F0;
+    margin-top: -7px;
+}
+#popover-trigger {
+    padding: 15px;
+    text-align: center;
+    color: #707070;
+}
+.popover-btn {
+    position: relative;
+    left: 50%;
+}
+
+/*------------------------------------------------------------------*/
+
+.cut-text { 
+    text-overflow: ellipsis;
+    overflow: hidden; 
+    width: 75%; 
+    white-space: nowrap;
+    display: inline-block;
+}
+.readmore {
+    top: -6px;
+    position: relative;
+}
+a {
+    color: #F03939 !important;
+}
+
+/*------------------------------------------------------------------*/
+
+#upcoming {
+    font-size: 15px;
 }
