@@ -5,14 +5,14 @@ const Sidebar = () => {
     const sidebar = useSelector(state => state.sidebar);
 
     return (
-        <div className={`sidebar ${sidebar ? "show": ""}`}>
-            <ul className="list-group p-4 pt-5">
+        <div className={`sidebar shadow ${sidebar ? "show": ""}`}>
+            <ul className="list-group p-4 pt-5 mt-3">
                 <li className="list-group-item active"> <svg className="me-3" xmlns="http://www.w3.org/2000/svg" width="25" height="20" viewBox="0 0 21.167 15.067">
                     <path id="Icon_material-home" data-name="Icon material-home" d="M9.3,17.25v-4.5h3.152v4.5h3.94v-6h2.364L10.879,4.5,3,11.25H5.364v6Z" transform="translate(-0.296 -3.183)" fill="none" stroke="#4439f0" strokeWidth="2"/></svg>
                 Home</li>
                 <li className="list-group-item"> <svg className="me-3" xmlns="http://www.w3.org/2000/svg" width="25" height="20" viewBox="0 0 18.895 13.778">
                     <path id="Icon_metro-profile" data-name="Icon metro-profile" d="M21.116,9.536H19.864V7.75l-2.583-.038.013,1.824H9.532l.053-1.824-2.53.038V9.574L5.777,9.536A1.249,1.249,0,0,0,4.5,10.753v8.514a1.249,1.249,0,0,0,1.278,1.216H21.116a1.249,1.249,0,0,0,1.278-1.216V10.753A1.249,1.249,0,0,0,21.116,9.536ZM17.92,8.32H19.2v2.432H17.92ZM9.612,12.463a1.6,1.6,0,0,1,1.4,1.748,1.6,1.6,0,0,1-1.4,1.748,1.6,1.6,0,0,1-1.4-1.748,1.6,1.6,0,0,1,1.4-1.748ZM7.694,8.32H8.973v2.432H7.694Zm-.852,9.7s.151-1.157.5-1.375a5.1,5.1,0,0,1,1.336-.364s.643.654.916.654.916-.654.916-.654a5.082,5.082,0,0,1,1.336.364c.4.257.506,1.375.506,1.375H6.842Zm13-.576H14.086v-.608h5.752Zm0-1.216H14.086v-.608h5.752Zm0-1.216H14.086V14.4h5.752Zm0-1.216H14.086v-.608h5.752Z" transform="translate(-3.999 -7.204)" fill="none" stroke="#000" strokeWidth="1"/></svg>
-                Profile</li>
+                Profiles</li>
                 <li className="list-group-item"> <svg className="me-3" xmlns="http://www.w3.org/2000/svg" width="25" height="20" viewBox="0 0 21.922 13.35">
                     <path id="Icon_metro-books" data-name="Icon metro-books" d="M6.833,8.571H3.18a.569.569,0,0,0-.609.513V20.373a.569.569,0,0,0,.609.513H6.833a.569.569,0,0,0,.609-.513V9.085a.569.569,0,0,0-.609-.513ZM6.224,11.65H3.789V10.624H6.224Zm6.7-3.079H9.268a.569.569,0,0,0-.609.513V20.373a.569.569,0,0,0,.609.513h3.653a.569.569,0,0,0,.609-.513V9.085a.569.569,0,0,0-.609-.513Zm-.609,3.079H9.877V10.624h2.435Zm4.815-2.285L13.865,10.75a.48.48,0,0,0-.27.689L19.074,20.6a.668.668,0,0,0,.818.227l3.262-1.385a.48.48,0,0,0,.27-.689L17.945,9.592a.668.668,0,0,0-.818-.227Zm3.1,11.008a.618.618,0,1,1-.609-.513A.567.567,0,0,1,20.227,20.373Z" transform="translate(-2.071 -8.071)" fill="none" stroke="#000" strokeWidth="1"/></svg>
                 Courses</li>

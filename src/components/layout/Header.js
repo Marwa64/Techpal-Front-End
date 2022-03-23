@@ -9,7 +9,7 @@ const Header = () => {
     const dispatch = useDispatch();
 
     return (
-        <div className="header d-flex justify-content-between p-3">
+        <div className="header d-flex justify-content-between p-3 pe-4 me-2">
             <button className="btn" onClick={() => dispatch(toggleSidebar())}><li className="fa fa-bars purple"></li></button>
             <div>
                 <button className="btn me-3"><li className="fa fa-moon-o"></li></button>

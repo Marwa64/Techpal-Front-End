@@ -1,5 +1,9 @@
 html, body, #root, .App {
     height: 100%;
+    color: #403F3F;
+}
+.btn {
+    color: #403F3F !important;
 }
 
 .sidebar {
@@ -38,7 +42,7 @@ html, body, #root, .App {
 /*------------------------------------------------------------------*/
 
 .purple {
-    color: #4439F0; 
+    color: #4439F0 !important; 
 }
 .purple-bg {
     background-color: #6C63F2; 
@@ -80,4 +84,43 @@ html, body, #root, .App {
 }
 .content.shift {
     margin-left: 18%;
+}
+
+/*------------------------------------------------------------------*/
+
+.home-sections {
+    background-color: white;
+    padding: 40px;
+    margin: 30px;
+    border-radius: 20px;
+    text-align: center;
+}
+.overlap {
+    margin-top: -25px;
+}
+ 
+/*------------------------------------------------------------------*/
+
+.level {
+    padding: 20px 25px;
+    border-radius: 50%;
+    background-color: white;
+    border: 2px solid #bdbdbd9c;
+    color: #bdbdbdde;
+    font-size: 20px;
+    text-align: center;
+}
+.level.unlocked {
+    border: 2px solid #4439F0;
+    color: #4439F0;
+    font-size: 18px;
+}
+.level-name {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-top: 5px;
+    color: #a3a3a3;
+    max-width: 70px;
+    word-wrap:break-word;
 }
