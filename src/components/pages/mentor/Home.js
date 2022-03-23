@@ -1,10 +1,9 @@
 
-const Home = () => {
+export const Home = () => {
     return (
         <div>
-            
+            Mentor home page
         </div>
     )
 }
 
-export default Home;

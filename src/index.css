@@ -25,14 +25,18 @@ html, body, #root, .App {
     padding: 18px !important;
     font-size: 17px;
 }
+.sidebar a {
+    text-decoration: none;
+    color: #212529;
+}
 .list-group-item svg {
     margin-top: -3px;
 }
-.list-group-item.active, .list-group-item:hover, .list-group-item:hover svg path{
+.active .list-group-item, .list-group-item:hover, .list-group-item:hover svg path, .active .list-group-item svg path, .list-group-item:hover a{
     background-color: white !important;
     color: #4439F0 !important;
     stroke: #4439F0;
-    font-weight: bold;
+    font-weight: 500;
     cursor: pointer;
 }
 
@@ -175,7 +179,7 @@ h5 {
     top: -6px;
     position: relative;
 }
-a {
+.red-link {
     color: #F03939 !important;
 }
 

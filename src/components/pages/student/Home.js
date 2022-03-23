@@ -6,6 +6,8 @@ import StepProgress from "../../studentComp/StepProgress"
 import { useSelector } from 'react-redux';
 import { Popover, OverlayTrigger } from "react-bootstrap"
 
+import { Helmet } from 'react-helmet';
+
 export const Home = () => {
     const sidebar = useSelector(state => state.sidebar);
     const currentProfile = "Front-End Web Development"
@@ -53,6 +55,11 @@ export const Home = () => {
 
     return (
         <div className="grey-bg">
+            <Helmet>
+                <title>Home | Career Guidance</title>
+                <meta name="description" content="App Description" />
+                <meta name="theme-color" content="#008f68" />
+            </Helmet>
             <Sidebar />
             <div className={`content ${sidebar ? "shift": ""}`}>
                 <Header />
@@ -125,7 +132,7 @@ export const Home = () => {
                                             </div>
                                             <div className="col-11">
                                                 <h6 className="mb-0">{element.title}</h6>
-                                                <small><div className="cut-text">{element.content}</div> <a className="readmore" href={element.link}>Read more </a> </small>
+                                                <small><div className="cut-text">{element.content}</div> <a className="readmore red-link" href={element.link}>Read more </a> </small>
                                             </div>
                                         </div>
                                     )
@@ -139,7 +146,7 @@ export const Home = () => {
                                 <h5 className="mb-5">Upcoming Sessions</h5>
                                 {sessions.length > 0 ? sessions.map(session => {
                                     return (
-                                        <div className="row mb-4">
+                                        <div key={session.id} className="row mb-4">
                                             <div className="col-1">
                                                 #{session.id}
                                             </div>
@@ -156,7 +163,7 @@ export const Home = () => {
                                                 {session.time}
                                             </div>
                                             <div className="col-1">
-                                                <a href={session.link}>Link</a>
+                                                <a className="red-link" href={session.link}>Link</a>
                                             </div>
                                         </div>
                                     )
