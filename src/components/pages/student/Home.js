@@ -5,10 +5,12 @@ import Progress from "../../studentComp/Progress"
 import StepProgress from "../../studentComp/StepProgress"
 import { useSelector } from 'react-redux';
 import { Popover, OverlayTrigger } from "react-bootstrap"
+import { useNavigate } from "react-router-dom";
 
 import { Helmet } from 'react-helmet';
 
 export const Home = () => {
+    const navigate = useNavigate();
     const sidebar = useSelector(state => state.sidebar);
     const currentProfile = "Front-End Web Development"
     const currentPoints = 0
@@ -56,9 +58,7 @@ export const Home = () => {
     return (
         <div className="grey-bg">
             <Helmet>
-                <title>Home | Career Guidance</title>
-                <meta name="description" content="App Description" />
-                <meta name="theme-color" content="#008f68" />
+                <title>Career Guidance | Home</title>
             </Helmet>
             <Sidebar />
             <div className={`content ${sidebar ? "shift": ""}`}>
@@ -70,17 +70,17 @@ export const Home = () => {
                                 <div className="fw-normal" style={{fontSize: "20px"}}>Current Profile: {currentProfile}</div>
                                 <span>Current Level: {currentLevel}</span>
                             </div>
-                            <button className="btn btn-light px-4 pt-2 pb-2 mt-2 h-100 shadow">Switch Profile</button>
+                            <button onClick={() => navigate("/profiles")} className="btn btn-light px-4 pt-2 pb-2 mt-2 h-100 shadow">Switch Profile</button>
                         </div>
                     </div>
                 </div>
-                <div className="container">
+                <div className="container px-4">
                     <div className="row">
                         <div className="col-12">
-                            <div className="home-sections overlap shadow d-flex flex-column">
+                            <div className="section overlap shadow d-flex flex-column">
                                 <div className="row">
                                     <div className="d-flex flex-column align-items-center">
-                                        <Progress current={currentLevel-1} total={totalLevels-1} height="140px" width="140px" />
+                                        <Progress current={currentLevel-1} total={totalLevels-1} height="140px" width="140px" cutout={50} />
                                         <small className="mt-2" style={{color: "#a3a3a3"}}>Progress</small>
                                     </div>
                                 </div>
@@ -93,7 +93,7 @@ export const Home = () => {
                     </div>
                     <div className="row">
                         <div className="col-8">
-                            <div className="home-sections shadow text-start">
+                            <div className="section shadow text-start">
                                 <div className="row pb-1">
                                     <div className="col-9">
                                         <h5 className="mb-1">Download Your {currentProfile} Resume</h5>
@@ -106,7 +106,7 @@ export const Home = () => {
                             </div>
                         </div>
                         <div className="col-4">
-                            <div className="home-sections shadow pt-3 pb-3">
+                            <div className="section shadow pt-3 pb-3">
                                 <OverlayTrigger
                                     trigger={['hover', 'focus', 'click']}
                                     placement="top"
@@ -122,7 +122,7 @@ export const Home = () => {
                     </div>
                     <div className="row">
                         <div className="col-6">
-                            <div className="home-sections shadow pt-4 pb-4">
+                            <div className="section shadow pt-4 pb-4">
                                 <h5 className="pb-1 mb-4">News Highlights</h5>
                                 {news.map(element => {
                                     return (
@@ -137,12 +137,12 @@ export const Home = () => {
                                         </div>
                                     )
                                 })}
-                                <button className="btn-purple mt-2" style={{fontSize: "13px"}}>View More</button>
+                                <button onClick={() => navigate("/news")} className="btn-purple mt-2" style={{fontSize: "13px"}}>View More</button>
                             </div>
                         </div>
 
                         <div className="col-6">
-                            <div className="home-sections shadow pt-4 pb-4" id="upcoming">
+                            <div className="section shadow pt-4 pb-4" id="upcoming">
                                 <h5 className="mb-5">Upcoming Sessions</h5>
                                 {sessions.length > 0 ? sessions.map(session => {
                                     return (
@@ -169,8 +169,8 @@ export const Home = () => {
                                     )
                                 }) : <div className="mb-4"><h5 className="fst-italic fw-lighter">You haven't booked any sessions yet</h5></div> }
                                 {sessions.length > 0 ? 
-                                <button className="btn-purple mt-4" style={{fontSize: "13px"}}>View More</button> :
-                                <button className="btn-purple mt-4" style={{fontSize: "13px"}}>View Mentors</button>}
+                                <button onClick={() => navigate("/mentors")} className="btn-purple mt-4" style={{fontSize: "13px"}}>View More</button> :
+                                <button onClick={() => navigate("/mentors")} className="btn-purple mt-4" style={{fontSize: "13px"}}>View Mentors</button>}
                             </div>
                         </div>
                     </div>

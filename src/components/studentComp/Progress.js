@@ -12,7 +12,7 @@ const Progress = (props) => {
           data: [props.current, (props.total - props.current)],
           backgroundColor: [
             '#F03939',
-            '#bdbdbd9c'
+            '#e5e5e5'
           ],
           borderColor: [
             'rgba(255, 99, 132, 1)'
@@ -23,7 +23,7 @@ const Progress = (props) => {
     };
 
     const options = {        
-        cutout: 50
+        cutout: props.cutout
     };
 
     const plugins = [{
