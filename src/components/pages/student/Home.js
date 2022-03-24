@@ -15,7 +15,7 @@ export const Home = () => {
     const darkmode = useSelector(state => state.darkmode);
     const currentProfile = "Front-End Web Development"
     const currentPoints = 0
-    const currentLevel = 4
+    const currentLevel = 1
     const totalLevels = 6
 
     const news = [

@@ -143,7 +143,6 @@ h5 {
 }
 .content.shift {
     margin-left: 300px;
-    width: fit-content;
 }
 
 /*------------------------------------------------------------------*/
@@ -313,7 +312,7 @@ h5 {
   
   /*------------------------------------------------------------------*/
 
-  @media only screen and (max-width : 767px) {
+@media only screen and (max-width : 767px) {
     .mobile-border {
         padding: 20px;
         border: 1px solid #707070;
@@ -321,5 +320,10 @@ h5 {
     }
     .cut-text {
         width: 55%;
+    }
+}
+@media only screen and (max-width : 1023px) {
+    .content.shift {
+        width: fit-content;
     }
 }
