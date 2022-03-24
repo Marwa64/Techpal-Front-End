@@ -2,12 +2,14 @@ import Sidebar from "../../layout/Sidebar"
 import Header from "../../layout/Header"
 import Profile from "../../studentComp/Profile"
 import { useSelector } from 'react-redux';
+import { useNavigate } from "react-router-dom";
 
 import { Helmet } from 'react-helmet';
 
 const Profiles = () => {
     const sidebar = useSelector(state => state.sidebar);
     const darkmode = useSelector(state => state.darkmode);
+    const navigate = useNavigate();
 
     const currentProfile = {
         id: 1,
@@ -43,7 +45,7 @@ const Profiles = () => {
                             <div>
                                 <h4 className="fw-normal mt-2 pt-1" style={{fontSize: "20px"}}>Your Profiles</h4>
                             </div>
-                            <button className="btn btn-light px-4 pt-2 pb-2 mt-2 h-100 shadow">Create New Profile</button>
+                            <button onClick={() => navigate("/createprofile")} className="btn btn-light px-4 pt-2 pb-2 mt-2 h-100 shadow">Create New Profile</button>
                         </div>
                     </div>
                 </div>
