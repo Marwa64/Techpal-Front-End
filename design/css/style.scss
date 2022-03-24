@@ -1,0 +1,43 @@
+*{
+    margin: 0;padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+$violet: #4439F0;
+$light-violet:#EFEEFA;
+a{
+    text-decoration: none;
+}
+
+.bg-violet,.bg-violet-without-hover{
+    background-color: $violet;
+    color: #fff;
+  }
+
+.text-violet{
+    color: $violet;
+}
+  
+  
+  .bg-violet:hover{
+    color: $violet;
+    background-color: #fff;
+    border-color:  $violet ;
+  }
+
+
+.bg-light-violet{
+    background-color: $light-violet;
+}
+
+.active{
+    color:$violet;
+}
+nav{
+    a{&.hover{color: $violet !important;}}
+}
+
+footer{
+    height: 30px;
+}

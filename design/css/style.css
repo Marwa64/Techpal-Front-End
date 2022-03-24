@@ -1,0 +1,43 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  text-decoration: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+.bg-violet, .bg-violet-without-hover {
+  background-color: #4439F0;
+  color: #fff;
+}
+
+.text-violet {
+  color: #4439F0;
+}
+
+.bg-violet:hover {
+  color: #4439F0;
+  background-color: #fff;
+  border-color: #4439F0;
+}
+
+.bg-light-violet {
+  background-color: #EFEEFA;
+}
+
+.active {
+  color: #4439F0;
+}
+
+nav a.hover {
+  color: #4439F0 !important;
+}
+
+footer {
+  height: 30px;
+}
+/*# sourceMappingURL=style.css.map */
