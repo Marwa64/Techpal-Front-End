@@ -12,6 +12,7 @@ import { Helmet } from 'react-helmet';
 export const Home = () => {
     const navigate = useNavigate();
     const sidebar = useSelector(state => state.sidebar);
+    const darkmode = useSelector(state => state.darkmode);
     const currentProfile = "Front-End Web Development"
     const currentPoints = 0
     const currentLevel = 1
@@ -56,14 +57,14 @@ export const Home = () => {
       );
 
     return (
-        <div className="grey-bg">
+        <div className={`${darkmode ? "darkgrey-bg" : "grey-bg"}`}>
             <Helmet>
                 <title>Career Guidance | Home</title>
             </Helmet>
             <Sidebar />
             <div className={`content ${sidebar ? "shift": ""}`}>
                 <Header />
-                <div className="purple-bg">
+                <div className={`${darkmode ? "darkpurple-bg" : "purple-bg"}`}>
                     <div className="container">
                         <div className="p-5 pt-4 d-flex justify-content-between">
                             <div>
@@ -77,7 +78,7 @@ export const Home = () => {
                 <div className="container px-4">
                     <div className="row">
                         <div className="col-12">
-                            <div className="section overlap shadow d-flex flex-column">
+                            <div className={`section overlap shadow d-flex flex-column ${darkmode ? "sidebar-dark" : ""}`}>
                                 <div className="row">
                                     <div className="d-flex flex-column align-items-center">
                                         <Progress current={currentLevel-1} total={totalLevels-1} height="140px" width="140px" cutout={50} />
@@ -93,7 +94,7 @@ export const Home = () => {
                     </div>
                     <div className="row">
                         <div className="col-8">
-                            <div className="section shadow text-start">
+                            <div className={`section shadow text-start  ${darkmode ? "sidebar-dark" : ""}`}>
                                 <div className="row pb-1">
                                     <div className="col-9">
                                         <h5 className="mb-1">Download Your {currentProfile} Resume</h5>
@@ -106,7 +107,7 @@ export const Home = () => {
                             </div>
                         </div>
                         <div className="col-4">
-                            <div className="section shadow pt-3 pb-3">
+                            <div className={`section shadow pt-3 pb-3 ${darkmode ? "sidebar-dark" : ""}`}>
                                 <OverlayTrigger
                                     trigger={['hover', 'focus', 'click']}
                                     placement="top"
@@ -122,7 +123,7 @@ export const Home = () => {
                     </div>
                     <div className="row">
                         <div className="col-6">
-                            <div className="section shadow pt-4 pb-4">
+                            <div className={`section shadow pt-4 pb-4 ${darkmode ? "sidebar-dark" : ""}`}>
                                 <h5 className="pb-1 mb-4">News Highlights</h5>
                                 {news.map(element => {
                                     return (
@@ -142,7 +143,7 @@ export const Home = () => {
                         </div>
 
                         <div className="col-6">
-                            <div className="section shadow pt-4 pb-4" id="upcoming">
+                            <div className={`section shadow pt-4 pb-4 ${darkmode ? "sidebar-dark" : ""}`} id="upcoming">
                                 <h5 className="mb-5">Upcoming Sessions</h5>
                                 {sessions.length > 0 ? sessions.map(session => {
                                     return (

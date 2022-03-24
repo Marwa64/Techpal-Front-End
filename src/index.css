@@ -3,6 +3,37 @@ html, body, #root, .App {
     color: #707070;
 }
 
+/*------------------------------------------------------------------*/
+/*dark mode*/
+.header-dark, .header.header-dark .dropdown button {
+    background-color: #22262b !important;
+    color: white !important;
+}
+.sidebar-dark, .sidebar-dark .list-group-item, .sidebar-dark .list-group-item svg path {
+    background-color: #262a2f !important;
+    color: white;
+    stroke: white;
+}
+.darkgrey-bg {
+    background-color: #1e2124 !important;
+    min-height: 100%;
+}
+.darkpurple-bg {
+    background-color: #413ab8;
+    color: white;
+}
+.dark-level {
+    background-color: #4b5664 !important;
+}
+.dark-level-name {
+    color: #7f77f8 !important;
+}
+.white {
+    color: white;
+}
+
+/*------------------------------------------------------------------*/
+
 .sidebar {
     height: 100%;
     width: 0;
@@ -20,20 +51,23 @@ html, body, #root, .App {
     width: 18%;
     opacity: 1;
 }
+.list-group {
+    background-color: inherit;
+}
 .list-group-item {
     border: none !important;
     padding: 18px !important;
+    background-color: inherit !important;
     font-size: 17px;
 }
 .sidebar a {
     text-decoration: none;
-    color: #212529;
 }
 .list-group-item svg {
     margin-top: -3px;
 }
 .active .list-group-item, .list-group-item:hover, .list-group-item:hover svg path, .active .list-group-item svg path, .list-group-item:hover a{
-    background-color: white !important;
+    background-color: inherit;
     color: #4439F0 !important;
     stroke: #4439F0;
     font-weight: 500;
@@ -121,14 +155,6 @@ h5 {
 }
 .overlap {
     margin-top: -25px;
-}
-
-/*------------------------------------------------------------------*/
-
-canvas {
-    background-color: white;
-    border-radius: 100%;
-    border: none;
 }
 
 /*------------------------------------------------------------------*/

@@ -1,4 +1,5 @@
 import Progress from "./Progress"
+import { useSelector } from 'react-redux';
 
 const Profile = ({ profile, current }) => {
     return (

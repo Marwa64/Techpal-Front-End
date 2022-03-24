@@ -7,6 +7,7 @@ import { Helmet } from 'react-helmet';
 
 const Profiles = () => {
     const sidebar = useSelector(state => state.sidebar);
+    const darkmode = useSelector(state => state.darkmode);
 
     const currentProfile = {
         id: 1,
@@ -29,14 +30,14 @@ const Profiles = () => {
         }
     ]
     return (
-        <div className="grey-bg">
+        <div className={`${darkmode ? "darkgrey-bg" : "grey-bg"}`}>
             <Helmet>
                 <title>Career Guidance | Profiles</title>
             </Helmet>
             <Sidebar />
             <div className={`content ${sidebar ? "shift": ""}`}>
                 <Header />
-                <div className="purple-bg">
+                <div className={`${darkmode ? "darkpurple-bg" : "purple-bg"}`}>
                     <div className="container">
                         <div className="p-5 pb-4 pt-4 d-flex justify-content-between">
                             <div>

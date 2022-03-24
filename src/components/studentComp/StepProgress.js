@@ -1,9 +1,11 @@
 import "react-step-progress-bar/styles.css";
 import { ProgressBar, Step } from "react-step-progress-bar";
+import { useSelector } from 'react-redux';
 import Level from "./Level"
 
 const StepProgress = (props) => {
     const percent = Math.round((props.current / props.total) * 100)
+    const darkmode = useSelector(state => state.darkmode);
     const track = [
       {
         id: 1,
@@ -38,7 +40,7 @@ const StepProgress = (props) => {
                   {({ accomplished, index }) => (
                     <div>
                       <Level unlocked={accomplished} index={index} />
-                      <small className={`level-name ${accomplished ? "purple" : ""}`}>{skill.name}</small>
+                      <small className={`level-name ${accomplished ? (darkmode ? "dark-level-name" : "purple") : ""}`}>{skill.name}</small>
                     </div>
                   )}
                 </Step>)}
