@@ -38,7 +38,7 @@ const Progress = (props) => {
              height = chart.height,
              ctx = chart.ctx;
              ctx.restore();
-             var fontSize = (height / 140).toFixed(2);
+             var fontSize = (height / 110).toFixed(2);
              ctx.font = "bold " + fontSize + "em sans-serif";
              ctx.textBaseline = "top";
              var text = `${percent}%`,

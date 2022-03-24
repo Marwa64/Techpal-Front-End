@@ -15,7 +15,7 @@ export const Home = () => {
     const darkmode = useSelector(state => state.darkmode);
     const currentProfile = "Front-End Web Development"
     const currentPoints = 0
-    const currentLevel = 1
+    const currentLevel = 4
     const totalLevels = 6
 
     const news = [
@@ -66,12 +66,12 @@ export const Home = () => {
                 <Header />
                 <div className={`${darkmode ? "darkpurple-bg" : "purple-bg"}`}>
                     <div className="container">
-                        <div className="p-5 pt-4 d-flex justify-content-between">
+                        <div className="p-5 pt-4 d-flex justify-content-md-between flex-column flex-md-row text-center text-md-start">
                             <div>
                                 <div className="fw-normal" style={{fontSize: "20px"}}>Current Profile: {currentProfile}</div>
                                 <span>Current Level: {currentLevel}</span>
                             </div>
-                            <button onClick={() => navigate("/profiles")} className="btn btn-light px-4 pt-2 pb-2 mt-2 h-100 shadow">Switch Profile</button>
+                            <button onClick={() => navigate("/profiles")} className="btn btn-light px-4 pt-2 pb-2 mt-4 mt-md-2 h-100 shadow">Switch Profile</button>
                         </div>
                     </div>
                 </div>
@@ -93,20 +93,20 @@ export const Home = () => {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-8">
+                        <div className="col-12 col-lg-8">
                             <div className={`section shadow text-start  ${darkmode ? "sidebar-dark" : ""}`}>
                                 <div className="row pb-1">
-                                    <div className="col-9">
+                                    <div className="col-12 col-lg-9 text-center text-lg-start">
                                         <h5 className="mb-1">Download Your {currentProfile} Resume</h5>
                                         <small>The resume can be edited in the resume page</small> 
                                     </div>
-                                    <div className="col-3 mt-2">
+                                    <div className="col-12 col-lg-3 mt-4 mt-lg-2 d-flex justify-content-center">
                                         <button className="btn-purple">Download</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div className="col-4">
+                        <div className="col-12 col-lg-4">
                             <div className={`section shadow pt-3 pb-3 ${darkmode ? "sidebar-dark" : ""}`}>
                                 <OverlayTrigger
                                     trigger={['hover', 'focus', 'click']}
@@ -122,16 +122,16 @@ export const Home = () => {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-6">
+                        <div className="col-12 col-lg-6">
                             <div className={`section shadow pt-4 pb-4 ${darkmode ? "sidebar-dark" : ""}`}>
                                 <h5 className="pb-1 mb-4">News Highlights</h5>
                                 {news.map(element => {
                                     return (
                                         <div key={element.id} className="row text-start mb-4">
-                                            <div className="col-1">
+                                            <div className="col-1 d-none d-md-block">
                                                 #{element.id}
                                             </div>
-                                            <div className="col-11">
+                                            <div className="col-12 col-md-11">
                                                 <h6 className="mb-0">{element.title}</h6>
                                                 <small><div className="cut-text">{element.content}</div> <a className="readmore red-link" href={element.link}>Read more </a> </small>
                                             </div>
@@ -142,36 +142,36 @@ export const Home = () => {
                             </div>
                         </div>
 
-                        <div className="col-6">
+                        <div className="col-12 col-lg-6">
                             <div className={`section shadow pt-4 pb-4 ${darkmode ? "sidebar-dark" : ""}`} id="upcoming">
-                                <h5 className="mb-5">Upcoming Sessions</h5>
+                                <h5 className="mb-4 mb-md-5">Upcoming Sessions</h5>
                                 {sessions.length > 0 ? sessions.map(session => {
                                     return (
-                                        <div key={session.id} className="row mb-4">
-                                            <div className="col-1">
+                                        <div key={session.id} className="mobile-border row mb-4 mt-4 mt-lg-0">
+                                            <div className="col-12 col-md-1 d-none d-md-block">
                                                 #{session.id}
                                             </div>
-                                            <div className="col-1">
+                                            <div className="col-12 col-md-1">
                                                 <img className="profile-pic me-2" src={Avatar} alt="avatar" />
                                             </div>
-                                            <div className="col-4 text-start px-4 pe-0">
+                                            <div className="col-12 col-md-4 text-center text-lg-start px-0 px-md-4 pe-0 mt-2 mt-lg-0">
                                                 {session.mentor}
                                             </div>
-                                            <div className="col-2">
+                                            <div className="col-12 col-md-2 mt-2 mt-lg-0">
                                                 {session.date}
                                             </div>
-                                            <div className="col-3">
+                                            <div className="col-12 col-md-3 mt-2 mt-lg-0">
                                                 {session.time}
                                             </div>
-                                            <div className="col-1">
+                                            <div className="col-12 col-md-1 mt-2 mt-lg-0">
                                                 <a className="red-link" href={session.link}>Link</a>
                                             </div>
                                         </div>
                                     )
                                 }) : <div className="mb-4"><h5 className="fst-italic fw-lighter">You haven't booked any sessions yet</h5></div> }
                                 {sessions.length > 0 ? 
-                                <button onClick={() => navigate("/mentors")} className="btn-purple mt-4" style={{fontSize: "13px"}}>View More</button> :
-                                <button onClick={() => navigate("/mentors")} className="btn-purple mt-4" style={{fontSize: "13px"}}>View Mentors</button>}
+                                <button onClick={() => navigate("/mentors")} className="btn-purple mt-2 mt-md-4" style={{fontSize: "13px"}}>View More</button> :
+                                <button onClick={() => navigate("/mentors")} className="btn-purple mt-2 mt-md-4" style={{fontSize: "13px"}}>View Mentors</button>}
                             </div>
                         </div>
                     </div>
