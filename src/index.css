@@ -260,6 +260,7 @@ h5 {
 .createprofile {
     background-color: #EFEEFA;
     min-height: 100%;
+    color: #707070 !important;
 }
 .track {
     width: 45%;
@@ -282,3 +283,26 @@ h5 {
     opacity: 1;
     font-size: 19px;
 }
+
+.skills {
+    background-color: #E4E3F6;
+    border: 1px solid white;
+    border-radius: 30px;
+    color: black;
+    font-weight: lighter;
+    padding: 25px;
+    height: 560px;
+    font-size: 18px;
+    overflow-y: scroll;
+}
+.skills::-webkit-scrollbar {
+    width: 8px;
+  }
+  .skills::-webkit-scrollbar-track {
+    border-radius: 4px;
+  }
+  .skills::-webkit-scrollbar-thumb {
+    background: #504e6d34;
+    border-radius: 4px;
+  }
+  
