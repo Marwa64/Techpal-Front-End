@@ -33,18 +33,27 @@ const StepProgress = (props) => {
       }
     ]
     return (
-        <div className='p-5 mt-3'>
+        <div>
+          <div className='p-5 mt-3 d-none d-lg-block'>
             <ProgressBar percent={percent} filledBackground="linear-gradient(to right, #6C63F2, #4439F0)">
-                {track.map(skill =>
-                  <Step key={skill.id}>
-                  {({ accomplished, index }) => (
-                    <div>
-                      <Level unlocked={accomplished} index={index} />
-                      <small className={`level-name ${accomplished ? (darkmode ? "dark-level-name" : "purple") : ""}`}>{skill.name}</small>
-                    </div>
-                  )}
-                </Step>)}
-            </ProgressBar>
+                  {track.map(skill =>
+                    <Step key={skill.id}>
+                    {({ accomplished, index }) => (
+                      <div className="d-flex flex-column align-items-center">
+                        <Level unlocked={accomplished} index={index} />
+                        <small className={`level-name ${accomplished ? (darkmode ? "dark-level-name" : "purple") : ""}`}>{skill.name}</small>
+                      </div>
+                    )}
+                  </Step>)}
+              </ProgressBar>
+          </div>
+          <div className='p-2 mt-2 d-block d-lg-none'>
+              {track.map((skill, index) =>
+                  <div className="mt-4 d-flex flex-column align-items-center">
+                      <Level unlocked={props.current >= index} index={index} />
+                      <small className={`level-name mx-4 ${props.current >= index ? (darkmode ? "dark-level-name" : "purple") : ""}`}>{skill.name}</small>
+                  </div>)}
+          </div>
         </div>
     )
 }

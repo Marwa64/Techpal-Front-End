@@ -17,7 +17,7 @@ const Header = () => {
                     <Dropdown.Toggle variant="info">
                         <span className={`me-3 ${darkmode ? "header-dark" : ""}`}>
                             <img className="profile-pic me-2" src={Avatar} alt="avatar" />
-                            {name}
+                            <span className="px-1 pe-0">{name}</span>
                         </span>
                     </Dropdown.Toggle>
 

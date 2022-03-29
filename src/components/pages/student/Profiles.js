@@ -41,7 +41,7 @@ const Profiles = () => {
                 <Header />
                 <div className={`${darkmode ? "darkpurple-bg" : "purple-bg"}`}>
                     <div className="container">
-                        <div className="p-5 pb-4 pt-4 d-flex justify-content-between">
+                        <div className="p-5 pb-4 pt-4 d-flex justify-content-md-between flex-column flex-md-row text-center text-md-start">
                             <div>
                                 <h4 className="fw-normal mt-2 pt-1" style={{fontSize: "20px"}}>Your Profiles</h4>
                             </div>
@@ -49,22 +49,26 @@ const Profiles = () => {
                         </div>
                     </div>
                 </div>
-                <div className="container p-5">
+                <div className="container mt-5">
                     <div className="row text-center">
-                        <h5>Current Profile</h5>
+                        <div className="col-12">
+                            <h5>Current Profile</h5>
+                        </div>
                     </div>
                     <div className="row d-flex justify-content-center text-center">
-                        <div className="col-6">
+                        <div className="col-12 col-lg-6">
                             <Profile profile={currentProfile} current={true} />
                         </div>
                     </div>
-                    <div className="row mt-4">
-                        <h5 className="px-5">Other Profiles</h5>
+                    <div className="row mt-4 text-center text-lg-start">
+                        <div className="col-12">
+                            <h5 className="px-5">Other Profiles</h5>
+                        </div>
                     </div>
                     <div className="row d-flex text-center">
                         {profiles.map(profile => {
                             return (
-                                <div key={profile.id} className="col-6">
+                                <div key={profile.id} className="col-12 col-lg-6">
                                     <Profile profile={profile} current={false} />
                                 </div>
                             )
