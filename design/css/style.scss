@@ -14,27 +14,24 @@ a{
 .bg-violet,.btn-violet{
     background-color: $violet;
     color: #fff;
-  }
+}
 
 .text-violet{
     color: $violet;
 }
   
   
-  .btn-violet:hover{
+.btn-violet:hover{
     color: $violet;
     background-color: #fff;
     border-color:  $violet ;
-  }
+}
 
 
 .bg-light-violet{
     background-color: $light-violet;
 }
 
-.active{
-    color:$violet;
-}
 nav{
     a{
         color: $muted-color;
