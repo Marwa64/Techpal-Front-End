@@ -10,7 +10,7 @@ a {
   text-decoration: none;
 }
 
-.bg-violet, .bg-violet-without-hover {
+.bg-violet, .btn-violet {
   background-color: #4439F0;
   color: #fff;
 }
@@ -19,7 +19,7 @@ a {
   color: #4439F0;
 }
 
-.bg-violet:hover {
+.btn-violet:hover {
   color: #4439F0;
   background-color: #fff;
   border-color: #4439F0;
@@ -33,11 +33,30 @@ a {
   color: #4439F0;
 }
 
-nav a.hover {
+nav a {
+  color: #6C757D;
+}
+
+nav a:hover, nav a:active {
   color: #4439F0 !important;
 }
 
 footer {
   height: 30px;
+}
+
+@media (max-width: 768px) {
+  nav {
+    /*position*/
+    position: absolute;
+    top: 100%;
+    left: 5%;
+    right: 5%;
+    /*box-model*/
+    margin-top: 5px;
+    padding: 5px;
+    padding-left: 20px;
+    border-radius: 5px;
+  }
 }
 /*# sourceMappingURL=style.css.map */
