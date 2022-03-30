@@ -2,13 +2,21 @@
     margin: 0;padding: 0;
     box-sizing: border-box;
     text-decoration: none;
+    font-family: "Segoe UI" !important;
 }
 
 $violet: #4439F0;
 $light-violet:#EFEEFA;
 $muted-color:#6C757D;
+$white:#fff;
 a{
     text-decoration: none;
+}
+
+
+.box{
+    width: 70px;
+    height: 70px;
 }
 
 .bg-violet,.btn-violet{
