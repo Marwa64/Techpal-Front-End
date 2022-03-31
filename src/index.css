@@ -260,10 +260,11 @@ h5 {
 }
 
 /*------------------------------------------------------------------*/
-
-.createprofile {
+.lightpurple-bg {
     background-color: #EFEEFA;
     min-height: 100%;
+}
+.createprofile {
     color: #707070 !important;
 }
 .track {
@@ -296,9 +297,12 @@ h5 {
     font-weight: lighter;
     padding: 25px;
     height: 560px;
+    width: 500px;
     font-size: 18px;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
+
 .skills::-webkit-scrollbar {
     width: 8px;
   }
@@ -311,6 +315,67 @@ h5 {
   }
   
   /*------------------------------------------------------------------*/
+
+  .login a {
+    text-decoration: none;
+  }
+  
+  .login .box {
+    width: 70px;
+    height: 70px;
+  }
+
+  .login .container {
+      color: black;
+  }
+  
+  .login .bg-violet, .btn-violet {
+    background-color: #4439F0 !important;
+    color: #fff !important;
+  }
+  
+  .login .text-violet {
+    color: #4439F0;
+  }
+  
+  .login .btn-violet:hover {
+    color: #4439F0;
+    background-color: #fff;
+    border-color: #4439F0;
+  }
+  
+  .login .bg-light-violet {
+    background-color: #EFEEFA;
+  }
+  
+  .login nav a {
+    color: #6C757D;
+  }
+  
+  .login nav a:hover, nav a:active {
+    color: #4439F0 !important;
+  }
+  
+  .login footer {
+    height: 30px;
+  }
+  
+   /*------------------------------------------------------------------*/
+   
+  @media (max-width: 768px) {
+    nav {
+      /*position*/
+      position: absolute;
+      top: 100%;
+      left: 5%;
+      right: 5%;
+      /*box-model*/
+      margin-top: 5px;
+      padding: 5px;
+      padding-left: 20px;
+      border-radius: 5px;
+    }
+  }
 
 @media only screen and (max-width : 767px) {
     .mobile-border {

@@ -1,3 +1,4 @@
+import Login from "./components/pages/common/Login"
 import {Home as StudentHome} from "./components/pages/student/Home"
 import {Home as MentorHome} from "./components/pages/mentor/Home"
 import Profiles from "./components/pages/student/Profiles"
@@ -16,6 +17,7 @@ function App() {
         <Routes>
           <Route path="/createprofile" element={ <CreateProfile />} />
           <Route path="/profiles" element={ <Profiles />} />
+          <Route path="/login" element={ <Login />} />
           <Route path="/" element={ role==="student" ? <StudentHome /> : <MentorHome />} />
         </Routes>
       </Router>

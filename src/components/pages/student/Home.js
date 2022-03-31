@@ -154,7 +154,7 @@ export const Home = () => {
                                             <div className="col-12 col-md-1">
                                                 <img className="profile-pic me-2" src={Avatar} alt="avatar" />
                                             </div>
-                                            <div className="col-12 col-md-4 text-center text-lg-start px-0 px-md-4 pe-0 mt-2 mt-lg-0">
+                                            <div className="col-12 col-md-4 text-center text-lg-start px-0 px-md-4 pe-md-0 mt-2 mt-lg-0">
                                                 {session.mentor}
                                             </div>
                                             <div className="col-12 col-md-2 mt-2 mt-lg-0">

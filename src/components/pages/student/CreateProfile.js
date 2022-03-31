@@ -127,7 +127,7 @@ const CreateProfile = () => {
       };
       
     return (
-        <div className="createprofile">
+        <div className="createprofile lightpurple-bg">
             <div className="container pb-5">
                 <div className="row p-5 px-2">
                     <h5 className="fw-normal">Logo</h5>
@@ -153,7 +153,7 @@ const CreateProfile = () => {
                         <Slider {...skillSettings} asNavFor={trackNav} ref={slider => {skillSlider = slider;}}>
                             {tracks.map(track => {
                                 return (
-                                    <div key={`skill${track.id}`}>
+                                    <div key={`skill${track.id}`} className="d-flex justify-content-center align-items-center">
                                         <Skills id={track.id} skills={track.skills} updateSkill={updateSkill} />
                                     </div>
                                 )
