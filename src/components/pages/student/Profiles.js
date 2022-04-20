@@ -34,7 +34,7 @@ const Profiles = () => {
     return (
         <div className={`${darkmode ? "darkgrey-bg" : "grey-bg"}`}>
             <Helmet>
-                <title>Career Guidance | Profiles</title>
+                <title>Techie | Profiles</title>
             </Helmet>
             <Sidebar />
             <div className={`content ${sidebar ? "shift": ""}`}>

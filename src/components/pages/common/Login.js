@@ -3,13 +3,13 @@ import { Helmet } from 'react-helmet';
 
 const Login = () => {
     const login = (e) => {
-        e.preventDefault();
+        e.preventDefault()
         console.log("log in")
     }
     return (
         <div className="login lightpurple-bg p-4">
             <Helmet>
-                <title>Career Guidance | Login</title>
+                <title>Techie | Login</title>
             </Helmet>
             <Navbar />
             <div className="container">
