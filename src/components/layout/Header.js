@@ -2,11 +2,14 @@ import Avatar from "../../assets/avatar.jpg"
 import { Dropdown } from "react-bootstrap"
 import { toggleSidebar, toggleMode } from '../../store/actions';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
     const name = "Marwa Omar"
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const darkmode = useSelector(state => state.darkmode);
+    const user = useSelector(state => state.user);
 
     return (
         <div className={`header d-flex justify-content-between p-3 pe-4 ${darkmode ? "header-dark" : ""}`}>
@@ -24,8 +27,8 @@ const Header = () => {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                        <Dropdown.Item href="/account">Account</Dropdown.Item>
-                        <Dropdown.Item href="/">Log Out</Dropdown.Item>
+                        <Dropdown.Item onClick={() => navigate("/account")} >Account</Dropdown.Item>
+                        <Dropdown.Item onClick={() => navigate("/")}>Log Out</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
             </div>

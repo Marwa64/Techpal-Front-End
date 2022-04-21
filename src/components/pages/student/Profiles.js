@@ -1,5 +1,6 @@
 import Sidebar from "../../layout/Sidebar"
 import Header from "../../layout/Header"
+import PurpleBar from "../../layout/PurpleBar";
 import Profile from "../../studentComp/Profile"
 import { useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
@@ -39,16 +40,7 @@ const Profiles = () => {
             <Sidebar />
             <div className={`content ${sidebar ? "shift": ""}`}>
                 <Header />
-                <div className={`${darkmode ? "darkpurple-bg" : "purple-bg"}`}>
-                    <div className="container">
-                        <div className="p-5 pb-4 pt-4 d-flex justify-content-md-between flex-column flex-md-row text-center text-md-start">
-                            <div>
-                                <h4 className="fw-normal mt-2 pt-1" style={{fontSize: "20px"}}>Your Profiles</h4>
-                            </div>
-                            <button onClick={() => navigate("/createprofile")} className="btn btn-light px-4 pt-2 pb-2 mt-2 h-100 shadow">Create New Profile</button>
-                        </div>
-                    </div>
-                </div>
+                <PurpleBar title="Your Profiles" button={true} buttonName="Create New Profile" path="/createprofile" />
                 <div className="container mt-5">
                     <div className="row text-center">
                         <div className="col-12">
