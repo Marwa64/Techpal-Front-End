@@ -8,7 +8,7 @@ const allReducers = combineReducers({
     sidebar: sidebarReducer,
     darkmode: darkmodeReducer,
     user: userReducer,
-    tokenReducer: tokenReducer
+    token: tokenReducer
 })
 
 export default allReducers;

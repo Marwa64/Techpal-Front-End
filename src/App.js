@@ -4,23 +4,25 @@ import {Home as StudentHome} from "./components/pages/student/Home"
 import {Home as MentorHome} from "./components/pages/mentor/Home"
 import Profiles from "./components/pages/student/Profiles"
 import CreateProfile from "./components/pages/student/CreateProfile"
+
 import { useSelector } from 'react-redux';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import ProtectedRoute from "./components/ProtectedRoute"
 
 function App() {
-  const role="student"
   const darkmode = useSelector(state => state.darkmode);
+  const user = useSelector(state => state.user);
 
   return (
     <div className={`App ${darkmode ? "header-dark": ""}`}>
       <Router>
         <Routes>
-          <Route path="/createprofile" element={ <CreateProfile />} />
-          <Route path="/profiles" element={ <Profiles />} />
+          <Route path="/createprofile" element={ <ProtectedRoute><CreateProfile /></ProtectedRoute>} />
+          <Route path="/profiles" element={ <ProtectedRoute><Profiles /></ProtectedRoute>} />
           <Route path="/login" element={ <Login />} />
           <Route path="/signup" element={ <Signup />} />
-          <Route path="/" element={ role==="student" ? <StudentHome /> : <MentorHome />} />
+          <Route path="/" element={ user.user_type==="student" ? <ProtectedRoute><StudentHome /></ProtectedRoute> : <ProtectedRoute><MentorHome /></ProtectedRoute>} />
         </Routes>
       </Router>
     </div>

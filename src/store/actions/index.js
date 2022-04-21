@@ -17,9 +17,23 @@ export const toggleMode = () => {
 
 export const signup = (user) => async dispatch => {
   axios.post(`${url}/signup`, user).then(res => {
-    dispatch({type: SIGN_UP, data: res})
+    dispatch({type: SIGN_UP, data: res.user})
+    setToken(res.token)
     console.log(res)
   }).catch(err => {
     console.log(err)
   })
+}
+
+export const setToken = (token) => {
+  return {
+    type: SET_TOKEN,
+    token: token
+  }
+}
+
+export const removeToken = () => {
+  return {
+    type: REMOVE_TOKEN
+  }
 }
