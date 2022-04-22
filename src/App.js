@@ -2,9 +2,10 @@ import Login from "./components/pages/common/Login"
 import Signup from "./components/pages/common/Signup"
 import {Home as StudentHome} from "./components/pages/student/Home"
 import {Home as MentorHome} from "./components/pages/mentor/Home"
+import Account from "./components/pages/student/Account"
 import Profiles from "./components/pages/student/Profiles"
 import CreateProfile from "./components/pages/student/CreateProfile"
-import Account from "./components/pages/student/Account"
+import Courses from "./components/pages/student/Courses"
 
 import { useSelector } from 'react-redux';
 
@@ -19,8 +20,9 @@ function App() {
     <div className={`App ${darkmode ? "header-dark": ""}`}>
       <Router>
         <Routes>
+          <Route path="/courses" element={ <Courses /> } />
           <Route path="/createprofile" element={ <ProtectedRoute><CreateProfile /></ProtectedRoute>} />
-          <Route path="/profiles" element={ <ProtectedRoute><Profiles /></ProtectedRoute>} />
+          <Route path="/profiles" element={ <Profiles /> } />
           <Route path="/account" element={ <Account /> } />
           <Route path="/login" element={ <Login />} />
           <Route path="/signup" element={ <Signup />} />
