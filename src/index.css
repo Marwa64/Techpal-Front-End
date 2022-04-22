@@ -32,6 +32,10 @@ html, body, #root, .App {
 .white {
     color: white;
 }
+.darkgrey-bg input, .darkgrey-bg textarea, .darkgrey-bg select, .darkgrey-bg select option {
+    background: rgb(43 46 49);
+    color: white;
+}
 
 /*------------------------------------------------------------------*/
 
