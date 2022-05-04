@@ -3,9 +3,11 @@ import { SIGN_UP, LOGIN } from "../actions/types";
 const userReducer = (state = {}, action) => {
   switch(action.type) {
     case SIGN_UP:
-        return action.data
+      return action.data
+    case LOGIN:
+      return action.data
     default:
-        return state
+      return state
   }
 }
 

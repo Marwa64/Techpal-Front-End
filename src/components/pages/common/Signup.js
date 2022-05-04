@@ -2,13 +2,12 @@ import Navbar from "../../layout/Navbar"
 import { Helmet } from 'react-helmet';
 import { useRef } from 'react'
 import { signup } from '../../../store/actions';
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
     const nav = useNavigate();
-
-    const token = useSelector(state => state.token);
+    const dispatch = useDispatch();
 
     const name = useRef(null)
     const password = useRef(null)
@@ -46,8 +45,8 @@ const Signup = () => {
                 password: password.current.value,
                 user_type: 'student'
             }
-            //signup(user)
-            //localStorage.setItem("token", token);
+            let token = dispatch(signup(user));
+            localStorage.setItem("token", token);
             nav('/')
         }
     }

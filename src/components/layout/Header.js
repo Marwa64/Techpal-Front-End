@@ -1,15 +1,20 @@
 import Avatar from "../../assets/avatar.jpg"
 import { Dropdown } from "react-bootstrap"
-import { toggleSidebar, toggleMode } from '../../store/actions';
+import { toggleSidebar, toggleMode, removeToken } from '../../store/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 
 const Header = () => {
-    const name = "Marwa Omar"
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const darkmode = useSelector(state => state.darkmode);
     const user = useSelector(state => state.user);
+
+    const logOut = () => {
+        dispatch(removeToken());
+        localStorage.removeItem('token');
+        navigate("/login");
+    }
 
     return (
         <div className={`header d-flex justify-content-between p-3 pe-4 ${darkmode ? "header-dark" : ""}`}>
@@ -22,13 +27,13 @@ const Header = () => {
                     <Dropdown.Toggle variant="info">
                         <span className={`me-3 ${darkmode ? "header-dark" : ""}`}>
                             <img className="profile-pic me-2" src={Avatar} alt="avatar" />
-                            <span className="px-1 pe-0">{name}</span>
+                            <span className="px-1 pe-0">{user.full_name}</span>
                         </span>
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
                         <Dropdown.Item onClick={() => navigate("/account")} >Account</Dropdown.Item>
-                        <Dropdown.Item onClick={() => navigate("/")}>Log Out</Dropdown.Item>
+                        <Dropdown.Item onClick={logOut}>Log Out</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
             </div>
