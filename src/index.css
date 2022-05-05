@@ -119,6 +119,9 @@ html, body, #root, .App {
 h5 {
     font-size: 19px !important;
 }
+.black {
+    color: black !important;
+}
 .purple {
     color: #4439F0 !important; 
 }
@@ -427,6 +430,12 @@ h5 {
 }
 .course .btn:hover {
     box-shadow: none !important;
+}
+.dv-star-rating-star {
+    font-size: 22px;
+}
+.dv-star-rating-full-star {
+    color: #4439f0 !important;
 }
 /*------------------------------------------------------------------*/
    
