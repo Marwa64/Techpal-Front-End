@@ -1,13 +1,16 @@
 import Navbar from "../../layout/Navbar"
 import { Helmet } from 'react-helmet';
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { signup } from '../../../store/actions';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
+import Spinner from "../../layout/Spinner";
 
 const Signup = () => {
     const nav = useNavigate();
     const dispatch = useDispatch();
+
+    const [spinner, setSpinner] = useState(false);  
 
     const name = useRef(null)
     const password = useRef(null)
@@ -36,7 +39,7 @@ const Signup = () => {
         return (password.current.value === confirmPassword.current.value)
     }
 
-    const submit = (e) => {
+    const submit = async (e) => {
         e.preventDefault()
         if (!checkEmpty(name) && !checkEmpty(email) && !checkEmpty(password) && !checkEmpty(confirmPassword) && passwordMatch()) {
             const user = {
@@ -45,9 +48,10 @@ const Signup = () => {
                 password: password.current.value,
                 user_type: 'student'
             }
-            let token = dispatch(signup(user));
-            localStorage.setItem("token", token);
-            nav('/')
+            setSpinner(true);
+            await dispatch(signup(user));
+            setSpinner(false);
+            nav('/createprofile')
         }
     }
     return (
@@ -56,7 +60,7 @@ const Signup = () => {
                 <title>Techie | Sign Up</title>
             </Helmet>
             <Navbar />
-
+            {spinner ? <Spinner /> : <></>}
             <div className="container">
                 <div className="row align-items-center justify-content-center  ">
                     <div className="col  col-md-8  bg-white   shadow-lg  rounded-3 p-5 ms-5 me-5">

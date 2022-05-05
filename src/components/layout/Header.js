@@ -11,8 +11,9 @@ const Header = () => {
     const user = useSelector(state => state.user);
 
     const logOut = () => {
-        dispatch(removeToken());
         localStorage.removeItem('token');
+        localStorage.removeItem('userId');
+        dispatch(removeToken());
         navigate("/login");
     }
 
