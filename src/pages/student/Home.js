@@ -1,8 +1,8 @@
-import Avatar from "../../../assets/avatar.jpg"
-import Sidebar from "../../layout/Sidebar"
-import Header from "../../layout/Header"
-import Progress from "../../studentComp/Progress"
-import StepProgress from "../../studentComp/StepProgress"
+import Avatar from "../../assets/avatar.jpg"
+import Sidebar from "../../components/layout/Sidebar"
+import Header from "../../components/layout/Header"
+import Progress from "../../components/student/Progress"
+import StepProgress from "../../components/student/StepProgress"
 import { useSelector } from 'react-redux';
 import { Popover, OverlayTrigger } from "react-bootstrap"
 import { useNavigate } from "react-router-dom";

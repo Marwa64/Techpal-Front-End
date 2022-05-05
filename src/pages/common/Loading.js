@@ -1,4 +1,4 @@
-import Spinner from "../../layout/Spinner";
+import Spinner from "../../components/layout/Spinner";
 import { Helmet } from 'react-helmet';
 
 const Loading = () => {

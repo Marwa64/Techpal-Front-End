@@ -4,8 +4,8 @@ import "slick-carousel/slick/slick-theme.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import Track from "../../studentComp/Track"
-import Skills from "../../studentComp/Skills"
+import Track from "../../components/student/Track"
+import Skills from "../../components/student/Skills"
 
 const CreateProfile = () => {
     const navigate = useNavigate();

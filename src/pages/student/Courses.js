@@ -1,8 +1,8 @@
-import Sidebar from "../../layout/Sidebar"
-import Header from "../../layout/Header"
-import PurpleBar from "../../layout/PurpleBar";
+import Sidebar from "../../components/layout/Sidebar"
+import Header from "../../components/layout/Header"
+import PurpleBar from "../../components/layout/PurpleBar";
 
-import Course from "../../studentComp/Course";
+import Course from "../../components/student/Course";
 
 import { useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";

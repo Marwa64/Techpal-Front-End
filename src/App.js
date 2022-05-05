@@ -1,18 +1,18 @@
-import Login from "./components/pages/common/Login"
-import Signup from "./components/pages/common/Signup"
-import ApplyMentor from "./components/pages/common/ApplyMentor"
-import {Home as StudentHome} from "./components/pages/student/Home"
-import {Home as MentorHome} from "./components/pages/mentor/Home"
-import Account from "./components/pages/student/Account"
-import Profiles from "./components/pages/student/Profiles"
-import CreateProfile from "./components/pages/student/CreateProfile"
-import Courses from "./components/pages/student/Courses"
-import Loading from "./components/pages/common/Loading"
+import Login from "./pages/common/Login"
+import Signup from "./pages/common/Signup"
+import ApplyMentor from "./pages/common/ApplyMentor"
+import {Home as StudentHome} from "./pages/student/Home"
+import {Home as MentorHome} from "./pages/mentor/Home"
+import Account from "./pages/student/Account"
+import Profiles from "./pages/student/Profiles"
+import CreateProfile from "./pages/student/CreateProfile"
+import Courses from "./pages/student/Courses"
+import Loading from "./pages/common/Loading"
 
 import { useSelector, useDispatch } from 'react-redux';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import ProtectedRoute from "./components/ProtectedRoute"
+import ProtectedRoute from "./pages/ProtectedRoute"
 
 import { getUser } from './store/actions';
 

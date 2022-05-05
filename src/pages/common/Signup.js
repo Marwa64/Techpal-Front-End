@@ -1,10 +1,10 @@
-import Navbar from "../../layout/Navbar"
+import Navbar from "../../components/layout/Navbar"
 import { Helmet } from 'react-helmet';
 import { useRef, useState } from 'react'
-import { signup } from '../../../store/actions';
+import { signup } from '../../store/actions';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import Spinner from "../../layout/Spinner";
+import Spinner from "../../components/layout/Spinner";
 
 const Signup = () => {
     const nav = useNavigate();
