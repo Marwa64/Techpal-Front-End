@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import { useRef, useState } from 'react'
 import { login } from '../../store/actions';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Spinner from "../../components/layout/Spinner";
 
 const Login = () => {
@@ -65,7 +65,7 @@ const Login = () => {
                                 </div>
                             </div>
                             <button className="btn btn-violet d-block  fw-bold   col-md-6  m-auto mt-5"  >Login</button>
-                            <p className=" text-center mt-3  ">Don't have an account? <a href="signup.html" className=" text-danger">Sign up</a></p>
+                            <p className=" text-center mt-3  ">Don't have an account? <NavLink to="/signup" className=" text-danger">Sign up</NavLink></p>
                         </form>
                     </div>
                 </div>
