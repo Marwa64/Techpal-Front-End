@@ -90,15 +90,15 @@ html, body, #root, .App {
     }
   }
 .loading-spinner {
-    width: 240px;
-    height: 240px;
+    width: 160px;
+    height: 160px;
     border: 20px solid #f3f3f3ab; /* Light grey */
     border-top: 20px solid #4439F0; /* Black */
     border-radius: 50%;
     animation: spinner 1.5s linear infinite;
     position: absolute;
-    left: 42%;
-    top: 35%;
+    left: 44%;
+    top: 36%;
 }
 .spinner-container {
     height: 100%;

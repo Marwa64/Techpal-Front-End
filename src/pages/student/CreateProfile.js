@@ -12,77 +12,94 @@ import { useSelector, useDispatch } from "react-redux";
 
 const CreateProfile = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const tracks = useSelector(state => state.tracks);
+    if (tracks.length < 1) {
+        dispatch(getTracks());
+    }
+    console.log('---------start------------')
+    console.log(tracks)
+    if (tracks.length > 0) {
+        console.log('loop:')
+        tracks.map(track => {
+            console.log(track.skills)
+            Object.keys(track.skills).map((key, index) => {
+                console.log(`${key} : ${track.skills[key]}`)
+                });
+        })
+    }
+    console.log('---------end------------')
     const [trackNav, setTrackNav] = useState(null)
     const [skillNav, setSkillNav] = useState(null)
-    const [tracks, setTracks] = useState(
-        [
-            {
-                id: 1,
-                name: "Front-End Web Development",
-                color1: "#6B4CE9",
-                color2: "#4CA4E9",
-                skills: [
-                    { name: "HTML", done: false },
-                    { name: "CSS", done: false },
-                    { name: "JavaScript", done: false },
-                    { name: "CSS Framework", done: false },
-                    { name: "JS Framework", done: false },
-                    { name: "Webpack", done: false }
-                ]
-            },
-            {
-                id: 2,
-                name: "Back-End Web Development",
-                color1: "#4CE98B",
-                color2: "#4CE9E4",
-                skills: [
-                    { name: "Node JS", done: false },
-                    { name: "Express JS", done: false },
-                    { name: "SocketIO", done: false },
-                    { name: "MongoDB", done: false }
-                ]
-            },
-            {
-                id: 3,
-                name: "Android Developer",
-                color1: "#DF4CE9",
-                color2: "#E94C91",
-                skills: [
-                    { name: "Skill 1", done: false },
-                    { name: "Skill 2", done: false },
-                    { name: "Skill 3", done: false },
-                    { name: "Skill 4", done: false },
-                    { name: "Skill 5", done: false }
-                ]
-            },
-            {
-                id: 4,
-                name: "Dev-Ops",
-                color1: "#E97F4C",
-                color2: "#E9E94C",
-                skills: [
-                    { name: "Skill 1", done: false },
-                    { name: "Skill 2", done: false },
-                    { name: "Skill 3", done: false },
-                    { name: "Skill 4", done: false },
-                ]
-            },
-            {
-                id: 5,
-                name: "Cyber Security",
-                color1: "#70E94C",
-                color2: "#D4E94C",
-                skills: [
-                    { name: "Skill 1", done: false },
-                    { name: "Skill 2", done: false },
-                    { name: "Skill 3", done: false },
-                    { name: "Skill 4", done: false },
-                    { name: "Skill 5", done: false },
-                    { name: "Skill 6", done: false }
-                ]
-            }
-        ]
-    );
+    // const [tracks, setTracks] = useState(
+    //     [
+    //         {
+    //             id: 1,
+    //             name: "Front-End Web Development",
+    //             color1: "#6B4CE9",
+    //             color2: "#4CA4E9",
+    //             skills: [
+    //                 { name: "HTML", done: false },
+    //                 { name: "CSS", done: false },
+    //                 { name: "JavaScript", done: false },
+    //                 { name: "CSS Framework", done: false },
+    //                 { name: "JS Framework", done: false },
+    //                 { name: "Webpack", done: false }
+    //             ]
+    //         },
+    //         {
+    //             id: 2,
+    //             name: "Back-End Web Development",
+    //             color1: "#4CE98B",
+    //             color2: "#4CE9E4",
+    //             skills: [
+    //                 { name: "Node JS", done: false },
+    //                 { name: "Express JS", done: false },
+    //                 { name: "SocketIO", done: false },
+    //                 { name: "MongoDB", done: false }
+    //             ]
+    //         },
+    //         {
+    //             id: 3,
+    //             name: "Android Developer",
+    //             color1: "#DF4CE9",
+    //             color2: "#E94C91",
+    //             skills: [
+    //                 { name: "Skill 1", done: false },
+    //                 { name: "Skill 2", done: false },
+    //                 { name: "Skill 3", done: false },
+    //                 { name: "Skill 4", done: false },
+    //                 { name: "Skill 5", done: false }
+    //             ]
+    //         },
+    //         {
+    //             id: 4,
+    //             name: "Dev-Ops",
+    //             color1: "#E97F4C",
+    //             color2: "#E9E94C",
+    //             skills: [
+    //                 { name: "Skill 1", done: false },
+    //                 { name: "Skill 2", done: false },
+    //                 { name: "Skill 3", done: false },
+    //                 { name: "Skill 4", done: false },
+    //             ]
+    //         },
+    //         {
+    //             id: 5,
+    //             name: "Cyber Security",
+    //             color1: "#70E94C",
+    //             color2: "#D4E94C",
+    //             skills: [
+    //                 { name: "Skill 1", done: false },
+    //                 { name: "Skill 2", done: false },
+    //                 { name: "Skill 3", done: false },
+    //                 { name: "Skill 4", done: false },
+    //                 { name: "Skill 5", done: false },
+    //                 { name: "Skill 6", done: false }
+    //             ]
+    //         }
+    //     ]
+    // );
     const [chosenTrack, setTrack] = useState(tracks[0])
 
     let trackSlider = [], skillSlider = [];
@@ -92,13 +109,13 @@ const CreateProfile = () => {
         setSkillNav(skillSlider);   
     }, [trackSlider, skillSlider]);
 
-    const updateSkill = (track_id, name, status) => {
-        let thisTrack = tracks.filter(track =>  track.id === track_id)[0]
-        let thisSkills = thisTrack.skills.map(skill => skill.name === name ? {...skill, done: status} : skill)
-        setTracks(tracks.map(track => track.id === track_id ? {...track, skills: thisSkills} : track))
-        thisTrack.skills = thisSkills
-        setTrack(thisTrack)
-    }
+    // const updateSkill = (track_id, name, status) => {
+    //     let thisTrack = tracks.filter(track =>  track.Track_id === track_id)[0]
+    //     let thisSkills = thisTrack.skills.map(skill => skill.name === name ? {...skill, done: status} : skill)
+    //     // setTracks(tracks.map(track => track.id === track_id ? {...track, skills: thisSkills} : track))
+    //     thisTrack.skills = thisSkills
+    //     setTrack(thisTrack)
+    // }
 
     const createProfile = () => {
         console.log(chosenTrack)
@@ -145,7 +162,7 @@ const CreateProfile = () => {
                         <Slider {...trackSettings} asNavFor={skillNav} ref={slider => {trackSlider = slider;}}>
                             {tracks.map(track => {
                                 return (
-                                    <div key={`track${track.id}`} className="d-flex justify-content-center align-items-center">
+                                    <div key={`track${track.Track_id}`} className="d-flex justify-content-center align-items-center">
                                         <Track name={track.name} color1={track.color1} color2={track.color2} />
                                     </div>
                                 )
@@ -159,8 +176,9 @@ const CreateProfile = () => {
                         <Slider {...skillSettings} asNavFor={trackNav} ref={slider => {skillSlider = slider;}}>
                             {tracks.map(track => {
                                 return (
-                                    <div key={`skill${track.id}`} className="d-flex justify-content-center align-items-center">
-                                        <Skills id={track.id} skills={track.skills} updateSkill={updateSkill} />
+                                    <div key={`skill${track.Track_id}`} className="d-flex justify-content-center align-items-center">
+                                        <Skills id={track.Track_id} skills={track.skills} />
+                                        {/* <Skills id={track.Track_id} skills={track.skills} updateSkill={updateSkill} /> */}
                                     </div>
                                 )
                             })}

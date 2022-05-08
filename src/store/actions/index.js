@@ -76,8 +76,9 @@ export const removeToken = () => {
 
 
 export const getTracks = () => async dispatch => {
+  console.log("hi")
   return axios.get(`${url}/getalltracks`).then(res => {
-    dispatch({type: SET_TRACKS, data: res.data});
+    dispatch({type: SET_TRACKS, data: res.data})
   }).catch(err => {
     console.log(err)
   })

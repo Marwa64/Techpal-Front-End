@@ -38,7 +38,7 @@ function App() {
           <Route path="/login" element={ <Login />} />
           <Route path="/applymentor" element={ <ApplyMentor /> } />
           <Route path="/signup" element={ <Signup />} />
-          <Route path="/" element={ user.user_type==="student" ? <ProtectedRoute><StudentHome /></ProtectedRoute> : user.user_type==="mentor" ? <ProtectedRoute><MentorHome /></ProtectedRoute> : <ProtectedRoute><Loading /></ProtectedRoute>} />
+          <Route path="/" element={ user.user_type==="student" || user.User_type==="student" ? <ProtectedRoute><StudentHome /></ProtectedRoute> : user.user_type==="mentor" || user.User_type==="mentor" ? <ProtectedRoute><MentorHome /></ProtectedRoute> : <ProtectedRoute><Loading /></ProtectedRoute>} />
         </Routes>
       </Router>
     </div>
