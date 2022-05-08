@@ -29,7 +29,7 @@ const ApplyMentor = () => {
     }
 
     return (
-        <>
+        <div className="login lightpurple-bg p-4">
             <Helmet>
                 <title>TechPal | Apply as a Mentor</title>
             </Helmet>
@@ -70,7 +70,7 @@ const ApplyMentor = () => {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 
