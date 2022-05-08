@@ -79,7 +79,7 @@ const Courses = () => {
     return (
         <div className={`${darkmode ? "darkgrey-bg" : "grey-bg"}`}>
             <Helmet>
-                <title>Techie | Courses</title>
+                <title>TechPal | Courses</title>
             </Helmet>
             <Sidebar />
             <div className={`content ${sidebar ? "shift": ""}`}>

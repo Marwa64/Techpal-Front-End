@@ -59,7 +59,7 @@ export const Home = () => {
     return (
         <div className={`${darkmode ? "darkgrey-bg" : "grey-bg"}`}>
             <Helmet>
-                <title>Techie | Home</title>
+                <title>TechPal | Home</title>
             </Helmet>
             <Sidebar />
             <div className={`content ${sidebar ? "shift": ""}`}>

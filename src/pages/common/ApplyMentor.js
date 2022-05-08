@@ -31,7 +31,7 @@ const ApplyMentor = () => {
     return (
         <>
             <Helmet>
-                <title>Techie | Apply as a Mentor</title>
+                <title>TechPal | Apply as a Mentor</title>
             </Helmet>
             <Navbar />
 
@@ -40,7 +40,7 @@ const ApplyMentor = () => {
                     <div className="  col  col-md-8  bg-white   shadow-lg  rounded-3 p-5 ms-5 me-5">
                         <h1 className=" h1 text-center mb-5">Application Mentor</h1>
                         <iframe title="dummyframe" id="dummyframe" style={{display: 'none'}}></iframe>
-                        <form id="mentorForm" action="http://localhost:5000/api/applymentor/" encType="multipart/form-data" method="POST" onSubmit={submit} >
+                        <form id="mentorForm" action="http://localhost:8080/api/applymentor/" encType="multipart/form-data" method="POST" onSubmit={submit} >
                             <div className="mb-3 row">
                                 <label htmlFor="inputName" className="col-md-3   col-form-label fw-bold">Full Name</label>
                                 <div className=" col-md-9">

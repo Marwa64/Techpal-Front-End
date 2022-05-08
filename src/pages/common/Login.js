@@ -43,7 +43,7 @@ const Login = () => {
     return (
         <div className="login lightpurple-bg p-4">
             <Helmet>
-                <title>Techie | Login</title>
+                <title>TechPal | Login</title>
             </Helmet>
             <Navbar />
             {spinner ? <Spinner /> : <></>}

@@ -3,9 +3,12 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from 'react-helmet';
 
 import Track from "../../components/student/Track"
 import Skills from "../../components/student/Skills"
+import { getTracks } from "../../store/actions";
+import { useSelector, useDispatch } from "react-redux";
 
 const CreateProfile = () => {
     const navigate = useNavigate();
@@ -128,6 +131,9 @@ const CreateProfile = () => {
       
     return (
         <div className="createprofile lightpurple-bg">
+            <Helmet>
+                <title>TechPal | Create Profile</title>
+            </Helmet>
             <div className="container pb-5">
                 <div className="row p-5 px-2">
                     <h5 className="fw-normal">Logo</h5>

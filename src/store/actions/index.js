@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { TOGGLE_SIDEBAR, TOGGLE_MODE, SIGN_UP, LOGIN, SET_TOKEN, REMOVE_TOKEN } from './types';
+import { TOGGLE_SIDEBAR, TOGGLE_MODE, SIGN_UP, LOGIN, SET_TOKEN, REMOVE_TOKEN, SET_TRACKS } from './types';
 
-const url = 'http://localhost:5000/api'
+const url = 'http://localhost:8080/api'
 
 export const toggleSidebar = () => {
     return {
@@ -72,4 +72,13 @@ export const removeToken = () => {
   return {
     type: REMOVE_TOKEN
   }
+}
+
+
+export const getTracks = () => async dispatch => {
+  return axios.get(`${url}/getalltracks`).then(res => {
+    dispatch({type: SET_TRACKS, data: res.data});
+  }).catch(err => {
+    console.log(err)
+  })
 }

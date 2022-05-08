@@ -57,7 +57,7 @@ const Signup = () => {
     return (
         <div className="login lightpurple-bg p-4">
             <Helmet>
-                <title>Techie | Sign Up</title>
+                <title>TechPal | Sign Up</title>
             </Helmet>
             <Navbar />
             {spinner ? <Spinner /> : <></>}
