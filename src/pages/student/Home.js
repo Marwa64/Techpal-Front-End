@@ -30,7 +30,6 @@ export const Home = () => {
             setTotalLevels(Object.keys(currentTrack.skills).length);
             setSpinner(false)
         }
-     
     })
     
 
@@ -105,7 +104,7 @@ export const Home = () => {
                                             </div>
                                         </div>
                                         <div className="row px-5">
-                                            <StepProgress current={currentProfile.level} total={totalLevels} />
+                                            <StepProgress current={currentProfile.level} total={totalLevels} skills={currentTrack.skills}/>
                                         </div>
                                     </div>
                                     

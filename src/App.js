@@ -9,6 +9,7 @@ import CreateProfile from "./pages/student/CreateProfile"
 import Courses from "./pages/student/Courses"
 import Loading from "./pages/common/Loading"
 
+import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -21,16 +22,24 @@ function App() {
   const dispatch = useDispatch();
   const darkmode = useSelector(state => state.darkmode);
   const user = useSelector(state => state.user);
+  const currentProfile = useSelector(state => state.currentProfile);
+  const currentTrack = useSelector(state => state.currentTrack);
 
   const getUserData = async () => {
-    if (Object.keys(user).length === 0 && localStorage.getItem("userId")) {
-      let userId = localStorage.getItem("userId");
-      await dispatch(getUser(userId));
-      await dispatch(getCurrentProfile(userId));
+    if (localStorage.getItem("userId")) {
+      const userId = localStorage.getItem("userId");
+      if (Object.keys(user).length === 0) {
+        await dispatch(getUser(userId));
+      }
+      if (Object.keys(currentProfile).length === 0 || Object.keys(currentTrack).length === 0) {
+        await dispatch(getCurrentProfile(userId));
+      }
     }
   }
 
-  getUserData();
+  useEffect(() => {
+    getUserData();
+  })
 
   return (
     <div className={`App ${darkmode ? "header-dark": ""}`}>
