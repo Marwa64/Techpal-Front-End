@@ -373,19 +373,20 @@ h5 {
       color: black;
   }
   
-  .login .bg-violet, .btn-violet {
-    background-color: #4439F0 !important;
-    color: #fff !important;
+  .bg-violet, .btn-violet {
+    background-color: #4439F0 !important ;
+    color: #fff  !important;
   }
   
   .login .text-violet {
     color: #4439F0;
   }
   
-  .login .btn-violet:hover {
-    color: #4439F0;
-    background-color: #fff;
-    border-color: #4439F0;
+  .btn-violet:hover,
+  .btn-violet:active{
+    color: #4439F0 !important;
+    background-color: #fff !important;
+    border-color: #4439F0 !important;
   }
   
   .login .bg-light-violet {
@@ -400,7 +401,7 @@ h5 {
     color: #4439F0 !important;
   }
   
-  .login footer {
+  footer {
     height: 30px;
   }
 
