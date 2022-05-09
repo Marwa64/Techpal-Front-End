@@ -4,13 +4,17 @@ import PurpleBar from "../../components/layout/PurpleBar";
 
 import { Form } from "react-bootstrap";
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
+
+import { updateStudent } from "../../store/actions";
 
 const Account = () => {
+    const dispatch = useDispatch();
     const sidebar = useSelector(state => state.sidebar);
     const darkmode = useSelector(state => state.darkmode);
+    const user = useSelector(state => state.user);
 
     const name = useRef(null)
     const about = useRef(null)
@@ -25,14 +29,50 @@ const Account = () => {
     const github = useRef(null)
     const linkedin = useRef(null)
 
+    const setData = () => {
+        name.current.value = user.full_name || null;
+        about.current.value = user.about || null;
+        number.current.value = user.phone || null;
+        address.current.value = user.address || null;
+        university.current.value = user.university || null;
+        degree.current.value = user.degree || null;
+        major.current.value = user.major || null;
+        startYear.current.value = user.startYear || null;
+        endYear.current.value = user.endYear || null;
+        portfolio.current.value = user.websites ?  user.websites.portfolio : null;
+        github.current.value = user.websites ?  user.websites.github : null;
+        linkedin.current.value = user.websites ?  user.websites.linkedin : null;
+    }
+
     const save = () => {
         name.current.style.boxShadow = "none";
         if (name.current.value !== '') {
-            console.log("Save!")
+            const updatedUser = {
+                full_name: name.current.value,
+                email: user.email,
+                about: about.current.value, // not in backend
+                phone: number.current.value,
+                address: address.current.value,
+                university: university.current.value,
+                degree: degree.current.value, // not in backend
+                major: major.current.value, // not in backend
+                startYear: startYear.current.value, // not in backend
+                endYear: endYear.current.value, // not in backend
+                websites: {
+                    portfolio: portfolio.current.value,
+                    github: github.current.value,
+                    linkedin: linkedin.current.value,
+                }
+            }
+            dispatch(updateStudent(user.User_id, updatedUser));
         } else {
             name.current.style.boxShadow = "1px 1px 7px #ff000094";
         }
     }
+
+    useEffect(() => {
+        setData();
+    })
 
     return (
         <div className={`${darkmode ? "darkgrey-bg" : "grey-bg"}`}>

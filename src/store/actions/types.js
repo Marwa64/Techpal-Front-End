@@ -1,7 +1,6 @@
 export const TOGGLE_SIDEBAR = 'TOGGLE_SIDEBAR'
 export const TOGGLE_MODE = 'TOGGLE_MODE'
-export const SIGN_UP = 'SIGN_UP'
-export const LOGIN = 'LOGIN'
+export const SET_USER = 'SET_USER'
 export const SET_TOKEN = 'SET_TOKEN'
 export const REMOVE_TOKEN = 'REMOVE_TOKEN'
 export const SET_TRACKS = 'SET_TRACKS'

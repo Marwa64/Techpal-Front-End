@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { TOGGLE_SIDEBAR, TOGGLE_MODE, SIGN_UP, LOGIN, SET_TOKEN, REMOVE_TOKEN, SET_TRACKS, SET_CURRENT_PROFILE, SET_CURRENT_TRACK } from './types';
+import { TOGGLE_SIDEBAR, TOGGLE_MODE, SET_USER, SET_TOKEN, REMOVE_TOKEN, SET_TRACKS, SET_CURRENT_PROFILE, SET_CURRENT_TRACK } from './types';
 
 const url = 'http://localhost:8080/api'
 
@@ -26,7 +26,7 @@ export const signup = (user) => async dispatch => {
     localStorage.setItem("userId", userData.ID);
 
     // save user data and token in state
-    dispatch({type: SIGN_UP, data: userData})
+    dispatch({type: SET_USER, data: userData})
     dispatch({type: SET_TOKEN, data: token})
 
   }).catch(err => {
@@ -45,7 +45,7 @@ export const login = (user) => async dispatch => {
     localStorage.setItem("userId", userData.ID);
 
     // save user data and token in state
-    dispatch({type: LOGIN, data: userData})
+    dispatch({type: SET_USER, data: userData})
     dispatch({type: SET_TOKEN, data: token})
 
   }).catch(err => {
@@ -55,10 +55,18 @@ export const login = (user) => async dispatch => {
 
 export const getUser = (userId) => async dispatch => {
     return axios.get(`${url}/getuser/${userId}`).then(res => {
-      dispatch({type: LOGIN, data: res.data})
+      dispatch({type: SET_USER, data: res.data})
     }).catch(err => {
       console.log(err)
     })
+}
+
+export const updateStudent = (userId, user) => async dispatch => {
+  return axios.post(`${url}/updatestudent/${userId}`, user).then(res => {
+    dispatch({type: SET_USER, data: res.data})
+  }).catch(err => {
+    console.log(err)
+  })
 }
 
 export const setToken = (token) => {
