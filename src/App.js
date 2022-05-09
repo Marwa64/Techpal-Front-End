@@ -1,7 +1,7 @@
 import Login from "./pages/common/Login"
 import Signup from "./pages/common/Signup"
 import ApplyMentor from "./pages/common/ApplyMentor"
-import {Home as StudentHome} from "./pages/student/Home"
+import { Home as StudentHome} from "./pages/student/Home"
 import {Home as MentorHome} from "./pages/mentor/Home"
 import Account from "./pages/student/Account"
 import Profiles from "./pages/student/Profiles"
@@ -14,17 +14,23 @@ import { useSelector, useDispatch } from 'react-redux';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ProtectedRoute from "./pages/ProtectedRoute"
 
-import { getUser } from './store/actions';
+import { getUser, getCurrentProfile } from './store/actions';
+import  Landing  from "./pages/common/Landing"
 
 function App() {
   const dispatch = useDispatch();
   const darkmode = useSelector(state => state.darkmode);
   const user = useSelector(state => state.user);
 
-  if (Object.keys(user).length === 0 && localStorage.getItem("userId")) {
-    let userId = localStorage.getItem("userId");
-    dispatch(getUser(userId));
+  const getUserData = async () => {
+    if (Object.keys(user).length === 0 && localStorage.getItem("userId")) {
+      let userId = localStorage.getItem("userId");
+      await dispatch(getUser(userId));
+      await dispatch(getCurrentProfile(userId));
+    }
   }
+
+  getUserData();
 
   return (
     <div className={`App ${darkmode ? "header-dark": ""}`}>
@@ -38,6 +44,7 @@ function App() {
           <Route path="/login" element={ <Login />} />
           <Route path="/applymentor" element={ <ApplyMentor /> } />
           <Route path="/signup" element={ <Signup />} />
+          <Route path="/home" element={ <Landing /> } />
           <Route path="/" element={ user.user_type==="student" || user.User_type==="student" ? <ProtectedRoute><StudentHome /></ProtectedRoute> : user.user_type==="mentor" || user.User_type==="mentor" ? <ProtectedRoute><MentorHome /></ProtectedRoute> : <ProtectedRoute><Loading /></ProtectedRoute>} />
         </Routes>
       </Router>

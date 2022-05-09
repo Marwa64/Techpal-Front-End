@@ -7,28 +7,18 @@ import { Helmet } from 'react-helmet';
 
 import Track from "../../components/student/Track"
 import Skills from "../../components/student/Skills"
-import { getTracks } from "../../store/actions";
+import { getTracks, createProfile } from "../../store/actions";
 import { useSelector, useDispatch } from "react-redux";
 
 const CreateProfile = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const tracks = useSelector(state => state.tracks);
+    const user = useSelector(state => state.user);
     if (tracks.length < 1) {
         dispatch(getTracks());
     }
-    console.log('---------start------------')
-    console.log(tracks)
-    if (tracks.length > 0) {
-        console.log('loop:')
-        tracks.map(track => {
-            console.log(track.skills)
-            Object.keys(track.skills).map((key, index) => {
-                console.log(`${key} : ${track.skills[key]}`)
-                });
-        })
-    }
-    console.log('---------end------------')
+
     const [trackNav, setTrackNav] = useState(null)
     const [skillNav, setSkillNav] = useState(null)
     // const [tracks, setTracks] = useState(
@@ -117,9 +107,13 @@ const CreateProfile = () => {
     //     setTrack(thisTrack)
     // }
 
-    const createProfile = () => {
-        console.log(chosenTrack)
-        navigate("/")
+    const create = async () => {
+        let track = chosenTrack;
+        if (chosenTrack === undefined) {
+            track = tracks[0];
+        }
+        await dispatch(createProfile(user.User_id, track.Track_id));
+        navigate("/");
     }
     
     const trackSettings = {
@@ -188,7 +182,7 @@ const CreateProfile = () => {
                 </div>
                 <div className="row mt-4">
                     <div className="col-12 col-lg-6 offset-lg-6 d-flex justify-content-center">
-                        <button onClick={createProfile} className="btn-purple px-5 pt-2 pb-2 fs-6">Save Profile</button>
+                        <button onClick={create} className="btn-purple px-5 pt-2 pb-2 fs-6">Save Profile</button>
                     </div>
                 </div>
             </div>

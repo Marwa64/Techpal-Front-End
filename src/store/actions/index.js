@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { TOGGLE_SIDEBAR, TOGGLE_MODE, SIGN_UP, LOGIN, SET_TOKEN, REMOVE_TOKEN, SET_TRACKS } from './types';
+import { TOGGLE_SIDEBAR, TOGGLE_MODE, SIGN_UP, LOGIN, SET_TOKEN, REMOVE_TOKEN, SET_TRACKS, SET_CURRENT_PROFILE, SET_CURRENT_TRACK } from './types';
 
 const url = 'http://localhost:8080/api'
 
@@ -76,9 +76,33 @@ export const removeToken = () => {
 
 
 export const getTracks = () => async dispatch => {
-  console.log("hi")
   return axios.get(`${url}/getalltracks`).then(res => {
     dispatch({type: SET_TRACKS, data: res.data})
+  }).catch(err => {
+    console.log(err)
+  })
+}
+
+export const createProfile = (user_id, track_id) => async dispatch =>{
+  return axios.post(`${url}/createprofile/${user_id}`, { track_id }).then(res => {
+    dispatch({type: SET_CURRENT_PROFILE, data: res.data})
+  }).catch(err => {
+    console.log(err)
+  })
+}
+
+export const getCurrentProfile = (user_id) => async dispatch =>{
+  return axios.get(`${url}/getcurrentprofile/${user_id}`).then(async(res) => {
+    await dispatch(getCurrentTrack(res.data.Track_id))
+    dispatch({type: SET_CURRENT_PROFILE, data: res.data})
+  }).catch(err => {
+    console.log(err)
+  })
+}
+
+export const getCurrentTrack = (track_id) => async dispatch =>{
+  return axios.get(`${url}/gettrack/${track_id}`).then(res => {
+    dispatch({type: SET_CURRENT_TRACK, data: res.data})
   }).catch(err => {
     console.log(err)
   })

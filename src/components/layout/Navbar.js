@@ -11,7 +11,7 @@ const Navbar = () => {
                     <i className="fa-solid fa-bars "></i>
                 </div>
                 <nav className=" text-center fw-bold d-md-block d-none   bg-white " >
-                    <NavLink className="me-3 text-start  mb-3 mt-3 d-block d-md-inline " to="/">Home</NavLink>
+                    <NavLink className="me-3 text-start  mb-3 mt-3 d-block d-md-inline " to="/home">Home</NavLink>
                     <NavLink className="me-3 text-start  mb-3 mt-3 d-block d-md-inline "  to="/applymentor">Apply as Mentor</NavLink>
                     <NavLink className="me-3 text-start  mb-3 mt-3 d-block d-md-inline "  to="/">FAQ</NavLink>
                     <NavLink className="me-3 text-start  mb-3 mt-3 d-block d-md-inline "  to="/">Contact Us</NavLink>
