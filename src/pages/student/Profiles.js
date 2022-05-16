@@ -4,34 +4,32 @@ import PurpleBar from "../../components/layout/PurpleBar";
 import Spinner from "../../components/layout/Spinner";
 import Profile from "../../components/student/Profile"
 import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, connect } from 'react-redux';
 
-import { getProfiles, getTracks } from "../../store/actions";
+import { getProfiles, getTracks, removeProfile } from "../../store/actions";
 
 import { Helmet } from 'react-helmet';
 
-const Profiles = () => {
+const Profiles = ({ sidebar, darkmode, user, tracks, profiles, currentProfile }) => {
     const dispatch = useDispatch();
 
     const [spinner, setSpinner] = useState(false);
-
-    const sidebar = useSelector(state => state.sidebar);
-    const darkmode = useSelector(state => state.darkmode);
-
-    const user = useSelector(state => state.user);
-    const currentProfile = useSelector(state => state.currentProfile);
-    const tracks = useSelector(state => state.tracks);
-    const profiles = useSelector(state => state.profiles);
 
     const initProfiles = async () => {
         if (tracks.length < 1) {
             setSpinner(true);
             await dispatch(getTracks());
         }
-        if (!(Object.keys(user).length === 0) && tracks.length > 0 && (!profiles || profiles.length < 1)) {
+        if (!(Object.keys(user).length === 0) && tracks.length > 0) {
             await dispatch(getProfiles(user.ID));
             setSpinner(false);
         }
+    }
+
+    const deleteProfile = async (profile_id) => {
+        setSpinner(true);
+        await dispatch(removeProfile(user.ID, profile_id));
+        setSpinner(false);
     }
 
     useEffect(() => {
@@ -69,7 +67,7 @@ const Profiles = () => {
                             if (profile.ID !== currentProfile.ID) {
                                 return (
                                     <div key={profile.ID} className="col-12 col-lg-6">
-                                        <Profile profile={profile} track={tracks.find(track => track.ID === profiles[0].Track_id)} current={false} />
+                                        <Profile profile={profile} track={tracks.find(track => track.ID === profile.Track_id)} deleteProfile={deleteProfile} current={false} />
                                     </div>
                                 )
                             }
@@ -81,4 +79,15 @@ const Profiles = () => {
     )
 }
 
-export default Profiles
+const mapStateToProps = state => {
+    return {
+      user: state.user,
+      darkmode: state.darkmode,
+      sidebar: state.sidebar,
+      profiles: state.profiles,
+      tracks: state.tracks,
+      currentProfile: state.currentProfile
+    }
+  }
+
+export default connect(mapStateToProps)(Profiles);

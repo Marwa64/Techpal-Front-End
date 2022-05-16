@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { TOGGLE_SIDEBAR, TOGGLE_MODE, SET_USER, SET_TOKEN, REMOVE_TOKEN, SET_TRACKS, SET_CURRENT_PROFILE, SET_CURRENT_TRACK, SET_PROFILES } from './types';
+import { TOGGLE_SIDEBAR, TOGGLE_MODE, SET_USER, SET_TOKEN, REMOVE_TOKEN, SET_TRACKS, SET_CURRENT_PROFILE, SET_CURRENT_TRACK, SET_PROFILES, REMOVE_PROFILE } from './types';
 
 const url = 'http://localhost:8080/api'
 
@@ -123,6 +123,14 @@ export const getProfiles = (user_id) => async dispatch => {
     } else {
       await dispatch({type: SET_PROFILES, data: []})
     }
+  }).catch(err => {
+    console.log(err)
+  })
+}
+
+export const removeProfile = (user_id, profile_id) => async dispatch => {
+  return axios.delete(`${url}/deleteprofile/${user_id}`, { data: { profile_id } }).then(async (res) => {
+    await dispatch({type: REMOVE_PROFILE, data: res.data})
   }).catch(err => {
     console.log(err)
   })

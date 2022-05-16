@@ -1,7 +1,6 @@
 import Progress from "./Progress"
-import { useSelector } from 'react-redux';
 
-const Profile = ({ profile, track, current }) => {
+const Profile = ({ profile, track, current, deleteProfile }) => {
     return (
         <>
             {track && profile ? 
@@ -14,7 +13,7 @@ const Profile = ({ profile, track, current }) => {
                             <button className="btn btn-light shadow mb-2">Switch To Profile</button>
                        </div>
                        <div className="col-12 col-lg-6">
-                            <button className="btn btn-danger shadow mb-2">Remove Resume</button>
+                            <button onClick={() => deleteProfile(profile.ID)} className="btn btn-danger shadow mb-2">Remove Profile</button>
                        </div>
                    </div> }
                 </div>
