@@ -1,16 +1,18 @@
 import Sidebar from "../../components/layout/Sidebar";
 import Header from "../../components/layout/Header";
 import PurpleBar from "../../components/layout/PurpleBar";
+import Spinner from "../../components/layout/Spinner";
 
 import { Form } from "react-bootstrap";
 
 import { useSelector, useDispatch } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 
 import { updateStudent } from "../../store/actions";
 
 const Account = () => {
+    const [spinner, setSpinner] = useState(false);
     const dispatch = useDispatch();
     const sidebar = useSelector(state => state.sidebar);
     const darkmode = useSelector(state => state.darkmode);
@@ -23,8 +25,8 @@ const Account = () => {
     const university = useRef(null)
     const degree = useRef(null)
     const major = useRef(null)
-    const startYear = useRef(null)
-    const endYear = useRef(null)
+    const start_year = useRef(null)
+    const end_year = useRef(null)
     const portfolio = useRef(null)
     const github = useRef(null)
     const linkedin = useRef(null)
@@ -37,14 +39,14 @@ const Account = () => {
         university.current.value = user.university || null;
         degree.current.value = user.degree || null;
         major.current.value = user.major || null;
-        startYear.current.value = user.startYear || null;
-        endYear.current.value = user.endYear || null;
+        start_year.current.value = user.start_year || null;
+        end_year.current.value = user.end_year || null;
         portfolio.current.value = user.websites ?  user.websites.portfolio : null;
         github.current.value = user.websites ?  user.websites.github : null;
         linkedin.current.value = user.websites ?  user.websites.linkedin : null;
     }
 
-    const save = () => {
+    const save = async () => {
         name.current.style.boxShadow = "none";
         if (name.current.value !== '') {
             const updatedUser = {
@@ -56,15 +58,18 @@ const Account = () => {
                 university: university.current.value,
                 degree: degree.current.value, // not in backend
                 major: major.current.value, // not in backend
-                startYear: startYear.current.value, // not in backend
-                endYear: endYear.current.value, // not in backend
+                start_year: start_year.current.value, // not in backend
+                end_year: end_year.current.value, // not in backend
                 websites: {
                     portfolio: portfolio.current.value,
                     github: github.current.value,
                     linkedin: linkedin.current.value,
                 }
             }
-            dispatch(updateStudent(user.User_id, updatedUser));
+            setSpinner(true);
+            await dispatch(updateStudent(user.User_id, updatedUser));
+            setData();
+            setSpinner(false);
         } else {
             name.current.style.boxShadow = "1px 1px 7px #ff000094";
         }
@@ -79,6 +84,7 @@ const Account = () => {
             <Helmet>
                 <title>TechPal | Account</title>
             </Helmet>
+            {spinner ? <Spinner /> : <></>}
             <Sidebar />
             <div className={`content ${sidebar ? "shift": ""}`}>
                 <Header />
@@ -152,7 +158,7 @@ const Account = () => {
                                     Start Year
                                 </div>
                                 <div className="col-4 ml-4">
-                                    <Form.Select ref={startYear} aria-label="Default select example">
+                                    <Form.Select ref={start_year} aria-label="Default select example">
                                         {Array.apply(10, Array(61)).map((x, i) => {
                                             return (
                                                 <option key={i + 1980} value={i + 1980}>{i + 1980}</option>
@@ -168,7 +174,7 @@ const Account = () => {
                                     End Year
                                 </div>
                                 <div className="col-4">
-                                    <Form.Select ref={endYear} aria-label="Default select example">
+                                    <Form.Select ref={end_year} aria-label="Default select example">
                                         {Array.apply(10, Array(61)).map((x, i) => {
                                             return (
                                                 <option key={i + 1980} value={i + 1980}>{i + 1980}</option>

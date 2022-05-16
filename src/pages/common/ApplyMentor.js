@@ -39,8 +39,7 @@ const ApplyMentor = () => {
                 <div className="row align-items-center justify-content-center  ">
                     <div className="  col  col-md-8  bg-white   shadow-lg  rounded-3 p-5 ms-5 me-5">
                         <h1 className=" h1 text-center mb-5">Application Mentor</h1>
-                        <iframe title="dummyframe" id="dummyframe" style={{display: 'none'}}></iframe>
-                        <form id="mentorForm" action="http://localhost:8080/api/applymentor/" encType="multipart/form-data" method="POST" onSubmit={submit} >
+                        <form id="mentorForm" action="http://localhost:8080/api/applymentor/" encType="multipart/form-data" method="POST" onSubmit={submit} target="_blank">
                             <div className="mb-3 row">
                                 <label htmlFor="inputName" className="col-md-3   col-form-label fw-bold">Full Name</label>
                                 <div className=" col-md-9">
