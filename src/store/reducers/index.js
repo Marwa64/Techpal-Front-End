@@ -6,6 +6,7 @@ import tokenReducer from './tokenReducer';
 import tracksReducer from './tracksReducer';
 import currentProfileReducer from './currentProfileReducer';
 import currentTrackReducer from './currentTrackReducer';
+import profilesReducer from './profilesReducer';
 
 const allReducers = combineReducers({
     sidebar: sidebarReducer,
@@ -14,7 +15,8 @@ const allReducers = combineReducers({
     token: tokenReducer,
     tracks: tracksReducer,
     currentProfile: currentProfileReducer,
-    currentTrack: currentTrackReducer
+    currentTrack: currentTrackReducer,
+    profiles: profilesReducer
 })
 
 export default allReducers;
