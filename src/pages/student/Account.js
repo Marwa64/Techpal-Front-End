@@ -5,18 +5,15 @@ import Spinner from "../../components/layout/Spinner";
 
 import { Form } from "react-bootstrap";
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { useRef, useEffect, useState } from 'react';
 
 import { updateStudent } from "../../store/actions";
 
-const Account = () => {
+const Account = ({ user, sidebar, darkmode }) => {
     const [spinner, setSpinner] = useState(false);
     const dispatch = useDispatch();
-    const sidebar = useSelector(state => state.sidebar);
-    const darkmode = useSelector(state => state.darkmode);
-    const user = useSelector(state => state.user);
 
     const name = useRef(null)
     const about = useRef(null)
@@ -221,4 +218,12 @@ const Account = () => {
     )
 }
 
-export default Account;
+const mapStateToProps = state => {
+    return {
+      user: state.user,
+      darkmode: state.darkmode,
+      sidebar: state.sidebar,
+    }
+  }
+
+export default connect(mapStateToProps)(Account);
