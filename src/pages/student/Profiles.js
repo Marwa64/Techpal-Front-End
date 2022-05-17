@@ -6,7 +6,7 @@ import Profile from "../../components/student/Profile"
 import { useState, useEffect } from "react";
 import { useDispatch, connect } from 'react-redux';
 
-import { getProfiles, getTracks, removeProfile } from "../../store/actions";
+import { getProfiles, getTracks, removeProfile, switchProfile } from "../../store/actions";
 
 import { Helmet } from 'react-helmet';
 
@@ -29,6 +29,12 @@ const Profiles = ({ sidebar, darkmode, user, tracks, profiles, currentProfile })
     const deleteProfile = async (profile_id) => {
         setSpinner(true);
         await dispatch(removeProfile(user.ID, profile_id));
+        setSpinner(false);
+    }
+
+    const switchProfileLocal = async (profile_id) => {
+        setSpinner(true);
+        await dispatch(switchProfile(user.ID, profile_id));
         setSpinner(false);
     }
 
@@ -67,7 +73,7 @@ const Profiles = ({ sidebar, darkmode, user, tracks, profiles, currentProfile })
                             if (profile.ID !== currentProfile.ID) {
                                 return (
                                     <div key={profile.ID} className="col-12 col-lg-6">
-                                        <Profile profile={profile} track={tracks.find(track => track.ID === profile.Track_id)} deleteProfile={deleteProfile} current={false} />
+                                        <Profile profile={profile} track={tracks.find(track => track.ID === profile.Track_id)} deleteProfile={deleteProfile} switchProfile={switchProfileLocal} current={false} />
                                     </div>
                                 )
                             }

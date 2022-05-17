@@ -1,6 +1,6 @@
 import Progress from "./Progress"
 
-const Profile = ({ profile, track, current, deleteProfile }) => {
+const Profile = ({ profile, track, current, deleteProfile, switchProfile }) => {
     return (
         <>
             {track && profile ? 
@@ -10,7 +10,7 @@ const Profile = ({ profile, track, current, deleteProfile }) => {
                    {current ? <button className="btn btn-light shadow mb-2">Edit Resume</button> : 
                    <div className="row">
                        <div className="col-12 col-lg-6">
-                            <button className="btn btn-light shadow mb-2">Switch To Profile</button>
+                            <button onClick={() => switchProfile(profile.ID)} className="btn btn-light shadow mb-2">Switch To Profile</button>
                        </div>
                        <div className="col-12 col-lg-6">
                             <button onClick={() => deleteProfile(profile.ID)} className="btn btn-danger shadow mb-2">Remove Profile</button>

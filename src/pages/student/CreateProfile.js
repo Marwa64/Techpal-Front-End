@@ -8,15 +8,22 @@ import { Helmet } from 'react-helmet';
 import Track from "../../components/student/Track"
 import Skills from "../../components/student/Skills"
 import { getTracks, createProfile } from "../../store/actions";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, connect } from "react-redux";
 
-const CreateProfile = () => {
+const CreateProfile = ({ user, tracks }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const tracks = useSelector(state => state.tracks);
-    const user = useSelector(state => state.user);
-    if (tracks.length < 1) {
-        dispatch(getTracks());
+
+    const [localTracks, setLocalTracks] = useState([]);
+    const [completedSkills, setCompletedSkills] = useState([]);
+
+    const initData = () => {
+        if (tracks.length < 1) {
+            dispatch(getTracks());
+        }
+        if (tracks.length > 0) {
+            setLocalTracks(tracks);
+        }
     }
 
     const [trackNav, setTrackNav] = useState(null)
@@ -95,24 +102,41 @@ const CreateProfile = () => {
     let trackSlider = [], skillSlider = [];
 
     useEffect(() => {
+        initData();
         setTrackNav(trackSlider);
         setSkillNav(skillSlider);   
     }, [trackSlider, skillSlider]);
 
-    // const updateSkill = (track_id, name, status) => {
-    //     let thisTrack = tracks.filter(track =>  track.Track_id === track_id)[0]
-    //     let thisSkills = thisTrack.skills.map(skill => skill.name === name ? {...skill, done: status} : skill)
-    //     // setTracks(tracks.map(track => track.id === track_id ? {...track, skills: thisSkills} : track))
-    //     thisTrack.skills = thisSkills
-    //     setTrack(thisTrack)
-    // }
+    const isSkillCompleted = (updatedSkill) => {
+        if (completedSkills.some(skill => skill.name === updatedSkill.name && skill.track_id === updatedSkill.track_id)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    const updateSkill = (track_id, name) => {
+        const updatedSkill = {track_id, name};
+        if (isSkillCompleted(updatedSkill)) {
+            setCompletedSkills(completedSkills.filter(skill => !(skill.name === updatedSkill.name && skill.track_id === updatedSkill.track_id)))
+        } else {
+            setCompletedSkills([updatedSkill, ...completedSkills]);
+        }
+    }
+
 
     const create = async () => {
         let track = chosenTrack;
         if (chosenTrack === undefined) {
             track = tracks[0];
         }
-        await dispatch(createProfile(user.User_id, track.Track_id));
+        let completed_skills = []
+        completedSkills.forEach(skill => {
+            if (skill.track_id === track.Track_id) {
+                completed_skills.push(skill.name)
+            }
+        })
+        await dispatch(createProfile(user.User_id, track.Track_id, completed_skills));
         navigate("/");
     }
     
@@ -154,7 +178,7 @@ const CreateProfile = () => {
                         <h4>Select a Track</h4>
                         <div className="mt-4">
                         <Slider {...trackSettings} asNavFor={skillNav} ref={slider => {trackSlider = slider;}}>
-                            {tracks.map(track => {
+                            {localTracks.map(track => {
                                 return (
                                     <div key={`track${track.Track_id}`} className="d-flex justify-content-center align-items-center">
                                         <Track name={track.name} color1={track.color1} color2={track.color2} />
@@ -168,10 +192,10 @@ const CreateProfile = () => {
                         <h4>Track Skills</h4>
                         <div className="mt-4">
                         <Slider {...skillSettings} asNavFor={trackNav} ref={slider => {skillSlider = slider;}}>
-                            {tracks.map(track => {
+                            {localTracks.map(track => {
                                 return (
                                     <div key={`skill${track.Track_id}`} className="d-flex justify-content-center align-items-center">
-                                        <Skills id={track.Track_id} skills={track.skills} />
+                                        <Skills id={track.Track_id} skills={track.skills} updateSkill={updateSkill} isSkillCompleted={isSkillCompleted} />
                                         {/* <Skills id={track.Track_id} skills={track.skills} updateSkill={updateSkill} /> */}
                                     </div>
                                 )
@@ -190,4 +214,11 @@ const CreateProfile = () => {
     )
 }
 
-export default CreateProfile
+const mapStateToProps = state => {
+    return {
+      user: state.user,
+      tracks: state.tracks,
+    }
+  }
+
+export default connect(mapStateToProps)(CreateProfile);

@@ -1,5 +1,5 @@
 
-const Skills = ({ id, skills, updateSkill }) => {
+const Skills = ({ id, skills, updateSkill, isSkillCompleted }) => {
     return (
         <div className="skills mb-4 ">
             { Object.keys(skills).map(key => {
@@ -9,8 +9,7 @@ const Skills = ({ id, skills, updateSkill }) => {
                             {key}
                         </div>
                         <div className="col-6">
-                            {<button className="btn btn-light shadow">Mark as Completed</button> }
-                            {/* {skill.done ? <button onClick={() => updateSkill(id, skill.name, false)} className="btn-purple shadow">Completed</button> : <button onClick={() => updateSkill(id, skill.name, true)} className="btn btn-light shadow">Mark as Completed</button> } */}
+                            {isSkillCompleted({track_id: id, name: key}) ? <button onClick={() => updateSkill(id, key)} className="btn-purple shadow">Completed</button> : <button onClick={() => updateSkill(id, key)} className="btn btn-light shadow">Mark as Completed</button> }
                         </div>
                     </div>
                 )

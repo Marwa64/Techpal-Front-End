@@ -91,8 +91,9 @@ export const getTracks = () => async dispatch => {
   })
 }
 
-export const createProfile = (user_id, newProfile) => async dispatch => {
-  return axios.post(`${url}/createprofile/${user_id}`, newProfile).then(res => {
+export const createProfile = (user_id, track_id, completed_skills) => async dispatch => {
+  return axios.post(`${url}/createprofile/${user_id}`, { track_id, completed_skills, level: completed_skills.length }).then(async(res) => {
+    await dispatch(getCurrentTrack(res.data.Track_id))
     dispatch({type: SET_CURRENT_PROFILE, data: res.data})
   }).catch(err => {
     console.log(err)
@@ -131,6 +132,15 @@ export const getProfiles = (user_id) => async dispatch => {
 export const removeProfile = (user_id, profile_id) => async dispatch => {
   return axios.delete(`${url}/deleteprofile/${user_id}`, { data: { profile_id } }).then(async (res) => {
     await dispatch({type: REMOVE_PROFILE, data: res.data})
+  }).catch(err => {
+    console.log(err)
+  })
+}
+
+export const switchProfile = (user_id, profile_id) => async dispatch => {
+  return axios.post(`${url}/switchprofile/${user_id}`, { profile_id }).then(async (res) => {
+    await dispatch(getCurrentTrack(res.data.Track_id))
+    await dispatch({type: SET_CURRENT_PROFILE, data: res.data})
   }).catch(err => {
     console.log(err)
   })
