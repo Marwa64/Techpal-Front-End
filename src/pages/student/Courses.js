@@ -1,4 +1,4 @@
-import Sidebar from "../../components/layout/Sidebar"
+import Sidebar from "../../components/student/Sidebar"
 import Header from "../../components/layout/Header"
 import PurpleBar from "../../components/layout/PurpleBar";
 

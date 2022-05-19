@@ -8,6 +8,7 @@ import Profiles from "./pages/student/Profiles"
 import CreateProfile from "./pages/student/CreateProfile"
 import Courses from "./pages/student/Courses"
 import Loading from "./pages/common/Loading"
+import Applications from "./pages/admin/Applications"
 
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
@@ -45,6 +46,7 @@ function App() {
     <div className={`App ${darkmode ? "header-dark": ""}`}>
       <Router>
         <Routes>
+          <Route path="/applications" element={ <Applications /> } />
           <Route path="/loading" element={ <Loading /> } />
           <Route path="/courses" element={ <Courses /> } />
           <Route path="/createprofile" element={ <ProtectedRoute><CreateProfile /></ProtectedRoute> } /> 
@@ -54,7 +56,11 @@ function App() {
           <Route path="/applymentor" element={ <ApplyMentor /> } />
           <Route path="/signup" element={ <Signup />} />
           <Route path="/home" element={ <Landing /> } />
-          <Route path="/" element={ user.user_type==="student" || user.User_type==="student" ? <ProtectedRoute><StudentHome /></ProtectedRoute> : user.user_type==="mentor" || user.User_type==="mentor" ? <ProtectedRoute><MentorHome /></ProtectedRoute> : <ProtectedRoute><Loading /></ProtectedRoute>} />
+          <Route path="/" element=
+            { user.user_type==="student" || user.User_type==="student" ? <ProtectedRoute><StudentHome /></ProtectedRoute> 
+            : user.user_type==="mentor" || user.User_type==="mentor" ? <ProtectedRoute><MentorHome /></ProtectedRoute> 
+            : <ProtectedRoute><Loading /></ProtectedRoute>} 
+          />
         </Routes>
       </Router>
     </div>

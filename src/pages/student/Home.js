@@ -1,5 +1,5 @@
 import Avatar from "../../assets/avatar.jpg"
-import Sidebar from "../../components/layout/Sidebar"
+import Sidebar from "../../components/student/Sidebar"
 import Header from "../../components/layout/Header"
 import Progress from "../../components/student/Progress"
 import StepProgress from "../../components/student/StepProgress"
