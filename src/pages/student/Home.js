@@ -188,7 +188,7 @@ export const Home = () => {
                                             )
                                         }) : <div className="mb-4"><h5 className="fst-italic fw-lighter">You haven't booked any sessions yet</h5></div> }
                                         {sessions.length > 0 ? 
-                                        <button onClick={() => navigate("/mentors")} className="btn-purple mt-2 mt-md-4" style={{fontSize: "13px"}}>View More</button> :
+                                        <button onClick={() => navigate("/sessions")} className="btn-purple mt-2 mt-md-4" style={{fontSize: "13px"}}>View More</button> :
                                         <button onClick={() => navigate("/mentors")} className="btn-purple mt-2 mt-md-4" style={{fontSize: "13px"}}>View Mentors</button>}
                                     </div>
                                 </div>

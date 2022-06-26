@@ -2,13 +2,20 @@ import Sidebar from "../../components/student/Sidebar"
 import Header from "../../components/layout/Header"
 import PurpleBar from "../../components/layout/PurpleBar";
 
-import Course from "../../components/student/Course";
+import Job from "../../components/student/Job";
 
-import { connect } from "react-redux";
+import { useSelector } from 'react-redux';
+import { useNavigate } from "react-router-dom";
 
 import { Helmet } from 'react-helmet';
 
-const Courses = ({ sidebar, darkmode, currentTrack }) => {
+const Jobs = () => {
+    const sidebar = useSelector(state => state.sidebar);
+    const darkmode = useSelector(state => state.darkmode);
+
+    const currentTrack = useSelector(state => state.currentTrack);
+    
+    const navigate = useNavigate();
 
     const enrolled = [
         {
@@ -75,30 +82,17 @@ const Courses = ({ sidebar, darkmode, currentTrack }) => {
     return (
         <div className={`${darkmode ? "darkgrey-bg" : "grey-bg"}`}>
             <Helmet>
-                <title>TechPal | Courses</title>
+                <title>TechPal | Jobs</title>
             </Helmet>
             <Sidebar />
             <div className={`content ${sidebar ? "shift": ""}`}>
                 <Header />
-                <PurpleBar title={`Course Recommendations for ${currentTrack.name}`} button={true} buttonName="View Completed Courses" path="/completed-courses" />
-                <div className="container">
-                    <div className="row p-5">
-                        <h5>Your Currently Enrolled Courses</h5>
-                    </div>
-                    <div className="row">
-                        {enrolled.map(course => {
-                            return (
-                                <Course key={course.id} course={course} enrolled={true}/>
-                            )
-                        })}
-                    </div>
-                    <div className="row p-5">
-                        <h5>Course Recommendations For You</h5>
-                    </div>
-                    <div className="row">
+                <PurpleBar title={`Job Recommendations for ${currentTrack.name}`} button={false} />
+                <div className="container mt-5">
+                    <div className="row p-5 pt-0">
                         {recommendations.map(course => {
                             return (
-                                <Course key={course.id} course={course} enrolled={false} />
+                                <Job key={course.id} course={course} enrolled={false} />
                             )
                         })}
                     </div>
@@ -108,12 +102,4 @@ const Courses = ({ sidebar, darkmode, currentTrack }) => {
     )
 }
 
-const mapStateToProps = state => {
-    return {
-        sidebar: state.sidebar,
-        darkmode: state.darkmode,
-        currentTrack: state.currentTrack,
-    }
-}
-
-export default connect(mapStateToProps)(Courses);
+export default Jobs;

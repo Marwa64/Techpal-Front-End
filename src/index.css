@@ -36,7 +36,9 @@ html, body, #root, .App {
     background: rgb(43 46 49);
     color: white;
 }
-
+.darkgrey-bg .course {
+    color: white !important;
+}
 /*------------------------------------------------------------------*/
 
 .sidebar {
@@ -415,6 +417,7 @@ h5 {
     height: 300px;
     width: 300px !important;
     margin-bottom: 70px;
+    color: black !important;
 }
 .course img {
     border: 1px solid #707070;
@@ -450,6 +453,9 @@ h5 {
 .table tbody td {
     color: #403F3F;
     padding: 15px !important;
+}
+.sessions .table tbody td, .sessions .table th {
+    padding: 19px !important;
 }
 .table thead {
     background-color: #6A60F1;

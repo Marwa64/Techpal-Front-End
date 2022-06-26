@@ -7,8 +7,13 @@ import Account from "./pages/student/Account"
 import Profiles from "./pages/student/Profiles"
 import CreateProfile from "./pages/student/CreateProfile"
 import Courses from "./pages/student/Courses"
+import CompletedCourses from "./pages/student/CompletedCourses"
 import Loading from "./pages/common/Loading"
 import Applications from "./pages/admin/Applications"
+import Jobs from "./pages/student/Jobs"
+import Sessions from "./pages/student/Sessions"
+import CompletedSessions from "./pages/student/CompletedSessions"
+import Mentors from "./pages/student/Mentors"
 
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
@@ -48,10 +53,15 @@ function App() {
         <Routes>
           <Route path="/applications" element={ <Applications /> } />
           <Route path="/loading" element={ <Loading /> } />
-          <Route path="/courses" element={ <Courses /> } />
+          <Route path="/mentors" element={ <ProtectedRoute><Mentors /></ProtectedRoute> } />
+          <Route path="/completed-sessions" element={ <ProtectedRoute><CompletedSessions /></ProtectedRoute> } />
+          <Route path="/sessions" element={ <ProtectedRoute><Sessions /></ProtectedRoute> } />
+          <Route path="/jobs" element={ <ProtectedRoute><Jobs /></ProtectedRoute> } />
+          <Route path="/completed-courses" element={ <ProtectedRoute><CompletedCourses /></ProtectedRoute> } />
+          <Route path="/courses" element={ <ProtectedRoute><Courses /></ProtectedRoute> } />
           <Route path="/createprofile" element={ <ProtectedRoute><CreateProfile /></ProtectedRoute> } /> 
-          <Route path="/profiles" element={ <Profiles /> } />
-          <Route path="/account" element={ <Account /> } />
+          <Route path="/profiles" element={ <ProtectedRoute><Profiles /></ProtectedRoute> } />
+          <Route path="/account" element={ <ProtectedRoute><Account /></ProtectedRoute> } />
           <Route path="/login" element={ <Login />} />
           <Route path="/applymentor" element={ <ApplyMentor /> } />
           <Route path="/signup" element={ <Signup />} />

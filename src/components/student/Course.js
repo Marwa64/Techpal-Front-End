@@ -2,10 +2,10 @@ import StarRatingComponent from 'react-star-rating-component';
 
 const Course = ({ course, enrolled }) => {
     return (
-        <div className="col-4 course px-5 mx-4">
+        <div className="course col-4 course px-5 mx-4">
             <img src={course.img} height="150px" width="240px" alt="recommended course cover" /> 
             <div className="row mt-3">
-                <span className='black'>{ course.name }</span>
+                <span>{ course.name }</span>
             </div>
             <div className="row mt-1">
                 <div className="col-12">
