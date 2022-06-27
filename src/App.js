@@ -1,19 +1,20 @@
 import Login from "./pages/common/Login"
 import Signup from "./pages/common/Signup"
 import ApplyMentor from "./pages/common/ApplyMentor"
-import { Home as StudentHome} from "./pages/student/Home"
-import {Home as MentorHome} from "./pages/mentor/Home"
+import { Home as StudentHome } from "./pages/student/Home"
+import { Home as MentorHome } from "./pages/mentor/Home"
 import Account from "./pages/student/Account"
 import Profiles from "./pages/student/Profiles"
 import CreateProfile from "./pages/student/CreateProfile"
 import Courses from "./pages/student/Courses"
 import CompletedCourses from "./pages/student/CompletedCourses"
-import Loading from "./pages/common/Loading"
-import Applications from "./pages/admin/Applications"
 import Jobs from "./pages/student/Jobs"
 import Sessions from "./pages/student/Sessions"
 import CompletedSessions from "./pages/student/CompletedSessions"
 import Mentors from "./pages/student/Mentors"
+import Loading from "./pages/common/Loading"
+import Applications from "./pages/admin/Applications"
+import AdminMentors from "./pages/admin/Mentors";
 
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
@@ -51,7 +52,8 @@ function App() {
     <div className={`App ${darkmode ? "header-dark": ""}`}>
       <Router>
         <Routes>
-          <Route path="/applications" element={ <Applications /> } />
+          <Route path="/admin/mentors" element={ <AdminMentors /> } />
+          <Route path="/admin/applications" element={ <Applications /> } />
           <Route path="/loading" element={ <Loading /> } />
           <Route path="/mentors" element={ <ProtectedRoute><Mentors /></ProtectedRoute> } />
           <Route path="/completed-sessions" element={ <ProtectedRoute><CompletedSessions /></ProtectedRoute> } />

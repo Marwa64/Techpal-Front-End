@@ -1,9 +1,9 @@
 import Avatar from "../../assets/avatar.jpg"
 import Sidebar from "../../components/student/Sidebar"
-import Header from "../../components/layout/Header"
+import Header from "../../components/common/Header"
 import Progress from "../../components/student/Progress"
 import StepProgress from "../../components/student/StepProgress"
-import Spinner from "../../components/layout/Spinner";
+import Spinner from "../../components/common/Spinner";
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { Popover, OverlayTrigger } from "react-bootstrap"

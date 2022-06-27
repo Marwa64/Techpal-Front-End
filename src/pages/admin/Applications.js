@@ -1,7 +1,7 @@
 import Sidebar from "../../components/admin/Sidebar"
-import Header from "../../components/layout/Header"
-import PurpleBar from "../../components/layout/PurpleBar";
-import Spinner from "../../components/layout/Spinner";
+import Header from "../../components/common/Header"
+import PurpleBar from "../../components/common/PurpleBar";
+import Spinner from "../../components/common/Spinner";
 
 import { useState } from 'react'
 import { connect } from 'react-redux'
@@ -32,7 +32,7 @@ const Applications = ({ darkmode, sidebar }) => {
             <div className={`content ${sidebar ? "shift": ""}`}>
                 <Header />
                 <PurpleBar title="Applications" button={false} />
-                <div className="container p-5">
+                <div className="container p-5 table-container">
                     <table className="table">
                         <thead>
                             <tr>

@@ -1,4 +1,4 @@
-import Navbar from "../../components/layout/Navbar"
+import Navbar from "../../components/common/Navbar"
 import { Helmet } from 'react-helmet';
 import { useRef } from 'react'
 

@@ -1,6 +1,6 @@
 import Sidebar from "../../components/student/Sidebar"
-import Header from "../../components/layout/Header"
-import PurpleBar from "../../components/layout/PurpleBar";
+import Header from "../../components/common/Header"
+import PurpleBar from "../../components/common/PurpleBar";
 
 import Course from "../../components/student/Course";
 

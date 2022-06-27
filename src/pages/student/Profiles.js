@@ -1,7 +1,7 @@
 import Sidebar from "../../components/student/Sidebar"
-import Header from "../../components/layout/Header"
-import PurpleBar from "../../components/layout/PurpleBar";
-import Spinner from "../../components/layout/Spinner";
+import Header from "../../components/common/Header"
+import PurpleBar from "../../components/common/PurpleBar";
+import Spinner from "../../components/common/Spinner";
 import Profile from "../../components/student/Profile"
 import { useState, useEffect } from "react";
 import { useDispatch, connect } from 'react-redux';

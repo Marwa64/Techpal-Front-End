@@ -1,11 +1,11 @@
-import Navbar from "../../components/layout/Navbar"
+import Navbar from "../../components/common/Navbar"
 import { NavLink } from "react-router-dom"
 import { Helmet } from 'react-helmet';
 import { useRef, useState } from 'react'
 import { signup } from '../../store/actions';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import Spinner from "../../components/layout/Spinner";
+import Spinner from "../../components/common/Spinner";
 
 const Signup = () => {
     const nav = useNavigate();
