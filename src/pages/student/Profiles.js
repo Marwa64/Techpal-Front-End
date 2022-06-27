@@ -76,6 +76,8 @@ const Profiles = ({ sidebar, darkmode, user, tracks, profiles, currentProfile })
                                         <Profile profile={profile} track={tracks.find(track => track.ID === profile.Track_id)} deleteProfile={deleteProfile} switchProfile={switchProfileLocal} current={false} />
                                     </div>
                                 )
+                            } else {
+                                return null;
                             }
                         })}
                     </div>

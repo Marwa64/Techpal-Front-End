@@ -30,7 +30,7 @@ const Sessions = ({ darkmode, sidebar }) => {
             <div className={`content ${sidebar ? "shift": ""}`}>
                 <Header />
                 <PurpleBar title="Completed Sessions" button={true} buttonName="View Upcoming Sessions" path="/sessions" />
-                <div className="container p-5 sessions">
+                <div className="container p-5 table-container">
                     <table className="table">
                         <thead>
                             <tr>

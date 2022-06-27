@@ -298,10 +298,10 @@ h5 {
     color: white !important;
     background-color: #FF5E5E !important;
 }
-.btn-danger:hover {
+.profile .btn-danger:hover {
     box-shadow: 0 0 5px 2px rgb(255 94 94) !important;
 }
-.btn-danger:focus {
+.profile .btn-danger:focus {
     box-shadow: 0 0 0 0.25rem rgba(255, 143, 143, 0.69) !important;
 }
 
@@ -454,8 +454,15 @@ h5 {
     color: #403F3F;
     padding: 15px !important;
 }
-.sessions .table tbody td, .sessions .table th {
+.table-container .table tbody td, .table-container .table th {
     padding: 19px !important;
+}
+.table-container {
+    overflow: scroll;
+}
+.table-container::-webkit-scrollbar {
+    background: transparent;
+    width: 0px;
 }
 .table thead {
     background-color: #6A60F1;
@@ -466,6 +473,28 @@ h5 {
 }
 .table tr {
     text-align: center;
+}
+
+/*------------------------------------------------------------------*/
+
+.modal {
+    font-size: 18px;
+    text-align: center;
+}
+.modal-content {
+    border-radius: 30px !important;
+    padding: 15px 0px;
+}
+
+/*------------------------------------------------------------------*/
+
+.view-mentor .data {
+    font-size: 16px;
+    text-align: left;
+    border: 1.5px solid black;
+    border-radius: 10px;
+    padding: 7px 15px;
+    margin-top: 4px;
 }
 
 /*------------------------------------------------------------------*/
