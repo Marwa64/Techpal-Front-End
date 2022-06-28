@@ -14,9 +14,13 @@ import CompletedSessions from "./pages/student/CompletedSessions"
 import Mentors from "./pages/student/Mentors"
 import Loading from "./pages/common/Loading"
 import Applications from "./pages/admin/Applications"
-import AdminMentors from "./pages/admin/Mentors";
+import AdminMentors from "./pages/admin/Mentors"
+
+import ResumeBuilder from './pages/student/ResumeBuilder';
 
 import { useEffect } from 'react'
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 import { useSelector, useDispatch } from 'react-redux';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -52,6 +56,13 @@ function App() {
     <div className={`App ${darkmode ? "header-dark": ""}`}>
       <Router>
         <Routes>
+          <Route path="/resume-builder" element={ 
+            <ProtectedRoute>
+              <DndProvider backend={HTML5Backend}>
+                <ResumeBuilder />
+              </DndProvider>
+            </ProtectedRoute> 
+          } />
           <Route path="/admin/mentors" element={ <AdminMentors /> } />
           <Route path="/admin/applications" element={ <Applications /> } />
           <Route path="/loading" element={ <Loading /> } />

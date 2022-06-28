@@ -1,3 +1,5 @@
+import { NavLink } from "react-router-dom"
+
 import Progress from "./Progress"
 
 const Profile = ({ profile, track, current, deleteProfile, switchProfile }) => {
@@ -7,7 +9,7 @@ const Profile = ({ profile, track, current, deleteProfile, switchProfile }) => {
                 <div className="profile section d-flex flex-column align-items-center pb-4 mt-3" style={{backgroundImage: `linear-gradient(to right, ${track.color1} , ${track.color2})`}}>
                    <span className="pt-3 mb-4">{track.name}</span>
                    <Progress current={profile.level} total={Object.keys(track.skills).length} height="115px" width="115px" cutout={42} />
-                   {current ? <button className="btn btn-light shadow mb-2">Edit Resume</button> : 
+                   {current ? <NavLink to="/resume-builder" className="btn btn-light shadow mb-2">Edit Resume</NavLink> : 
                    <div className="row">
                        <div className="col-12 col-lg-6">
                             <button onClick={() => switchProfile(profile.ID)} className="btn btn-light shadow mb-2">Switch To Profile</button>

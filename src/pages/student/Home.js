@@ -8,6 +8,9 @@ import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { Popover, OverlayTrigger } from "react-bootstrap"
 import { useNavigate } from "react-router-dom";
+import Template1 from "../../components/student/resumes/Template1"
+import Template2 from "../../components/student/resumes/Template2"
+import { PDFDownloadLink } from '@react-pdf/renderer';
 
 import { Helmet } from 'react-helmet';
 
@@ -116,10 +119,18 @@ export const Home = () => {
                                         <div className="row pb-1">
                                             <div className="col-12 col-lg-9 text-center text-lg-start">
                                                 <h5 className="mb-1">Download Your {currentTrack.name} Resume</h5>
-                                                <small>The resume can be edited in the resume page</small> 
+                                                <small>The resume can be edited in the profiles page</small> 
                                             </div>
                                             <div className="col-12 col-lg-3 mt-4 mt-lg-2 d-flex justify-content-center">
-                                                <button className="btn-purple">Download</button>
+                                                <PDFDownloadLink
+                                                    document={<Template1 />}
+                                                    fileName="Resume.pdf"
+                                                    className="btn-purple"
+                                                >
+                                                    {({ blob, url, loading, error }) =>
+                                                    loading ? "Loading document..." : "Download"
+                                                    }
+                                                </PDFDownloadLink>
                                             </div>
                                         </div>
                                     </div>
