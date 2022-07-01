@@ -9,9 +9,14 @@ import {
   import Header from './Header';
   import Skills from './Skills';
   import Education from './Education';
-  import Experience from './Experience';
+  import WorkExperience from './WorkExperience';
+  import AboutMe from './AboutMe';
+  import Contact from './Contact';
+  import Projects from './Projects';
+  import VolunteeringExperience from './VolunteeringExperience';
+  import Certifications from './Certifications';
 
-  const index = () => {
+  const index = ({leftOrder, rightOrder}) => {
     const styles = StyleSheet.create({
         page: {
           padding: 30,
@@ -70,20 +75,62 @@ import {
         src: `https://fonts.gstatic.com/s/lato/v16/S6u9w4BMUTPHh6UVSwiPHA.ttf`,
       });
 
-      const order = [Education, Skills]
+
+      const leftColumnOrder = []
+      leftOrder.forEach(element => {
+        if (!element.hide) {
+          switch (element.name) {
+            case 'About Me':
+              leftColumnOrder.push(<AboutMe key={ `left-${element.name}` } />);
+              break;
+            case 'Contact':
+              leftColumnOrder.push(<Contact key={ `left-${element.name}` } />);
+              break;        
+            case 'Education':
+              leftColumnOrder.push(<Education key={ `left-${element.name}` } />);
+              break;
+            case 'Skills':
+              leftColumnOrder.push(<Skills key={ `left-${element.name}` } />);
+              break;
+            default:
+              break;
+          }
+        }
+      })
+
+      const rightColumnOrder = []
+      rightOrder.forEach(element => {
+        if (!element.hide) {
+          switch (element.name) {
+            case 'Work Experience':
+              rightColumnOrder.push(<WorkExperience key={ `right-${element.name}` } />);
+              break;
+            case 'Projects':
+              rightColumnOrder.push(<Projects key={ `right-${element.name}` } />);
+              break;        
+            case 'Volunteering Experience':
+              rightColumnOrder.push(<VolunteeringExperience key={ `right-${element.name}` } />);
+              break;
+            case 'Certifications':
+              rightColumnOrder.push(<Certifications key={ `right-${element.name}` } />);
+              break;
+            default:
+              break;
+          }
+        } 
+      })
       
       const Resume = props => (
         <Page {...props} style={styles.page}>
           <Header />
           <View style={styles.container}>
             <View style={styles.leftColumn}>{
-              order.map((Component, index) => (
-                <Component key={ `left-${index}` } />
-                ))
-              }
+              leftColumnOrder.map(Component => ( Component ))
+            }
             </View>
-            <View style={styles.rightColumn}>
-              <Experience />
+            <View style={styles.rightColumn}>{
+                rightColumnOrder.map(Component => ( Component ))
+              }
             </View>
           </View>
         </Page>

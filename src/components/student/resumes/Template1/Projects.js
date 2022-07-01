@@ -87,41 +87,11 @@ const experienceData = [
     ],
     position: 'Head Jedi Master',
   },
-  {
-    company: 'Rebel Alliance',
-    date: 'A long time ago...',
-    details: [
-      'Lead legions of troops into battle while demonstrating bravery, competence and honor',
-      'Created complicated battle plans in conjunction with other Rebel leaders in order to ensure the greatest chance of success',
-      'Defeated Darth Vader in single-combat, and convinced him to betray his mentor, the Emperor',
-    ],
-    position: 'General',
-  },
-  {
-    company: 'Rebel Alliance',
-    date: 'A long time ago...',
-    details: [
-      'Destroyed the Death Star by using the force to find its only weakness and delivering a torpedo into the center of the ship',
-      'Commanded of squadron of X-Wings into battle',
-      'Defeated an enemy AT-AT single handedly after his ship was destroyed',
-      'Awarded a medal for valor and bravery in battle for his successful destruction of the Death Star',
-    ],
-    position: 'Lieutenant Commander',
-  },
-  {
-    company: 'Tatooine Moisture Refinery',
-    date: 'A long time ago...',
-    details: [
-      'Replaced damaged power converters',
-      'Performed menial labor thoughout the farm in order to ensure its continued operation',
-    ],
-    position: 'Moisture Farmer',
-  },
 ];
 
-const Experience = () => (
+const Projects = () => (
   <View>
-    <Title>Experience</Title>
+    <Title>Projects</Title>
     {experienceData.map(({ company, date, details, position }) => (
       <ExperienceEntry
         company={company}
@@ -134,4 +104,4 @@ const Experience = () => (
   </View>
 );
 
-export default Experience;
+export default Projects;
