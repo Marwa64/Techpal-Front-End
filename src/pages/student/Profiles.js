@@ -33,9 +33,10 @@ const Profiles = ({ sidebar, darkmode, user, tracks, profiles, currentProfile })
     }
 
     const switchProfileLocal = async (profile_id) => {
-        setSpinner(true);
+        // setSpinner(true);
         await dispatch(switchProfile(user.ID, profile_id));
-        setSpinner(false);
+        // setSpinner(false);
+        window.location.reload();
     }
 
     useEffect(() => {
