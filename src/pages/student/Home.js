@@ -122,7 +122,7 @@ export const Home = () => {
                                                 <small>The resume can be edited in the profiles page</small> 
                                             </div>
                                             <div className="col-12 col-lg-3 mt-4 mt-lg-2 d-flex justify-content-center">
-                                                <PDFDownloadLink
+                                                {/* <PDFDownloadLink
                                                     document={<Template1 />}
                                                     fileName="Resume.pdf"
                                                     className="btn-purple"
@@ -130,7 +130,7 @@ export const Home = () => {
                                                     {({ blob, url, loading, error }) =>
                                                     loading ? "Loading document..." : "Download"
                                                     }
-                                                </PDFDownloadLink>
+                                                </PDFDownloadLink> */}
                                             </div>
                                         </div>
                                     </div>
