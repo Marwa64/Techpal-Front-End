@@ -48,12 +48,8 @@ const ColumnList = SortableContainer(({items, hide, edit}) => {
 resumes [
     profile_id: {
         template: number,
-        leftOrder: [
-
-        ],
-        rightOrder: [
-            
-        ],
+        leftOrder: [],
+        rightOrder: [],
     }
 ]
 */
@@ -135,16 +131,16 @@ const ResumeBuilder = ({ sidebar, darkmode, user, currentTrack }) => {
 
     useEffect(() => {
         setLeftOrder([
-            {name: 'About Me', hide: false, data: null},
-            {name: 'Contact', hide: false, data: null},
+            {name: 'About Me', hide: false, data: []},
+            {name: 'Contact', hide: false, data: []},
             {name: 'Skills', hide: false, data: ['CSS', 'HTML', 'Javascript', 'SQL', 'Data Structure', 'Algorithms']},
         ]);
         setRightOrder([
-            {name: 'Education', hide: false, data: null},
-            {name: 'Work Experience', hide: false, data: null},
-            {name: 'Projects', hide: false, data: null},
-            {name: 'Volunteering Experience', hide: false, data: null},
-            {name: 'Certifications', hide: false, data: null},
+            {name: 'Education', hide: false, data: []},
+            {name: 'Work Experience', hide: false, data: []},
+            {name: 'Projects', hide: false, data: []},
+            {name: 'Volunteering Experience', hide: false, data: []},
+            {name: 'Certifications', hide: false, data: []},
         ]);
     }, [])
 

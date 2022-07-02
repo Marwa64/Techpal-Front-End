@@ -1,7 +1,7 @@
 import Login from "./pages/common/Login"
 import Signup from "./pages/common/Signup"
 import ApplyMentor from "./pages/common/ApplyMentor"
-import { Home as StudentHome } from "./pages/student/Home"
+import StudentHome from "./pages/student/Home"
 import { Home as MentorHome } from "./pages/mentor/Home"
 import Account from "./pages/student/Account"
 import Profiles from "./pages/student/Profiles"

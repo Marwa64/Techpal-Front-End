@@ -5,7 +5,7 @@ import Progress from "../../components/student/Progress"
 import StepProgress from "../../components/student/StepProgress"
 import Spinner from "../../components/common/Spinner";
 import { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 import { Popover, OverlayTrigger } from "react-bootstrap"
 import { useNavigate } from "react-router-dom";
 import Template1 from "../../components/student/resumes/Template1"
@@ -14,26 +14,28 @@ import { PDFDownloadLink } from '@react-pdf/renderer';
 
 import { Helmet } from 'react-helmet';
 
-export const Home = () => {
+const StudentHome = ({ sidebar, darkmode, currentProfile, currentTrack }) => {
     const [spinner, setSpinner] = useState(true);
     const [totalLevels, setTotalLevels] = useState(0);   
+    const [skills, setSkills] = useState([]);   
     
     const navigate = useNavigate();
-    const sidebar = useSelector(state => state.sidebar);
-    const darkmode = useSelector(state => state.darkmode);
-
-    const currentProfile = useSelector(state => state.currentProfile);
-    const currentTrack = useSelector(state => state.currentTrack);
-
 
     useEffect(() => {
         if (Object.keys(currentProfile).length === 0 || Object.keys(currentTrack).length === 0) {
             setSpinner(true)
         } else {
             setTotalLevels(Object.keys(currentTrack.skills).length);
+            const orderSkills = [...currentProfile.completed_skills]
+            Object.keys(currentTrack.skills).forEach(key => {
+                if (!orderSkills.includes(key)) {
+                    orderSkills.push(key)
+                }
+            })
+            setSkills(orderSkills);
             setSpinner(false)
         }
-    })
+    }, [currentProfile, currentTrack])
     
 
     const news = [
@@ -107,7 +109,7 @@ export const Home = () => {
                                             </div>
                                         </div>
                                         <div className="row px-5">
-                                            <StepProgress current={currentProfile.level} total={totalLevels} skills={currentTrack.skills}/>
+                                            <StepProgress current={currentProfile.level} total={totalLevels-1} skills={skills}/>
                                         </div>
                                     </div>
                                     
@@ -213,4 +215,13 @@ export const Home = () => {
         </div>
     )
 }
+const mapStateToProps = state => {
+    return {
+        sidebar: state.sidebar,
+        darkmode: state.darkmode,
+        currentProfile: state.currentProfile,
+        currentTrack: state.currentTrack,
+    }
+}
 
+export default connect(mapStateToProps)(StudentHome);
