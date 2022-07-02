@@ -2,21 +2,13 @@ import { Text, View, StyleSheet } from '@react-pdf/renderer';
 
 import Title from './Title';
 
-const AboutMe = () => {
+const AboutMe = ({user}) => {
     const styles = StyleSheet.create({
         container: {
           marginBottom: 10,
         },
-        school: {
-          fontFamily: 'Lato Bold',
-          fontSize: 10,
-        },
-        degree: {
+        about: {
           fontFamily: 'Lato',
-          fontSize: 10,
-        },
-        candidate: {
-          fontFamily: 'Lato Italic',
           fontSize: 10,
         },
       });
@@ -24,9 +16,7 @@ const AboutMe = () => {
     return (
         <View style={styles.container}>
             <Title>About Me</Title>
-            <Text style={styles.school}>Jedi Academy</Text>
-            <Text style={styles.degree}>Jedi Master</Text>
-            <Text style={styles.candidate}>A long, long time ago</Text>
+            <Text style={styles.about}>{user.about}</Text>
         </View>
     )
 }

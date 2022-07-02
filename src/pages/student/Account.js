@@ -63,10 +63,11 @@ const Account = ({ user, sidebar, darkmode }) => {
                     linkedin: linkedin.current.value,
                 }
             }
-            setSpinner(true);
+            // setSpinner(true);
             await dispatch(updateStudent(user.User_id, updatedUser));
-            setData();
-            setSpinner(false);
+            // setData();
+            // setSpinner(false);
+            window.location.reload();
         } else {
             name.current.style.boxShadow = "1px 1px 7px #ff000094";
         }
@@ -133,10 +134,10 @@ const Account = ({ user, sidebar, darkmode }) => {
                         </div>
                         <div className="col-8 col-lg-5">
                             <Form.Select ref={degree} aria-label="Default select example">
-                                <option value="associate">Associate Degree</option>
-                                <option value="bachelor">Bachelor's Degree</option>
-                                <option value="master">Master's Degree</option>
-                                <option value="doctoral">Doctoral's Degree</option>
+                                <option value="Associate">Associate Degree</option>
+                                <option value="Bachelor">Bachelor's Degree</option>
+                                <option value="Master">Master's Degree</option>
+                                <option value="Doctoral">Doctoral's Degree</option>
                             </Form.Select>
                         </div>
                     </div>

@@ -16,7 +16,7 @@ import {
   import VolunteeringExperience from './VolunteeringExperience';
   import Certifications from './Certifications';
 
-  const index = ({leftOrder, rightOrder}) => {
+  const index = ({leftOrder, rightOrder, user, currentTrack}) => {
     const styles = StyleSheet.create({
         page: {
           padding: 30,
@@ -81,16 +81,13 @@ import {
         if (!element.hide) {
           switch (element.name) {
             case 'About Me':
-              leftColumnOrder.push(<AboutMe key={ `left-${element.name}` } />);
+              leftColumnOrder.push(<AboutMe key={ `left-${element.name}`} user={user} />);
               break;
             case 'Contact':
-              leftColumnOrder.push(<Contact key={ `left-${element.name}` } />);
+              leftColumnOrder.push(<Contact key={ `left-${element.name}` } user={user} />);
               break;        
-            case 'Education':
-              leftColumnOrder.push(<Education key={ `left-${element.name}` } />);
-              break;
             case 'Skills':
-              leftColumnOrder.push(<Skills key={ `left-${element.name}` } />);
+              leftColumnOrder.push(<Skills key={ `left-${element.name}` } skills={element.data} />);
               break;
             default:
               break;
@@ -102,17 +99,20 @@ import {
       rightOrder.forEach(element => {
         if (!element.hide) {
           switch (element.name) {
+            case 'Education':
+              rightColumnOrder.push(<Education key={ `right-${element.name}` } user={user} />);
+              break;
             case 'Work Experience':
-              rightColumnOrder.push(<WorkExperience key={ `right-${element.name}` } />);
+              rightColumnOrder.push(<WorkExperience key={ `right-${element.name}` } data={element.data} />);
               break;
             case 'Projects':
-              rightColumnOrder.push(<Projects key={ `right-${element.name}` } />);
+              rightColumnOrder.push(<Projects key={ `right-${element.name}` } data={element.data} />);
               break;        
             case 'Volunteering Experience':
-              rightColumnOrder.push(<VolunteeringExperience key={ `right-${element.name}` } />);
+              rightColumnOrder.push(<VolunteeringExperience key={ `right-${element.name}` } data={element.data} />);
               break;
             case 'Certifications':
-              rightColumnOrder.push(<Certifications key={ `right-${element.name}` } />);
+              rightColumnOrder.push(<Certifications key={ `right-${element.name}` } data={element.data} />);
               break;
             default:
               break;
@@ -122,7 +122,7 @@ import {
       
       const Resume = props => (
         <Page {...props} style={styles.page}>
-          <Header />
+          <Header userName={user.full_name} trackName={currentTrack.name} />
           <View style={styles.container}>
             <View style={styles.leftColumn}>{
               leftColumnOrder.map(Component => ( Component ))
@@ -138,10 +138,10 @@ import {
 
     return (
         <Document
-            author="Luke Skywalker"
-            keywords="awesome, resume, start wars"
-            subject="The resume of Luke Skywalker"
-            title="Resume"
+            author={user.full_name}
+            keywords={`resume, ${currentTrack.name}`}
+            subject={`${currentTrack.name} Resume`}
+            title={`${user.full_name} Resume`}
         >
             <Resume size="A4" />
         </Document>

@@ -1,14 +1,12 @@
 import Avatar from "../../assets/avatar.jpg"
 import { Dropdown } from "react-bootstrap"
 import { toggleSidebar, toggleMode, removeToken } from '../../store/actions';
-import { useSelector, useDispatch } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 
-const Header = () => {
+const Header = ({darkmode, user}) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const darkmode = useSelector(state => state.darkmode);
-    const user = useSelector(state => state.user);
 
     const logOut = () => {
         localStorage.removeItem('token');
@@ -42,4 +40,11 @@ const Header = () => {
     )
 }
 
-export default Header;
+const mapStateToProps = state => {
+    return {
+        darkmode: state.darkmode,
+        user: state.user,
+    }
+}
+
+export default connect(mapStateToProps)(Header);

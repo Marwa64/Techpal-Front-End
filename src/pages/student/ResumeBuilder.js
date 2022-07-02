@@ -3,23 +3,24 @@ import Header from "../../components/common/Header"
 import DragIcon from "../../assets/DragIcon"
 import Template1 from "../../components/student/resumes/Template1"
 import Template2 from "../../components/student/resumes/Template2"
+import EditSkillsModal from "../../components/student/EditSkillsModal"
+import EditResumeModal from "../../components/student/EditResumeModal"
+import EditCertificationsModal from "../../components/student/EditCertificationsModal"
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import {SortableContainer, SortableElement} from 'react-sortable-hoc';
 import { PDFViewer } from '@react-pdf/renderer';
 import { Form } from "react-bootstrap";
 import { connect } from "react-redux";
 import { Helmet } from 'react-helmet';
+import { useNavigate } from "react-router-dom";
 
-const ColumnItem = SortableElement(({value, hide}) => {
-    const edit = () => {
-        console.log('edit');
-    }
+const ColumnItem = SortableElement(({value, hide, edit}) => {
     return (
         <div className="column-section">
             <div><DragIcon /> {value.name} </div>
             <div className="mt-1">
-                <button className="btn" onClick={edit}>
+                <button className="btn" onClick={() => edit(value)}>
                     <i className="fa fa-edit" />
                 </button>
                 <button className="btn" onClick={() => hide(value)}>
@@ -33,32 +34,42 @@ const ColumnItem = SortableElement(({value, hide}) => {
     )
 });
 
-const ColumnList = SortableContainer(({items, hide}) => {
+const ColumnList = SortableContainer(({items, hide, edit}) => {
   return (
     <div>
       {items.map((value, index) => (
-        <ColumnItem key={`item-${value.name}`} index={index} value={value} hide={hide} />
+        <ColumnItem key={`item-${value.name}`} index={index} value={value} hide={hide} edit={edit} />
       ))}
     </div>
   );
 });
 
-const ResumeBuilder = ({ sidebar, darkmode }) => {
+/*
+resumes [
+    profile_id: {
+        template: number,
+        leftOrder: [
+
+        ],
+        rightOrder: [
+            
+        ],
+    }
+]
+*/
+
+
+const ResumeBuilder = ({ sidebar, darkmode, user, currentTrack }) => {
+    const navigate = useNavigate();
+
+    const [editSkills, setEditSkills] = useState(false);
+    const [editResume, setEditResume] = useState(false);
+    const [editCertifications, setEditCertifications] = useState(false);
+    const [elementToEdit, setEditElement] = useState(null);
+
     const [template, setTemplate] = useState(1);
-
-    const [leftOrder, setLeftOrder] = useState([
-        {name: 'About Me', hide: false},
-        {name: 'Contact', hide: false},
-        {name: 'Education', hide: false},
-        {name: 'Skills', hide: false},
-    ]);
-
-    const [rightOrder, setRightOrder] = useState([
-        {name: 'Work Experience', hide: false},
-        {name: 'Projects', hide: false},
-        {name: 'Volunteering Experience', hide: false},
-        {name: 'Certifications', hide: false},
-    ]);
+    const [leftOrder, setLeftOrder] = useState([]);
+    const [rightOrder, setRightOrder] = useState([]);
 
     const arrayMoveMutate = (array, from, to) => {
         array.splice(to < 0 ? array.length + to : to, 0, array.splice(from, 1)[0]);
@@ -70,43 +81,72 @@ const ResumeBuilder = ({ sidebar, darkmode }) => {
         return array;
     };
 
+
     const onLeftSortEnd = useCallback(({ oldIndex, newIndex }) => {
         setLeftOrder(oldItems => arrayMove(oldItems, oldIndex, newIndex));
     }, []);
 
     const hideLeftElement = (element) => {
-        const order = []
-        leftOrder.forEach(leftElement => {
-            if (element.name === leftElement.name) {
-                order.push({
-                    name: leftElement.name,
-                    hide: !leftElement.hide,
-                })
-            } else {
-                order.push(leftElement)
-            }
-        })
+        const order = leftOrder.map(leftElement => 
+            leftElement.name === element.name ? {...leftElement, hide: !leftElement.hide} : leftElement);
         setLeftOrder(order);
     }
+
 
     const onRightSortEnd = useCallback(({ oldIndex, newIndex }) => {
         setRightOrder(oldItems => arrayMove(oldItems, oldIndex, newIndex));
     }, []);
 
     const hideRightElement = (element) => {
-        const order = []
-        rightOrder.forEach(leftElement => {
-            if (element.name === leftElement.name) {
-                order.push({
-                    name: leftElement.name,
-                    hide: !leftElement.hide,
-                })
-            } else {
-                order.push(leftElement)
-            }
-        })
+        const order = rightOrder.map(rightElement => 
+            rightElement.name === element.name ? {...rightElement, hide: !rightElement.hide} : rightElement);
         setRightOrder(order);
     }
+
+
+    const editElement = (element) => {
+        if (['About Me', 'Contact', 'Education'].includes(element.name)) {
+            navigate("/account");
+        } else if (element.name === 'Skills') {
+            setEditElement(element);
+            setEditSkills(true);
+        } else if (element.name === 'Certifications') {
+            setEditElement(element);
+            setEditCertifications(true);
+        } else {
+            setEditElement(element);
+            setEditResume(true);
+        }
+    }
+
+    const updateSkills = (element) => {
+        const order = leftOrder.map(leftElement => 
+            leftElement.name === element.name ? {...leftElement, data: element.data} : leftElement);
+        setEditElement(element);
+        setLeftOrder(order);
+    }
+
+    const updateRightElement = (element) => {
+        const order = rightOrder.map(rightElement => 
+            rightElement.name === element.name ? {...rightElement, data: element.data} : rightElement);
+        setEditElement(element);
+        setRightOrder(order);
+    }
+
+    useEffect(() => {
+        setLeftOrder([
+            {name: 'About Me', hide: false, data: null},
+            {name: 'Contact', hide: false, data: null},
+            {name: 'Skills', hide: false, data: ['CSS', 'HTML', 'Javascript', 'SQL', 'Data Structure', 'Algorithms']},
+        ]);
+        setRightOrder([
+            {name: 'Education', hide: false, data: null},
+            {name: 'Work Experience', hide: false, data: null},
+            {name: 'Projects', hide: false, data: null},
+            {name: 'Volunteering Experience', hide: false, data: null},
+            {name: 'Certifications', hide: false, data: null},
+        ]);
+    }, [])
 
     return (
         <div className={`${darkmode ? "darkgrey-bg" : "grey-bg"}`}>
@@ -126,7 +166,7 @@ const ResumeBuilder = ({ sidebar, darkmode }) => {
                         <div className="col-12 col-xl-6 d-none d-lg-block">
                         <PDFViewer height='97%' width='100%'>
                             {template === 1
-                                ? <Template1 leftOrder={leftOrder} rightOrder={rightOrder}></Template1>
+                                ? <Template1 leftOrder={leftOrder} rightOrder={rightOrder} user={user} currentTrack={currentTrack}></Template1>
                                 : <Template2 leftOrder={leftOrder} rightOrder={rightOrder}></Template2>
                             }
                         </PDFViewer>
@@ -151,6 +191,7 @@ const ResumeBuilder = ({ sidebar, darkmode }) => {
                                     items={leftOrder}
                                     onSortEnd={onLeftSortEnd}
                                     hide={hideLeftElement}
+                                    edit={editElement}
                                 />
                             </div>
                             <div className="mb-4 px-3">
@@ -160,12 +201,31 @@ const ResumeBuilder = ({ sidebar, darkmode }) => {
                                     items={rightOrder}
                                     onSortEnd={onRightSortEnd}
                                     hide={hideRightElement}
+                                    edit={editElement}
                                 />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <EditSkillsModal
+                show={editSkills}
+                handleClose={() => setEditSkills(false)}
+                element={elementToEdit}
+                update={updateSkills}
+            />
+            <EditResumeModal
+                show={editResume}
+                handleClose={() => setEditResume(false)}
+                element={elementToEdit}
+                update={updateRightElement}
+            />
+            <EditCertificationsModal
+                show={editCertifications}
+                handleClose={() => setEditCertifications(false)}
+                element={elementToEdit}
+                update={updateRightElement}
+            />
         </div>
     )
 }
@@ -173,6 +233,8 @@ const mapStateToProps = state => {
     return {
         sidebar: state.sidebar,
         darkmode: state.darkmode,
+        user: state.user,
+        currentTrack: state.currentTrack,
     }
 }
 
