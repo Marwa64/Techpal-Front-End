@@ -26,7 +26,10 @@ const StudentHome = ({ sidebar, darkmode, currentProfile, currentTrack }) => {
             setSpinner(true)
         } else {
             setTotalLevels(Object.keys(currentTrack.skills).length);
-            const orderSkills = [...currentProfile.completed_skills]
+            var orderSkills = []
+            if (currentProfile.completed_skills) {
+                orderSkills = [...currentProfile.completed_skills]
+            }
             Object.keys(currentTrack.skills).forEach(key => {
                 if (!orderSkills.includes(key)) {
                     orderSkills.push(key)
