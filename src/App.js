@@ -15,6 +15,7 @@ import Mentors from './pages/student/Mentors'
 import Loading from './pages/common/Loading'
 import Applications from './pages/admin/Applications'
 import AdminMentors from './pages/admin/Mentors'
+import Tracks from './pages/admin/Tracks'
 import ResumeBuilder from './pages/student/ResumeBuilder'
 
 import { useEffect } from 'react'
@@ -54,6 +55,7 @@ function App () {
       <Router>
         <Routes>
           <Route path="/resume-builder" element={ <ProtectedRoute><ResumeBuilder /></ProtectedRoute> } />
+          <Route path="/admin/tracks" element={ <Tracks /> } />
           <Route path="/admin/mentors" element={ <AdminMentors /> } />
           <Route path="/admin/applications" element={ <Applications /> } />
           <Route path="/loading" element={ <Loading /> } />
