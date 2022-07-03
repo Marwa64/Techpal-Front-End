@@ -1,12 +1,12 @@
-import { NavLink } from "react-router-dom";
-import { useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 const Sidebar = () => {
-    const sidebar = useSelector(state => state.sidebar);
-    const darkmode = useSelector(state => state.darkmode);
+  const sidebar = useSelector(state => state.sidebar)
+  const darkmode = useSelector(state => state.darkmode)
 
-    return (
-        <div className={`sidebar shadow ${sidebar ? "show": ""} ${darkmode ? "sidebar-dark" : ""}`}>
+  return (
+        <div className={`sidebar shadow ${sidebar ? 'show' : ''} ${darkmode ? 'sidebar-dark' : ''}`}>
             <ul className="list-group p-4 pt-5 mt-3">
                 <NavLink to="/"><li className="list-group-item"><svg className="me-3" xmlns="http://www.w3.org/2000/svg" width="25" height="20" viewBox="0 0 21.167 15.067">
                     <path id="Icon_material-home" data-name="Icon material-home" d="M9.3,17.25v-4.5h3.152v4.5h3.94v-6h2.364L10.879,4.5,3,11.25H5.364v6Z" transform="translate(-0.296 -3.183)" fill="none" stroke="#000" strokeWidth="1.5"/></svg>
@@ -31,7 +31,7 @@ const Sidebar = () => {
                 News</li></NavLink>
             </ul>
         </div>
-    )
+  )
 }
 
-export default Sidebar;
+export default Sidebar

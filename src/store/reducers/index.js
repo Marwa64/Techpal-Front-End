@@ -1,22 +1,22 @@
-import { combineReducers } from 'redux';
-import sidebarReducer from './sidebarReducer';
-import darkmodeReducer from './darkmodeReducer';
-import userReducer from './userReducer';
-import tokenReducer from './tokenReducer';
-import tracksReducer from './tracksReducer';
-import currentProfileReducer from './currentProfileReducer';
-import currentTrackReducer from './currentTrackReducer';
-import profilesReducer from './profilesReducer';
+import { combineReducers } from 'redux'
+import sidebarReducer from './sidebarReducer'
+import darkmodeReducer from './darkmodeReducer'
+import userReducer from './userReducer'
+import tokenReducer from './tokenReducer'
+import tracksReducer from './tracksReducer'
+import currentProfileReducer from './currentProfileReducer'
+import currentTrackReducer from './currentTrackReducer'
+import profilesReducer from './profilesReducer'
 
 const allReducers = combineReducers({
-    sidebar: sidebarReducer,
-    darkmode: darkmodeReducer,
-    user: userReducer,
-    token: tokenReducer,
-    tracks: tracksReducer,
-    currentProfile: currentProfileReducer,
-    currentTrack: currentTrackReducer,
-    profiles: profilesReducer
+  sidebar: sidebarReducer,
+  darkmode: darkmodeReducer,
+  user: userReducer,
+  token: tokenReducer,
+  tracks: tracksReducer,
+  currentProfile: currentProfileReducer,
+  currentTrack: currentTrackReducer,
+  profiles: profilesReducer
 })
 
-export default allReducers;
+export default allReducers

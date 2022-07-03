@@ -1,12 +1,12 @@
-import { SET_CURRENT_TRACK } from "../actions/types";
+import { SET_CURRENT_TRACK } from '../actions/types'
 
 const currentTrackReducer = (state = {}, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case SET_CURRENT_TRACK:
       return action.data
     default:
-        return state
+      return state
   }
 }
 
-export default currentTrackReducer;
+export default currentTrackReducer

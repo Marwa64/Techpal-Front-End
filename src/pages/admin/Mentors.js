@@ -1,55 +1,55 @@
-import Sidebar from "../../components/admin/Sidebar"
-import Header from "../../components/common/Header"
-import PurpleBar from "../../components/common/PurpleBar";
-import Spinner from "../../components/common/Spinner";
-import MentorDetailsModal from "../../components/common/MentorDetailsModal";
+import Sidebar from '../../components/admin/Sidebar'
+import Header from '../../components/common/Header'
+import PurpleBar from '../../components/common/PurpleBar'
+import Spinner from '../../components/common/Spinner'
+import MentorDetailsModal from '../../components/common/MentorDetailsModal'
 
 import { useState } from 'react'
 import { connect } from 'react-redux'
 
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet'
 
 const AdminMentors = ({ darkmode, sidebar }) => {
+  const [spinner, setSpinner] = useState(false)
+  setSpinner(false)
+  const [viewMentor, setViewMentor] = useState(false)
+  const [currentMentor, setCurrentMentor] = useState(null)
 
-    const [spinner, setSpinner] = useState(false);
-    const [viewMentor, setViewMentor] = useState(false);
-    const [currentMentor, setCurrentMentor] = useState(null);
-
-    const mentors = [
-        {
-            name: 'Samar Ashraf',
-            calendly: 'https://calendly.com/',
-        },
-        {
-            name: 'Neimat Soliman',
-            calendly: 'https://calendly.com/',
-        }
-    ]
-
-    const setMentor = (mentor) => {
-        if (!mentor) {
-            return;
-        }
-        setCurrentMentor(mentor);
+  const mentors = [
+    {
+      name: 'Samar Ashraf',
+      calendly: 'https://calendly.com/'
+    },
+    {
+      name: 'Neimat Soliman',
+      calendly: 'https://calendly.com/'
     }
+  ]
 
-    const view = (mentor) => {
-        setMentor(mentor);
-        setViewMentor(true);
+  const setMentor = (mentor) => {
+    if (!mentor) {
+      return
     }
+    setCurrentMentor(mentor)
+  }
 
-    const remove = (mentor) => {
-        console.log(`remove ${mentor.name}`)
-    }
+  const view = (mentor) => {
+    setMentor(mentor)
+    setViewMentor(true)
+  }
 
-    return (
-        <div className={`${darkmode ? "darkgrey-bg" : "grey-bg"}`}>
+  const remove = (mentor) => {
+    console.log(`remove ${mentor.name}`)
+  }
+
+  return (
+        <div className={`${darkmode ? 'darkgrey-bg' : 'grey-bg'}`}>
             <Helmet>
                 <title>TechPal | Mentors</title>
             </Helmet>
             {spinner ? <Spinner /> : <></>}
             <Sidebar />
-            <div className={`content ${sidebar ? "shift": ""}`}>
+            <div className={`content ${sidebar ? 'shift' : ''}`}>
                 <Header />
                 <PurpleBar title="List of Mentors" button={false} />
                 <div className="container p-5 table-container">
@@ -64,9 +64,9 @@ const AdminMentors = ({ darkmode, sidebar }) => {
                         </thead>
                         <tbody className="bg-white">
                             {mentors.map((mentor, index) => {
-                                return (
+                              return (
                                     <tr key={`${index}-${mentor.name}`}>
-                                        <td>{index+1}</td>
+                                        <td>{index + 1}</td>
                                         <td>{mentor.name}</td>
                                         <td><button onClick={() => view(mentor)} className="btn red-link text-decoration-underline p-0">View</button></td>
                                         <td>
@@ -77,22 +77,22 @@ const AdminMentors = ({ darkmode, sidebar }) => {
                                             </button>
                                         </td>
                                     </tr>
-                                )
+                              )
                             })}
                         </tbody>
                     </table>
                 </div>
             </div>
-            <MentorDetailsModal show={viewMentor} handleClose={() => {setViewMentor(false)}} mentor={currentMentor} />
+            <MentorDetailsModal show={viewMentor} handleClose={() => { setViewMentor(false) }} mentor={currentMentor} />
         </div>
-    )
+  )
 }
 
 const mapStateToProps = state => {
-    return {
-        darkmode: state.darkmode,
-        sidebar: state.sidebar,
-    }
+  return {
+    darkmode: state.darkmode,
+    sidebar: state.sidebar
+  }
 }
 
-export default connect(mapStateToProps)(AdminMentors);
+export default connect(mapStateToProps)(AdminMentors)

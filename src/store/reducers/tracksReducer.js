@@ -1,12 +1,12 @@
-import { SET_TRACKS } from "../actions/types";
+import { SET_TRACKS } from '../actions/types'
 
 const tracksReducer = (state = [], action) => {
-  switch(action.type) {
+  switch (action.type) {
     case SET_TRACKS:
       return action.data
     default:
-        return state
+      return state
   }
 }
 
-export default tracksReducer;
+export default tracksReducer

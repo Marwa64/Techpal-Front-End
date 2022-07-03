@@ -1,50 +1,49 @@
-import React from 'react';
-import { Text, View, StyleSheet } from '@react-pdf/renderer';
+import { Text, View, StyleSheet } from '@react-pdf/renderer'
 
-import Title from './Title';
+import Title from './Title'
 
 const styles = StyleSheet.create({
   entryContainer: {
-    marginBottom: 10,
+    marginBottom: 10
   },
   date: {
     fontSize: 11,
-    fontFamily: 'Lato Bold',
+    fontFamily: 'Lato Bold'
   },
   bulletPoint: {
-    fontSize: 10,
+    fontSize: 10
   },
   details: {
     fontSize: 10,
-    fontFamily: 'Lato',
+    fontFamily: 'Lato'
   },
   headerContainer: {
     flexDirection: 'row',
-    marginBottom: 5,
+    marginBottom: 5
   },
   leftColumn: {
     flexDirection: 'column',
-    flexGrow: 9,
+    flexGrow: 9
   },
   rightColumn: {
     flexDirection: 'column',
     flexGrow: 1,
     alignItems: 'flex-end',
-    justifySelf: 'flex-end',
+    justifySelf: 'flex-end'
   },
   title: {
     fontSize: 11,
     color: 'black',
     textDecoration: 'none',
-    fontFamily: 'Lato Bold',
-  },
-});
+    fontFamily: 'Lato Bold'
+  }
+})
 
 const WorkExperience = ({ data }) => (
   <View>
     <Title>Work Experience</Title>
-    {data ? 
-      data.map(({ id, title, startYear, endYear, details }) => (
+    {data
+      ? data.map(({ id, title, startYear, endYear, details }) => (
         <View key={`work-experience-${id}`} style={styles.entryContainer}>
           <View style={styles.headerContainer}>
             <View style={styles.leftColumn}>
@@ -58,8 +57,9 @@ const WorkExperience = ({ data }) => (
             <Text style={styles.details}>{details}</Text>
           </View>
       </View>
-    ))  : <></> }
+      ))
+      : <></> }
   </View>
-);
+)
 
-export default WorkExperience;
+export default WorkExperience

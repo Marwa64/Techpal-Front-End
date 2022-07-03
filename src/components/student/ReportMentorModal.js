@@ -1,18 +1,17 @@
-import { Modal, Form } from 'react-bootstrap';
+import { Modal, Form } from 'react-bootstrap'
 
-import { useRef } from 'react';
+import { useRef } from 'react'
 
 const ReportMentorModal = ({ show, handleClose, selectedMentor }) => {
+  const mentor = useRef(null)
+  const session = useRef(null)
+  const reason = useRef(null)
 
-    const mentor = useRef(null)
-    const session = useRef(null)
-    const reason = useRef(null)
+  const confirm = () => {
+    handleClose()
+  }
 
-    const confirm = () => {
-        handleClose();
-    }
-
-    return (
+  return (
         <Modal
             show={show}
             onHide={handleClose}
@@ -63,7 +62,7 @@ const ReportMentorModal = ({ show, handleClose, selectedMentor }) => {
             </div>
         </Modal.Body>
       </Modal>
-    )
+  )
 }
 
-export default ReportMentorModal;
+export default ReportMentorModal

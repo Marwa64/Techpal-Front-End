@@ -1,55 +1,55 @@
-import Layout from "./Layout";
-import PurpleBar from "../../components/common/PurpleBar";
-import BookSessionModal from "../../components/student/BookSessionModal";
-import ReportMentorModal from "../../components/student/ReportMentorModal";
-import MentorDetailsModal from "../../components/common/MentorDetailsModal";
+import Layout from './Layout'
+import PurpleBar from '../../components/common/PurpleBar'
+import BookSessionModal from '../../components/student/BookSessionModal'
+import ReportMentorModal from '../../components/student/ReportMentorModal'
+import MentorDetailsModal from '../../components/common/MentorDetailsModal'
 
 import { useState } from 'react'
 import { connect } from 'react-redux'
 
 const Mentors = () => {
-    const [spinner, setSpinner] = useState(false);
-    const [bookSession, setBookSession] = useState(false);
-    const [reportMentor, setReportMentor] = useState(false);
-    const [viewMentor, setViewMentor] = useState(false);
-    const [currentMentor, setCurrentMentor] = useState(null);
+  const [spinner, setSpinner] = useState(false)
+  setSpinner(false)
+  const [bookSession, setBookSession] = useState(false)
+  const [reportMentor, setReportMentor] = useState(false)
+  const [viewMentor, setViewMentor] = useState(false)
+  const [currentMentor, setCurrentMentor] = useState(null)
 
-    const mentors = [
-        {
-            name: 'Samar Ashraf',
-            calendly: 'https://calendly.com/',
-        },
-        {
-            name: 'Neimat Soliman',
-            calendly: 'https://calendly.com/',
-        }
-    ]
-
-    const setMentor = (mentor) => {
-        if (!mentor) {
-            return;
-        }
-        setCurrentMentor(mentor);
+  const mentors = [
+    {
+      name: 'Samar Ashraf',
+      calendly: 'https://calendly.com/'
+    },
+    {
+      name: 'Neimat Soliman',
+      calendly: 'https://calendly.com/'
     }
+  ]
 
-    const book = (mentor) => {
-        setMentor(mentor);
-        window.open(mentor.calendly, '_blank');
-        setBookSession(true);
-        
+  const setMentor = (mentor) => {
+    if (!mentor) {
+      return
     }
+    setCurrentMentor(mentor)
+  }
 
-    const report = (mentor) => {
-        setMentor(mentor);
-        setReportMentor(true);
-    }
+  const book = (mentor) => {
+    setMentor(mentor)
+    window.open(mentor.calendly, '_blank')
+    setBookSession(true)
+  }
 
-    const view = (mentor) => {
-        setMentor(mentor);
-        setViewMentor(true);
-    }
+  const report = (mentor) => {
+    setMentor(mentor)
+    setReportMentor(true)
+  }
 
-    return (
+  const view = (mentor) => {
+    setMentor(mentor)
+    setViewMentor(true)
+  }
+
+  return (
         <Layout spinner={spinner} pageName='Mentors'>
             <PurpleBar title="List of Mentors" button={false} />
             <div className="container p-5 table-container">
@@ -65,9 +65,9 @@ const Mentors = () => {
                     </thead>
                     <tbody className="bg-white">
                         {mentors.map((mentor, index) => {
-                            return (
+                          return (
                                 <tr key={`${index}-${mentor.name}`}>
-                                    <td>{index+1}</td>
+                                    <td>{index + 1}</td>
                                     <td>{mentor.name}</td>
                                     <td><button onClick={() => view(mentor)} className="btn red-link text-decoration-underline p-0">View</button></td>
                                     <td><button onClick={() => book(mentor)} className="btn red-link text-decoration-underline p-0">Book</button></td>
@@ -80,22 +80,22 @@ const Mentors = () => {
                                         </button>
                                     </td>
                                 </tr>
-                            )
+                          )
                         })}
                     </tbody>
                 </table>
             </div>
-            <BookSessionModal show={bookSession} handleClose={() => {setBookSession(false)}} mentor={currentMentor} />
-            <ReportMentorModal show={reportMentor} handleClose={() => {setReportMentor(false)}} selectedMentor={currentMentor} />
-            <MentorDetailsModal show={viewMentor} handleClose={() => {setViewMentor(false)}} mentor={currentMentor} />
+            <BookSessionModal show={bookSession} handleClose={() => { setBookSession(false) }} mentor={currentMentor} />
+            <ReportMentorModal show={reportMentor} handleClose={() => { setReportMentor(false) }} selectedMentor={currentMentor} />
+            <MentorDetailsModal show={viewMentor} handleClose={() => { setViewMentor(false) }} mentor={currentMentor} />
         </Layout>
-    )
+  )
 }
 
 const mapStateToProps = state => {
-    return {
+  return {
 
-    }
+  }
 }
 
-export default connect(mapStateToProps)(Mentors);
+export default connect(mapStateToProps)(Mentors)

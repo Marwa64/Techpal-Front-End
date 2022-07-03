@@ -1,7 +1,7 @@
-import { SET_USER } from "../actions/types";
+import { SET_USER } from '../actions/types'
 
 const userReducer = (state = {}, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case SET_USER:
       return action.data
     default:
@@ -9,4 +9,4 @@ const userReducer = (state = {}, action) => {
   }
 }
 
-export default userReducer;
+export default userReducer

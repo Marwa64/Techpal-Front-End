@@ -1,8 +1,7 @@
-import { Modal } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap'
 
 const MentorDetailsModal = ({ show, handleClose, mentor }) => {
-
-    return (
+  return (
         <Modal
             show={show}
             onHide={handleClose}
@@ -25,10 +24,10 @@ const MentorDetailsModal = ({ show, handleClose, mentor }) => {
                         About
                     </div>
                     <div className="col-8 col-lg-6 data pb-3">
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                         when an unknown printer took a galley of type and scrambled it to make a type 
-                         specimen book. It has survived not only five centuries, but also the leap 
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                        Lorem Ipsum has been the industry&apos;s standard dummy text ever since the 1500s,
+                         when an unknown printer took a galley of type and scrambled it to make a type
+                         specimen book. It has survived not only five centuries, but also the leap
                          into electronic typesetting, remaining essentially unchanged.
                     </div>
                 </div>
@@ -38,7 +37,7 @@ const MentorDetailsModal = ({ show, handleClose, mentor }) => {
             </div>
         </Modal.Body>
       </Modal>
-    )
+  )
 }
 
-export default MentorDetailsModal;
+export default MentorDetailsModal

@@ -1,25 +1,26 @@
-import { View, StyleSheet } from '@react-pdf/renderer';
+import { View, StyleSheet } from '@react-pdf/renderer'
 
-import Title from './Title';
-import List, { Item } from './List';
+import Title from './Title'
+import List, { Item } from './List'
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 10,
+    marginBottom: 10
   }
-});
+})
 
-const Skills = ({skills}) => (
+const Skills = ({ skills }) => (
   <View style={styles.container}>
     <Title>Skills</Title>
-    {skills ? 
-      <List>
+    {skills
+      ? <List>
         {skills.map((skill, i) => (
           <Item key={i}>{skill}</Item>
         ))}
-      </List>: <></>
+      </List>
+      : <></>
     }
   </View>
-);
+)
 
-export default Skills;
+export default Skills

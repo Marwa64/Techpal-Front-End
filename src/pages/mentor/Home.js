@@ -1,9 +1,8 @@
 
 export const Home = () => {
-    return (
+  return (
         <div>
             Mentor home page
         </div>
-    )
+  )
 }
-

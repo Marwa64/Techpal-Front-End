@@ -1,12 +1,12 @@
-import { SET_CURRENT_PROFILE } from "../actions/types";
+import { SET_CURRENT_PROFILE } from '../actions/types'
 
 const currentProfileReducer = (state = {}, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case SET_CURRENT_PROFILE:
       return action.data
     default:
-        return state
+      return state
   }
 }
 
-export default currentProfileReducer;
+export default currentProfileReducer

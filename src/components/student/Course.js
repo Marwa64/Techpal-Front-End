@@ -1,32 +1,32 @@
-import StarRatingComponent from 'react-star-rating-component';
+import StarRatingComponent from 'react-star-rating-component'
 
 const Course = ({ course, enrolled }) => {
-    return (
+  return (
         <div className="course col-4 course px-5 mx-4">
-            <img src={course.img} height="150px" width="240px" alt="recommended course cover" /> 
+            <img src={course.img} height="150px" width="240px" alt="recommended course cover" />
             <div className="row mt-3">
                 <span>{ course.name }</span>
             </div>
             <div className="row mt-1">
                 <div className="col-12">
-                    <StarRatingComponent 
-                        name="rate1" 
+                    <StarRatingComponent
+                        name="rate1"
                         starCount={5}
                         value={course.rating}
                     />
                 </div>
             </div>
-            <div className="row" style={{marginTop: '-15px'}}>
+            <div className="row" style={{ marginTop: '-15px' }}>
                 <a className="red-link" href={course.link}>
-                    Learn more 
+                    Learn more
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="10" viewBox="0 0 7.551 6.325">
                         <path id="Icon_awesome-arrow-right" data-name="Icon awesome-arrow-right" d="M3.21,3.071l.374-.322a.451.451,0,0,1,.571,0L7.432,5.564a.313.313,0,0,1,0,.491L4.156,8.87a.451.451,0,0,1-.571,0L3.21,8.549a.315.315,0,0,1,.007-.5L5.248,6.389H.4A.378.378,0,0,1,0,6.042V5.578A.378.378,0,0,1,.4,5.23H5.248L3.217,3.568A.313.313,0,0,1,3.21,3.071Z" transform="translate(0 -2.647)" fill="#f03939"/>
                     </svg>
 
                 </a>
             </div>
-            {enrolled ? 
-                    <div className="row mt-4">
+            {enrolled
+              ? <div className="row mt-4">
                         <div className="col-10">
                             <button className="btn-purple">Mark as Completed</button>
                         </div>
@@ -38,13 +38,12 @@ const Course = ({ course, enrolled }) => {
                             </button>
                         </div>
                     </div>
-            :
-                    <div className="row mt-4">
+              : <div className="row mt-4">
                         <button className="btn-purple mx-3">Enroll</button>
                     </div>
         }
         </div>
-    )
+  )
 }
 
-export default Course;
+export default Course

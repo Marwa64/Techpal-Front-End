@@ -1,16 +1,17 @@
-import { NavLink } from "react-router-dom"
+import { NavLink } from 'react-router-dom'
 
-import Progress from "./Progress"
+import Progress from './Progress'
 
 const Profile = ({ profile, track, current, deleteProfile, switchProfile }) => {
-    return (
+  return (
         <>
-            {track && profile ? 
-                <div className="profile section d-flex flex-column align-items-center pb-4 mt-3" style={{backgroundImage: `linear-gradient(to right, ${track.color1} , ${track.color2})`}}>
+            {track && profile
+              ? <div className="profile section d-flex flex-column align-items-center pb-4 mt-3" style={{ backgroundImage: `linear-gradient(to right, ${track.color1} , ${track.color2})` }}>
                    <span className="pt-3 mb-4">{track.name}</span>
                    <Progress current={profile.level} total={Object.keys(track.skills).length} height="115px" width="115px" cutout={42} />
-                   {current ? <NavLink to="/resume-builder" className="btn btn-light shadow mb-2">Edit Resume</NavLink> : 
-                   <div className="row">
+                   {current
+                     ? <NavLink to="/resume-builder" className="btn btn-light shadow mb-2">Edit Resume</NavLink>
+                     : <div className="row">
                        <div className="col-12 col-lg-6">
                             <button onClick={() => switchProfile(profile.ID)} className="btn btn-light shadow mb-2">Switch To Profile</button>
                        </div>
@@ -19,11 +20,10 @@ const Profile = ({ profile, track, current, deleteProfile, switchProfile }) => {
                        </div>
                    </div> }
                 </div>
-            :
-                 <></>
+              : <></>
             }
         </>
-    )
+  )
 }
 
 export default Profile

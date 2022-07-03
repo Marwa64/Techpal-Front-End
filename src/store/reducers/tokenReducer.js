@@ -1,14 +1,14 @@
-import { SET_TOKEN, REMOVE_TOKEN } from "../actions/types";
+import { SET_TOKEN, REMOVE_TOKEN } from '../actions/types'
 
 const tokenReducer = (state = '', action) => {
-  switch(action.type) {
+  switch (action.type) {
     case SET_TOKEN:
       return action.data
     case REMOVE_TOKEN:
-        return ''
+      return ''
     default:
-        return state
+      return state
   }
 }
 
-export default tokenReducer;
+export default tokenReducer

@@ -1,20 +1,20 @@
-import Layout from "./Layout";
-import DragIcon from "../../assets/DragIcon";
-import Template1 from "../../components/student/resumes/Template1";
-import Template2 from "../../components/student/resumes/Template2";
-import EditSkillsModal from "../../components/student/EditSkillsModal";
-import EditResumeModal from "../../components/student/EditResumeModal";
-import EditCertificationsModal from "../../components/student/EditCertificationsModal";
+import Layout from './Layout'
+import DragIcon from '../../assets/DragIcon'
+import Template1 from '../../components/student/resumes/Template1'
+import Template2 from '../../components/student/resumes/Template2'
+import EditSkillsModal from '../../components/student/EditSkillsModal'
+import EditResumeModal from '../../components/student/EditResumeModal'
+import EditCertificationsModal from '../../components/student/EditCertificationsModal'
 
-import { useState, useCallback, useEffect } from 'react';
-import { SortableContainer, SortableElement } from 'react-sortable-hoc';
-import { PDFViewer } from '@react-pdf/renderer';
-import { Form } from "react-bootstrap";
-import { connect } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useState, useCallback, useEffect } from 'react'
+import { SortableContainer, SortableElement } from 'react-sortable-hoc'
+import { PDFViewer } from '@react-pdf/renderer'
+import { Form } from 'react-bootstrap'
+import { connect } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
-const ColumnItem = SortableElement(({value, hide, edit}) => {
-    return (
+const ColumnItem = SortableElement(({ value, hide, edit }) => {
+  return (
         <div className="column-section">
             <div><DragIcon /> {value.name} </div>
             <div className="mt-1">
@@ -23,24 +23,24 @@ const ColumnItem = SortableElement(({value, hide, edit}) => {
                 </button>
                 <button className="btn" onClick={() => hide(value)}>
                     {value.hide
-                        ? <i className="fa fa-eye-slash" />
-                        : <i className="fa fa-eye" />
+                      ? <i className="fa fa-eye-slash" />
+                      : <i className="fa fa-eye" />
                     }
                 </button>
             </div>
         </div>
-    )
-});
+  )
+})
 
-const ColumnList = SortableContainer(({items, hide, edit}) => {
+const ColumnList = SortableContainer(({ items, hide, edit }) => {
   return (
     <div>
       {items.map((value, index) => (
         <ColumnItem key={`item-${value.name}`} index={index} value={value} hide={hide} edit={edit} />
       ))}
     </div>
-  );
-});
+  )
+})
 
 /*
 resumes [
@@ -64,97 +64,93 @@ resumes [
 ]
 */
 
-
 const ResumeBuilder = ({ user, currentTrack }) => {
-    const navigate = useNavigate();
+  const navigate = useNavigate()
 
-    const [editSkills, setEditSkills] = useState(false);
-    const [editResume, setEditResume] = useState(false);
-    const [editCertifications, setEditCertifications] = useState(false);
-    const [elementToEdit, setEditElement] = useState(null);
+  const [editSkills, setEditSkills] = useState(false)
+  const [editResume, setEditResume] = useState(false)
+  const [editCertifications, setEditCertifications] = useState(false)
+  const [elementToEdit, setEditElement] = useState(null)
 
-    const [template, setTemplate] = useState(1);
-    const [leftOrder, setLeftOrder] = useState([]);
-    const [rightOrder, setRightOrder] = useState([]);
+  const [template, setTemplate] = useState(1)
+  const [leftOrder, setLeftOrder] = useState([])
+  const [rightOrder, setRightOrder] = useState([])
 
-    const arrayMoveMutate = (array, from, to) => {
-        array.splice(to < 0 ? array.length + to : to, 0, array.splice(from, 1)[0]);
-    };
-    
-    const arrayMove = (array, from, to) => {
-        array = array.slice();
-        arrayMoveMutate(array, from, to);
-        return array;
-    };
+  const arrayMoveMutate = (array, from, to) => {
+    array.splice(to < 0 ? array.length + to : to, 0, array.splice(from, 1)[0])
+  }
 
+  const arrayMove = (array, from, to) => {
+    array = array.slice()
+    arrayMoveMutate(array, from, to)
+    return array
+  }
 
-    const onLeftSortEnd = useCallback(({ oldIndex, newIndex }) => {
-        setLeftOrder(oldItems => arrayMove(oldItems, oldIndex, newIndex));
-    }, []);
+  const onLeftSortEnd = useCallback(({ oldIndex, newIndex }) => {
+    setLeftOrder(oldItems => arrayMove(oldItems, oldIndex, newIndex))
+  }, [])
 
-    const hideLeftElement = (element) => {
-        const order = leftOrder.map(leftElement => 
-            leftElement.name === element.name ? {...leftElement, hide: !leftElement.hide} : leftElement);
-        setLeftOrder(order);
+  const hideLeftElement = (element) => {
+    const order = leftOrder.map(leftElement =>
+      leftElement.name === element.name ? { ...leftElement, hide: !leftElement.hide } : leftElement)
+    setLeftOrder(order)
+  }
+
+  const onRightSortEnd = useCallback(({ oldIndex, newIndex }) => {
+    setRightOrder(oldItems => arrayMove(oldItems, oldIndex, newIndex))
+  }, [])
+
+  const hideRightElement = (element) => {
+    const order = rightOrder.map(rightElement =>
+      rightElement.name === element.name ? { ...rightElement, hide: !rightElement.hide } : rightElement)
+    setRightOrder(order)
+  }
+
+  const editElement = (element) => {
+    if (['About Me', 'Contact', 'Education'].includes(element.name)) {
+      navigate('/account')
+    } else if (element.name === 'Skills') {
+      setEditElement(element)
+      setEditSkills(true)
+    } else if (element.name === 'Certifications') {
+      setEditElement(element)
+      setEditCertifications(true)
+    } else {
+      setEditElement(element)
+      setEditResume(true)
     }
+  }
 
+  const updateSkills = (element) => {
+    const order = leftOrder.map(leftElement =>
+      leftElement.name === element.name ? { ...leftElement, data: element.data } : leftElement)
+    setEditElement(element)
+    setLeftOrder(order)
+  }
 
-    const onRightSortEnd = useCallback(({ oldIndex, newIndex }) => {
-        setRightOrder(oldItems => arrayMove(oldItems, oldIndex, newIndex));
-    }, []);
+  const updateRightElement = (element) => {
+    const order = rightOrder.map(rightElement =>
+      rightElement.name === element.name ? { ...rightElement, data: element.data } : rightElement)
+    setEditElement(element)
+    setRightOrder(order)
+  }
 
-    const hideRightElement = (element) => {
-        const order = rightOrder.map(rightElement => 
-            rightElement.name === element.name ? {...rightElement, hide: !rightElement.hide} : rightElement);
-        setRightOrder(order);
-    }
+  useEffect(() => {
+    setLeftOrder([
+      { name: 'About Me', hide: false, data: [] },
+      { name: 'Contact', hide: false, data: [] },
+      { name: 'Skills', hide: false, data: ['CSS', 'HTML', 'Javascript', 'SQL', 'Data Structure', 'Algorithms'] }
+    ])
+    setRightOrder([
+      { name: 'Education', hide: false, data: [] },
+      { name: 'Work Experience', hide: false, data: [] },
+      { name: 'Projects', hide: false, data: [] },
+      { name: 'Volunteering Experience', hide: false, data: [] },
+      { name: 'Certifications', hide: false, data: [] }
+    ])
+  }, [])
 
-
-    const editElement = (element) => {
-        if (['About Me', 'Contact', 'Education'].includes(element.name)) {
-            navigate("/account");
-        } else if (element.name === 'Skills') {
-            setEditElement(element);
-            setEditSkills(true);
-        } else if (element.name === 'Certifications') {
-            setEditElement(element);
-            setEditCertifications(true);
-        } else {
-            setEditElement(element);
-            setEditResume(true);
-        }
-    }
-
-    const updateSkills = (element) => {
-        const order = leftOrder.map(leftElement => 
-            leftElement.name === element.name ? {...leftElement, data: element.data} : leftElement);
-        setEditElement(element);
-        setLeftOrder(order);
-    }
-
-    const updateRightElement = (element) => {
-        const order = rightOrder.map(rightElement => 
-            rightElement.name === element.name ? {...rightElement, data: element.data} : rightElement);
-        setEditElement(element);
-        setRightOrder(order);
-    }
-
-    useEffect(() => {
-        setLeftOrder([
-            {name: 'About Me', hide: false, data: []},
-            {name: 'Contact', hide: false, data: []},
-            {name: 'Skills', hide: false, data: ['CSS', 'HTML', 'Javascript', 'SQL', 'Data Structure', 'Algorithms']},
-        ]);
-        setRightOrder([
-            {name: 'Education', hide: false, data: []},
-            {name: 'Work Experience', hide: false, data: []},
-            {name: 'Projects', hide: false, data: []},
-            {name: 'Volunteering Experience', hide: false, data: []},
-            {name: 'Certifications', hide: false, data: []},
-        ]);
-    }, [])
-
-    return (
+  return (
         <Layout spinner={false} pageName='Resume Builder'>
             <div className="container resume-builder">
                 <div className="row mt-4">
@@ -166,8 +162,8 @@ const ResumeBuilder = ({ user, currentTrack }) => {
                     <div className="col-12 col-xl-6 d-none d-lg-block">
                     <PDFViewer height='97%' width='100%'>
                         {template === 1
-                            ? <Template1 leftOrder={leftOrder} rightOrder={rightOrder} user={user} currentTrack={currentTrack}></Template1>
-                            : <Template2 leftOrder={leftOrder} rightOrder={rightOrder}></Template2>
+                          ? <Template1 leftOrder={leftOrder} rightOrder={rightOrder} user={user} currentTrack={currentTrack}></Template1>
+                          : <Template2 leftOrder={leftOrder} rightOrder={rightOrder}></Template2>
                         }
                     </PDFViewer>
                     </div>
@@ -176,7 +172,7 @@ const ResumeBuilder = ({ user, currentTrack }) => {
                             <h5>Template</h5>
                             <div className="row mt-3">
                                 <Form.Select
-                                    onChange={(event) => {setTemplate(Number(event.target.value))}}
+                                    onChange={(event) => { setTemplate(Number(event.target.value)) }}
                                     aria-label="Default select template"
                                 >
                                     <option value={1}>Template 1</option>
@@ -226,13 +222,13 @@ const ResumeBuilder = ({ user, currentTrack }) => {
                 update={updateRightElement}
             />
         </Layout>
-    )
+  )
 }
 const mapStateToProps = state => {
-    return {
-        user: state.user,
-        currentTrack: state.currentTrack,
-    }
+  return {
+    user: state.user,
+    currentTrack: state.currentTrack
+  }
 }
 
-export default connect(mapStateToProps)(ResumeBuilder);
+export default connect(mapStateToProps)(ResumeBuilder)

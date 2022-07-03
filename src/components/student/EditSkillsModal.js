@@ -1,42 +1,41 @@
-import { Modal } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap'
 
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react'
 
 const EditSkillsModal = ({ show, handleClose, element, update }) => {
+  const newSkill = useRef(null)
+  const [skills, setSkills] = useState([])
 
-    const newSkill = useRef(null)
-    const [skills, setSkills] = useState([]);
-
-    useEffect(() => {
-        if (element && element.data) {
-            setSkills(element.data)
-        }
-    }, [element])
-
-    const addSkill = () => {
-        if (newSkill.current.value) {
-            const updatedSkills = [...skills, newSkill.current.value];
-            setSkills(updatedSkills);
-            newSkill.current.value = '';
-        }
+  useEffect(() => {
+    if (element && element.data) {
+      setSkills(element.data)
     }
+  }, [element])
 
-    const removeSkill = (skillToRemove) => {
-        const updatedSkills = skills.filter(skill => skill !== skillToRemove);
-        setSkills(updatedSkills);
+  const addSkill = () => {
+    if (newSkill.current.value) {
+      const updatedSkills = [...skills, newSkill.current.value]
+      setSkills(updatedSkills)
+      newSkill.current.value = ''
     }
+  }
 
-    const confirm = () => {
-        const newElement = {
-            name: element.name,
-            hide: element.hide,
-            data: skills,
-        }
-        update(newElement);
-        handleClose();
+  const removeSkill = (skillToRemove) => {
+    const updatedSkills = skills.filter(skill => skill !== skillToRemove)
+    setSkills(updatedSkills)
+  }
+
+  const confirm = () => {
+    const newElement = {
+      name: element.name,
+      hide: element.hide,
+      data: skills
     }
+    update(newElement)
+    handleClose()
+  }
 
-    return (
+  return (
         <Modal
             show={show}
             onHide={handleClose}
@@ -56,9 +55,9 @@ const EditSkillsModal = ({ show, handleClose, element, update }) => {
                 </div>
                 <div className='container mt-5'>
                     <ul>
-                        {skills ? 
-                            skills.map((skill, index) => {
-                                return (
+                        {skills
+                          ? skills.map((skill, index) => {
+                            return (
                                     <li key={`edit-${skill}`} className="row my-3">
                                         <div className='col-3'>
                                             <button onClick={() => removeSkill(skill)} className='btn'>
@@ -68,14 +67,15 @@ const EditSkillsModal = ({ show, handleClose, element, update }) => {
                                             </button>
                                         </div>
                                         <div className='col-3 text-end fw-bold me-3'>
-                                            Skill #{index+1}: 
+                                            Skill #{index + 1}:
                                         </div>
                                         <div className='col-5 text-start'>
                                             {skill}
                                         </div>
                                     </li>
-                                )
-                            }) : <></>
+                            )
+                          })
+                          : <></>
                         }
                     </ul>
                 </div>
@@ -86,7 +86,7 @@ const EditSkillsModal = ({ show, handleClose, element, update }) => {
             </div>
         </Modal.Body>
       </Modal>
-    )
+  )
 }
 
-export default EditSkillsModal;
+export default EditSkillsModal

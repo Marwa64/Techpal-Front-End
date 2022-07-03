@@ -1,46 +1,46 @@
-import Navbar from "../../components/common/Navbar"
-import { Helmet } from 'react-helmet';
+import Navbar from '../../components/common/Navbar'
+import { Helmet } from 'react-helmet'
 import { useRef, useState } from 'react'
-import { login } from '../../store/actions';
-import { useDispatch } from 'react-redux';
-import { NavLink, useNavigate } from "react-router-dom";
-import Spinner from "../../components/common/Spinner";
+import { login } from '../../store/actions'
+import { useDispatch } from 'react-redux'
+import { NavLink, useNavigate } from 'react-router-dom'
+import Spinner from '../../components/common/Spinner'
 
 const Login = () => {
-    const nav = useNavigate();
-    const dispatch = useDispatch();
+  const nav = useNavigate()
+  const dispatch = useDispatch()
 
-    const [spinner, setSpinner] = useState(false);  
+  const [spinner, setSpinner] = useState(false)
 
-    const email = useRef(null)
-    const password = useRef(null)
+  const email = useRef(null)
+  const password = useRef(null)
 
-    const handleChange = (ref) => {
-        ref.current.style.boxShadow = "none";
-        if (ref.current.value === '') {
-            ref.current.style.boxShadow = "1px 1px 7px #ff000094";
-        }
+  const handleChange = (ref) => {
+    ref.current.style.boxShadow = 'none'
+    if (ref.current.value === '') {
+      ref.current.style.boxShadow = '1px 1px 7px #ff000094'
     }
+  }
 
-    const checkEmpty = (ref) => {
-        handleChange(ref)
-        return (ref.current.value === '')
-    }
+  const checkEmpty = (ref) => {
+    handleChange(ref)
+    return (ref.current.value === '')
+  }
 
-    const submit = async (e) => {
-        e.preventDefault()
-        if (!checkEmpty(email) && !checkEmpty(password)) {
-            const user = {
-                email: email.current.value,
-                password: password.current.value
-            }
-            setSpinner(true);
-            await dispatch(login(user))
-            setSpinner(false);
-            nav('/')
-        }
+  const submit = async (e) => {
+    e.preventDefault()
+    if (!checkEmpty(email) && !checkEmpty(password)) {
+      const user = {
+        email: email.current.value,
+        password: password.current.value
+      }
+      setSpinner(true)
+      await dispatch(login(user))
+      setSpinner(false)
+      nav('/')
     }
-    return (
+  }
+  return (
         <div className="login lightpurple-bg p-4">
             <Helmet>
                 <title>TechPal | Login</title>
@@ -64,14 +64,14 @@ const Login = () => {
                                 <input type="password" placeholder="Password" className="form-control" ref={password} />
                                 </div>
                             </div>
-                            <button className="btn btn-violet d-block  fw-bold   col-md-6  m-auto mt-5"  >Login</button>
-                            <p className=" text-center mt-3  ">Don't have an account? <NavLink to="/signup" className=" text-danger">Sign up</NavLink></p>
+                            <button className="btn btn-violet d-block  fw-bold   col-md-6  m-auto mt-5" >Login</button>
+                            <p className=" text-center mt-3  ">Don&apos;t have an account? <NavLink to="/signup" className=" text-danger">Sign up</NavLink></p>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-    )
+  )
 }
 
 export default Login

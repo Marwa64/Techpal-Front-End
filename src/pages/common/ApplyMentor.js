@@ -1,34 +1,33 @@
-import Navbar from "../../components/common/Navbar"
-import { Helmet } from 'react-helmet';
+import Navbar from '../../components/common/Navbar'
+import { Helmet } from 'react-helmet'
 import { useRef } from 'react'
 
 const ApplyMentor = () => {
+  const name = useRef(null)
+  const email = useRef(null)
+  const calendly = useRef(null)
+  const CV = useRef(null)
 
-    const name = useRef(null);
-    const email = useRef(null);
-    const calendly = useRef(null);
-    const CV = useRef(null);
-
-    const handleChange = (ref) => {
-        ref.current.style.boxShadow = "none";
-        if (ref.current.value === '') {
-            ref.current.style.boxShadow = "1px 1px 7px #ff000094";
-        }
+  const handleChange = (ref) => {
+    ref.current.style.boxShadow = 'none'
+    if (ref.current.value === '') {
+      ref.current.style.boxShadow = '1px 1px 7px #ff000094'
     }
+  }
 
-    const checkEmpty = (ref) => {
-        handleChange(ref)
-        return (ref.current.value === '')
+  const checkEmpty = (ref) => {
+    handleChange(ref)
+    return (ref.current.value === '')
+  }
+
+  const submit = async (e) => {
+    e.preventDefault()
+    if (!checkEmpty(name) && !checkEmpty(email) && !checkEmpty(calendly) && !checkEmpty(CV)) {
+      await document.getElementById('mentorForm').submit()
     }
+  }
 
-    const submit = async (e) => {
-        e.preventDefault()
-        if (!checkEmpty(name) && !checkEmpty(email) && !checkEmpty(calendly) && !checkEmpty(CV)) {
-            await document.getElementById("mentorForm").submit()
-        }
-    }
-
-    return (
+  return (
         <div className="login lightpurple-bg p-4">
             <Helmet>
                 <title>TechPal | Apply as a Mentor</title>
@@ -70,7 +69,7 @@ const ApplyMentor = () => {
                 </div>
             </div>
         </div>
-    )
+  )
 }
 
-export default ApplyMentor;
+export default ApplyMentor

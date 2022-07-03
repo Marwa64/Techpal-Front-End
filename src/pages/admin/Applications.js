@@ -1,35 +1,36 @@
-import Sidebar from "../../components/admin/Sidebar"
-import Header from "../../components/common/Header"
-import PurpleBar from "../../components/common/PurpleBar";
-import Spinner from "../../components/common/Spinner";
+import Sidebar from '../../components/admin/Sidebar'
+import Header from '../../components/common/Header'
+import PurpleBar from '../../components/common/PurpleBar'
+import Spinner from '../../components/common/Spinner'
 
 import { useState } from 'react'
 import { connect } from 'react-redux'
 
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet'
 
 const Applications = ({ darkmode, sidebar }) => {
-    const [spinner, setSpinner] = useState(false);
+  const [spinner, setSpinner] = useState(false)
+  setSpinner(false)
 
-    const applications = [
-        {
-            name: 'Samar Ashraf',
-            resumeLink: 'https://www.google.com'
-        },
-        {
-            name: 'Neimat Soliman',
-            resumeLink: 'https://www.google.com'
-        }
-    ]
+  const applications = [
+    {
+      name: 'Samar Ashraf',
+      resumeLink: 'https://www.google.com'
+    },
+    {
+      name: 'Neimat Soliman',
+      resumeLink: 'https://www.google.com'
+    }
+  ]
 
-    return (
-        <div className={`${darkmode ? "darkgrey-bg" : "grey-bg"}`}>
+  return (
+        <div className={`${darkmode ? 'darkgrey-bg' : 'grey-bg'}`}>
             <Helmet>
                 <title>TechPal | Applications</title>
             </Helmet>
             {spinner ? <Spinner /> : <></>}
             <Sidebar />
-            <div className={`content ${sidebar ? "shift": ""}`}>
+            <div className={`content ${sidebar ? 'shift' : ''}`}>
                 <Header />
                 <PurpleBar title="Applications" button={false} />
                 <div className="container p-5 table-container">
@@ -45,9 +46,9 @@ const Applications = ({ darkmode, sidebar }) => {
                         </thead>
                         <tbody className="bg-white">
                             {applications.map((application, index) => {
-                                return (
-                                    <tr>
-                                        <td>{index+1}</td>
+                              return (
+                                    <tr key={`application-${index}`}>
+                                        <td>{index + 1}</td>
                                         <td>{application.name}</td>
                                         <td><a href={application.resumeLink} className="red-link">View</a></td>
                                         <td>
@@ -65,21 +66,21 @@ const Applications = ({ darkmode, sidebar }) => {
                                             </button>
                                         </td>
                                     </tr>
-                                )
+                              )
                             })}
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-    )
+  )
 }
 
 const mapStateToProps = state => {
-    return {
-        darkmode: state.darkmode,
-        sidebar: state.sidebar,
-    }
+  return {
+    darkmode: state.darkmode,
+    sidebar: state.sidebar
+  }
 }
 
-export default connect(mapStateToProps)(Applications);
+export default connect(mapStateToProps)(Applications)

@@ -1,18 +1,17 @@
-import { Modal } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap'
 
-import { useState } from 'react';
+import { useState } from 'react'
 
 const BookSessionModal = ({ show, handleClose, mentor }) => {
+  const [booked, setBooked] = useState(false)
 
-    const [booked, setBooked] = useState(false);
+  const confirm = () => {
+    console.log(booked)
+    handleClose()
+    setBooked(false)
+  }
 
-    const confirm = () => {
-        console.log(booked);
-        handleClose();
-        setBooked(false);
-    }
-
-    return (
+  return (
         <Modal
             show={show}
             onHide={handleClose}
@@ -54,7 +53,7 @@ const BookSessionModal = ({ show, handleClose, mentor }) => {
             </div>
         </Modal.Body>
       </Modal>
-    )
+  )
 }
 
-export default BookSessionModal;
+export default BookSessionModal

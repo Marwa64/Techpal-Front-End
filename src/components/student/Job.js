@@ -1,7 +1,7 @@
-import Linkedin from "../../assets/linkedin.png"
+import Linkedin from '../../assets/linkedin.png'
 
 const Job = () => {
-    return (
+  return (
         <div className="row mb-5 pb-2 mx-1">
             <div className="col-1 d-flex align-items-center justify-content-center">
                 <div>
@@ -16,7 +16,7 @@ const Job = () => {
                     Company Name
                 </div>
                 <div className="row mx-1 fw-light d-inline">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi volutpat lobortis sodales. 
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi volutpat lobortis sodales.
                 Pellentesque consequat eget diam id consequat. Duis vel augue aliquam, pellentesque velit ut,
                  maximus neque... <a className="red-link" href="https://google.com"> Read more</a>
                 </div>
@@ -25,7 +25,7 @@ const Job = () => {
                 <button className="btn-purple">Apply</button>
             </div>
         </div>
-    )
+  )
 }
 
-export default Job;
+export default Job

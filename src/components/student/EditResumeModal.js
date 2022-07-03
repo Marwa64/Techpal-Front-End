@@ -1,61 +1,60 @@
-import { Modal, Form } from 'react-bootstrap';
+import { Modal, Form } from 'react-bootstrap'
 
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react'
 
 const EditResumeModal = ({ show, handleClose, element, update }) => {
+  const title = useRef(null)
+  const startYear = useRef(null)
+  const endYear = useRef(null)
+  const details = useRef(null)
 
-    const title = useRef(null);
-    const startYear = useRef(null);
-    const endYear = useRef(null);
-    const details = useRef(null);
+  const [name, setName] = useState(null)
+  const [data, setData] = useState([])
 
-    const [name, setName] = useState(null);
-    const [data, setData] = useState([]);
-
-    useEffect(() => {
-        if (element) {
-            setName(element.name);
-            setData(element.data ? element.data : []);
-        }
-    }, [element])
-
-    const addData = () => {
-        if (title.current.value && details.current.value) {
-            const newData = {
-                id: data ? data.length : 0,
-                title: title.current.value,
-                details: details.current.value,
-            }
-            if (name === 'Work Experience') { 
-                newData.startYear = startYear.current.value;
-                newData.endYear = endYear.current.value;
-                startYear.current.value = '';
-                endYear.current.value = '';
-            }
-            title.current.value = '';
-            details.current.value = '';
-
-            const updatedData = [...data, newData];
-            setData(updatedData);
-        }
+  useEffect(() => {
+    if (element) {
+      setName(element.name)
+      setData(element.data ? element.data : [])
     }
+  }, [element])
 
-    const removeData = (dataToRemove) => {
-        const updatedData = data.filter(thisData => thisData.id !== dataToRemove.id);
-        setData(updatedData);
+  const addData = () => {
+    if (title.current.value && details.current.value) {
+      const newData = {
+        id: data ? data.length : 0,
+        title: title.current.value,
+        details: details.current.value
+      }
+      if (name === 'Work Experience') {
+        newData.startYear = startYear.current.value
+        newData.endYear = endYear.current.value
+        startYear.current.value = ''
+        endYear.current.value = ''
+      }
+      title.current.value = ''
+      details.current.value = ''
+
+      const updatedData = [...data, newData]
+      setData(updatedData)
     }
+  }
 
-    const confirm = () => {
-        const newElement = {
-            name: element.name,
-            hide: element.hide,
-            data,
-        }
-        update(newElement);
-        handleClose();
+  const removeData = (dataToRemove) => {
+    const updatedData = data.filter(thisData => thisData.id !== dataToRemove.id)
+    setData(updatedData)
+  }
+
+  const confirm = () => {
+    const newElement = {
+      name: element.name,
+      hide: element.hide,
+      data
     }
+    update(newElement)
+    handleClose()
+  }
 
-    return (
+  return (
         <Modal
             show={show}
             onHide={handleClose}
@@ -73,8 +72,8 @@ const EditResumeModal = ({ show, handleClose, element, update }) => {
                         <input ref={title} type="text" className="form-control h-3" />
                     </div>
                 </div>
-                {name === 'Work Experience' ? 
-                    <div className="row mt-3">
+                {name === 'Work Experience'
+                  ? <div className="row mt-3">
                         <div className="col-4 col-lg-3 offset-lg-2 text-start mt-1">
                             Start Year
                         </div>
@@ -83,9 +82,9 @@ const EditResumeModal = ({ show, handleClose, element, update }) => {
                                 <div className="col-4">
                                     <Form.Select ref={startYear} aria-label="Default select example">
                                         {Array.apply(10, Array(61)).map((_, i) => {
-                                            return (
+                                          return (
                                                 <option key={i + 1980} value={i + 1980}>{i + 1980}</option>
-                                            )
+                                          )
                                         })}
                                     </Form.Select>
                                 </div>
@@ -95,15 +94,16 @@ const EditResumeModal = ({ show, handleClose, element, update }) => {
                                 <div className="col-4">
                                     <Form.Select ref={endYear} aria-label="Default select example">
                                         {Array.apply(10, Array(61)).map((_, i) => {
-                                            return (
+                                          return (
                                                 <option key={i + 1980} value={i + 1980}>{i + 1980}</option>
-                                            )
+                                          )
                                         })}
                                     </Form.Select>
                                 </div>
                             </div>
                         </div>
-                    </div> : <></>
+                    </div>
+                  : <></>
                 }
                 <div className="row mt-3">
                     <div className="col-4 col-lg-3 offset-lg-2 text-start mt-2">
@@ -125,9 +125,9 @@ const EditResumeModal = ({ show, handleClose, element, update }) => {
             </div>
             <div className='container mx-5 px-5 mb-5'>
                 <ul>
-                    {data ?
-                        data.map(thisData => {
-                            return (
+                    {data
+                      ? data.map(thisData => {
+                        return (
                                 <li key={`${thisData.title}${thisData.id}`} className='row text-start my-4'>
                                     <div className='row fw-bold'>
                                         <div className='col-1'>
@@ -138,16 +138,18 @@ const EditResumeModal = ({ show, handleClose, element, update }) => {
                                             </button>
                                         </div>
                                         <div className='col-7'>{thisData.title}</div>
-                                        {thisData.startYear && thisData.endYear ? 
-                                            <div className='col-3'>{thisData.startYear}-{thisData.endYear}</div> : <></>
+                                        {thisData.startYear && thisData.endYear
+                                          ? <div className='col-3'>{thisData.startYear}-{thisData.endYear}</div>
+                                          : <></>
                                         }
                                     </div>
                                     <div className='col-12 offset-1'>
                                         {thisData.details}
                                     </div>
                                 </li>
-                            )
-                        }) : <></>
+                        )
+                      })
+                      : <></>
                     }
                 </ul>
             </div>
@@ -157,7 +159,7 @@ const EditResumeModal = ({ show, handleClose, element, update }) => {
             </div>
         </Modal.Body>
       </Modal>
-    )
+  )
 }
 
-export default EditResumeModal;
+export default EditResumeModal

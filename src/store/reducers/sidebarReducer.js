@@ -1,12 +1,12 @@
-import { TOGGLE_SIDEBAR } from "../actions/types";
+import { TOGGLE_SIDEBAR } from '../actions/types'
 
 const sidebarReducer = (state = true, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case TOGGLE_SIDEBAR:
-      return !state;
-      default:
-        return state;
+      return !state
+    default:
+      return state
   }
 }
 
-export default sidebarReducer;
+export default sidebarReducer

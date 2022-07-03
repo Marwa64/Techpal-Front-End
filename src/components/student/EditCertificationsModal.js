@@ -1,42 +1,41 @@
-import { Modal } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap'
 
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react'
 
 const EditCertificationsModal = ({ show, handleClose, element, update }) => {
+  const newCertification = useRef(null)
+  const [certifications, setCertifications] = useState([])
 
-    const newCertification = useRef(null)
-    const [certifications, setCertifications] = useState([]);
-
-    useEffect(() => {
-        if (element && element.data) {
-            setCertifications(element.data)
-        }
-    }, [element])
-
-    const addCertification = () => {
-        if (newCertification.current.value) {
-            const updatedCertifications = [...certifications, newCertification.current.value];
-            setCertifications(updatedCertifications);
-            newCertification.current.value = '';
-        }
+  useEffect(() => {
+    if (element && element.data) {
+      setCertifications(element.data)
     }
+  }, [element])
 
-    const removeCertification = (certificationToRemove) => {
-        const updatedCertifications = certifications.filter(certification => certification !== certificationToRemove);
-        setCertifications(updatedCertifications);
+  const addCertification = () => {
+    if (newCertification.current.value) {
+      const updatedCertifications = [...certifications, newCertification.current.value]
+      setCertifications(updatedCertifications)
+      newCertification.current.value = ''
     }
+  }
 
-    const confirm = () => {
-        const newElement = {
-            name: element.name,
-            hide: element.hide,
-            data: certifications,
-        }
-        update(newElement);
-        handleClose();
+  const removeCertification = (certificationToRemove) => {
+    const updatedCertifications = certifications.filter(certification => certification !== certificationToRemove)
+    setCertifications(updatedCertifications)
+  }
+
+  const confirm = () => {
+    const newElement = {
+      name: element.name,
+      hide: element.hide,
+      data: certifications
     }
+    update(newElement)
+    handleClose()
+  }
 
-    return (
+  return (
         <Modal
             show={show}
             onHide={handleClose}
@@ -56,9 +55,9 @@ const EditCertificationsModal = ({ show, handleClose, element, update }) => {
                 </div>
                 <div className='container mt-5'>
                     <ul>
-                        {certifications ? 
-                            certifications.map((certification, index) => {
-                                return (
+                        {certifications
+                          ? certifications.map((certification, index) => {
+                            return (
                                     <li key={`edit-${certification}`} className="row my-3">
                                         <div className='col-3'>
                                             <button onClick={() => removeCertification(certification)} className='btn'>
@@ -68,14 +67,15 @@ const EditCertificationsModal = ({ show, handleClose, element, update }) => {
                                             </button>
                                         </div>
                                         <div className='col-3 text-end fw-bold me-3'>
-                                            Certification #{index+1}: 
+                                            Certification #{index + 1}:
                                         </div>
                                         <div className='col-5 text-start'>
                                             {certification}
                                         </div>
                                     </li>
-                                )
-                            }) : <></>
+                            )
+                          })
+                          : <></>
                         }
                     </ul>
                 </div>
@@ -86,7 +86,7 @@ const EditCertificationsModal = ({ show, handleClose, element, update }) => {
             </div>
         </Modal.Body>
       </Modal>
-    )
+  )
 }
 
-export default EditCertificationsModal;
+export default EditCertificationsModal
