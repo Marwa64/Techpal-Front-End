@@ -1,15 +1,13 @@
-import Sidebar from "../../components/student/Sidebar"
-import Header from "../../components/common/Header"
+import Layout from "./Layout";
 import PurpleBar from "../../components/common/PurpleBar";
-
 import Course from "../../components/student/Course";
 
+import { useState } from 'react'
 import { connect } from "react-redux";
 
-import { Helmet } from 'react-helmet';
-
-const Courses = ({ sidebar, darkmode, currentTrack }) => {
-
+const Courses = ({ currentTrack }) => {
+    const [spinner, setSpinner] = useState(false);
+    
     const enrolled = [
         {
             id: "1",
@@ -73,45 +71,36 @@ const Courses = ({ sidebar, darkmode, currentTrack }) => {
     ]
 
     return (
-        <div className={`${darkmode ? "darkgrey-bg" : "grey-bg"}`}>
-            <Helmet>
-                <title>TechPal | Courses</title>
-            </Helmet>
-            <Sidebar />
-            <div className={`content ${sidebar ? "shift": ""}`}>
-                <Header />
-                <PurpleBar title={`Course Recommendations for ${currentTrack.name}`} button={true} buttonName="View Completed Courses" path="/completed-courses" />
-                <div className="container">
-                    <div className="row p-5">
-                        <h5>Your Currently Enrolled Courses</h5>
-                    </div>
-                    <div className="row">
-                        {enrolled.map(course => {
-                            return (
-                                <Course key={course.id} course={course} enrolled={true}/>
-                            )
-                        })}
-                    </div>
-                    <div className="row p-5">
-                        <h5>Course Recommendations For You</h5>
-                    </div>
-                    <div className="row">
-                        {recommendations.map(course => {
-                            return (
-                                <Course key={course.id} course={course} enrolled={false} />
-                            )
-                        })}
-                    </div>
+        <Layout spinner={spinner} pageName='Courses'>
+            <PurpleBar title={`Course Recommendations for ${currentTrack.name}`} button={true} buttonName="View Completed Courses" path="/completed-courses" />
+            <div className="container">
+                <div className="row p-5">
+                    <h5>Your Currently Enrolled Courses</h5>
+                </div>
+                <div className="row">
+                    {enrolled.map(course => {
+                        return (
+                            <Course key={course.id} course={course} enrolled={true}/>
+                        )
+                    })}
+                </div>
+                <div className="row p-5">
+                    <h5>Course Recommendations For You</h5>
+                </div>
+                <div className="row">
+                    {recommendations.map(course => {
+                        return (
+                            <Course key={course.id} course={course} enrolled={false} />
+                        )
+                    })}
                 </div>
             </div>
-        </div>
+        </Layout>
     )
 }
 
 const mapStateToProps = state => {
     return {
-        sidebar: state.sidebar,
-        darkmode: state.darkmode,
         currentTrack: state.currentTrack,
     }
 }

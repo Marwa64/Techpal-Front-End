@@ -1,14 +1,10 @@
-import Sidebar from "../../components/student/Sidebar"
-import Header from "../../components/common/Header"
+import Layout from "./Layout";
 import PurpleBar from "../../components/common/PurpleBar";
-import Spinner from "../../components/common/Spinner";
 
 import { useState } from 'react'
 import { connect } from 'react-redux'
 
-import { Helmet } from 'react-helmet';
-
-const Sessions = ({ darkmode, sidebar }) => {
+const Sessions = () => {
     const [spinner, setSpinner] = useState(false);
 
     const sessions = [
@@ -21,50 +17,41 @@ const Sessions = ({ darkmode, sidebar }) => {
     ]
 
     return (
-        <div className={`${darkmode ? "darkgrey-bg" : "grey-bg"}`}>
-            <Helmet>
-                <title>TechPal | Completed Sessions</title>
-            </Helmet>
-            {spinner ? <Spinner /> : <></>}
-            <Sidebar />
-            <div className={`content ${sidebar ? "shift": ""}`}>
-                <Header />
-                <PurpleBar title="Completed Sessions" button={true} buttonName="View Upcoming Sessions" path="/sessions" />
-                <div className="container p-5 table-container">
-                    <table className="table">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Mentor</th>
-                                <th>Date</th>
-                                <th>Time</th>
-                                <th>Meeting</th>
-                            </tr>
-                        </thead>
-                        <tbody className="bg-white">
-                            {sessions.map((session, index) => {
-                                return (
-                                    <tr>
-                                        <td>{index+1}</td>
-                                        <td>{session.mentor}</td>
-                                        <td>{session.date}</td>
-                                        <td>{session.time}</td>
-                                        <td><a href={session.link} className="red-link">Link</a></td>
-                                    </tr>
-                                )
-                            })}
-                        </tbody>
-                    </table>
-                </div>
+        <Layout spinner={spinner} pageName='Completed Sessions'>
+            <PurpleBar title="Completed Sessions" button={true} buttonName="View Upcoming Sessions" path="/sessions" />
+            <div className="container p-5 table-container">
+                <table className="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Mentor</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Meeting</th>
+                        </tr>
+                    </thead>
+                    <tbody className="bg-white">
+                        {sessions.map((session, index) => {
+                            return (
+                                <tr key={`session-${index}`}>
+                                    <td>{index+1}</td>
+                                    <td>{session.mentor}</td>
+                                    <td>{session.date}</td>
+                                    <td>{session.time}</td>
+                                    <td><a href={session.link} className="red-link">Link</a></td>
+                                </tr>
+                            )
+                        })}
+                    </tbody>
+                </table>
             </div>
-        </div>
+        </Layout>
     )
 }
 
 const mapStateToProps = state => {
     return {
-        darkmode: state.darkmode,
-        sidebar: state.sidebar,
+
     }
 }
 

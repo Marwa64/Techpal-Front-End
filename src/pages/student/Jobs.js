@@ -1,19 +1,14 @@
-import Sidebar from "../../components/student/Sidebar"
-import Header from "../../components/common/Header"
+import Layout from "./Layout";
 import PurpleBar from "../../components/common/PurpleBar";
 
 import Job from "../../components/student/Job";
 
-import { useSelector } from 'react-redux';
+import { useState } from 'react'
+import { connect } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 
-import { Helmet } from 'react-helmet';
-
-const Jobs = () => {
-    const sidebar = useSelector(state => state.sidebar);
-    const darkmode = useSelector(state => state.darkmode);
-
-    const currentTrack = useSelector(state => state.currentTrack);
+const Jobs = ({ currentTrack }) => {
+    const [spinner, setSpinner] = useState(false);
     
     const navigate = useNavigate();
 
@@ -80,26 +75,25 @@ const Jobs = () => {
     ]
 
     return (
-        <div className={`${darkmode ? "darkgrey-bg" : "grey-bg"}`}>
-            <Helmet>
-                <title>TechPal | Jobs</title>
-            </Helmet>
-            <Sidebar />
-            <div className={`content ${sidebar ? "shift": ""}`}>
-                <Header />
-                <PurpleBar title={`Job Recommendations for ${currentTrack.name}`} button={false} />
-                <div className="container mt-5">
-                    <div className="row p-5 pt-0">
-                        {recommendations.map(course => {
-                            return (
-                                <Job key={course.id} course={course} enrolled={false} />
-                            )
-                        })}
-                    </div>
+        <Layout spinner={spinner} pageName='Jobs'>
+            <PurpleBar title={`Job Recommendations for ${currentTrack.name}`} button={false} />
+            <div className="container mt-5">
+                <div className="row p-5 pt-0">
+                    {recommendations.map(course => {
+                        return (
+                            <Job key={course.id} course={course} enrolled={false} />
+                        )
+                    })}
                 </div>
             </div>
-        </div>
+        </Layout>
     )
 }
 
-export default Jobs;
+const mapStateToProps = state => {
+    return {
+        currentTrack: state.currentTrack,
+    }
+}
+
+export default connect(mapStateToProps)(Jobs);

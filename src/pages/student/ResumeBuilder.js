@@ -1,18 +1,16 @@
-import Sidebar from "../../components/student/Sidebar"
-import Header from "../../components/common/Header"
-import DragIcon from "../../assets/DragIcon"
-import Template1 from "../../components/student/resumes/Template1"
-import Template2 from "../../components/student/resumes/Template2"
-import EditSkillsModal from "../../components/student/EditSkillsModal"
-import EditResumeModal from "../../components/student/EditResumeModal"
-import EditCertificationsModal from "../../components/student/EditCertificationsModal"
+import Layout from "./Layout";
+import DragIcon from "../../assets/DragIcon";
+import Template1 from "../../components/student/resumes/Template1";
+import Template2 from "../../components/student/resumes/Template2";
+import EditSkillsModal from "../../components/student/EditSkillsModal";
+import EditResumeModal from "../../components/student/EditResumeModal";
+import EditCertificationsModal from "../../components/student/EditCertificationsModal";
 
 import { useState, useCallback, useEffect } from 'react';
-import {SortableContainer, SortableElement} from 'react-sortable-hoc';
+import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import { PDFViewer } from '@react-pdf/renderer';
 import { Form } from "react-bootstrap";
 import { connect } from "react-redux";
-import { Helmet } from 'react-helmet';
 import { useNavigate } from "react-router-dom";
 
 const ColumnItem = SortableElement(({value, hide, edit}) => {
@@ -48,14 +46,26 @@ const ColumnList = SortableContainer(({items, hide, edit}) => {
 resumes [
     profile_id: {
         template: number,
-        leftOrder: [],
-        rightOrder: [],
+        leftOrder: [
+            {
+                name: string,
+                hide: boolean,
+                data: array,
+            }
+        ],
+        rightOrder: [
+            {
+                name: string,
+                hide: boolean,
+                data: array,
+            }
+        ],
     }
 ]
 */
 
 
-const ResumeBuilder = ({ sidebar, darkmode, user, currentTrack }) => {
+const ResumeBuilder = ({ user, currentTrack }) => {
     const navigate = useNavigate();
 
     const [editSkills, setEditSkills] = useState(false);
@@ -145,61 +155,54 @@ const ResumeBuilder = ({ sidebar, darkmode, user, currentTrack }) => {
     }, [])
 
     return (
-        <div className={`${darkmode ? "darkgrey-bg" : "grey-bg"}`}>
-            <Helmet>
-                <title>TechPal | Resume Builder</title>
-            </Helmet>
-            <Sidebar />
-            <div className={`content ${sidebar ? "shift": ""}`}>
-                <Header />
-                <div className="container resume-builder">
-                    <div className="row mt-4">
-                        <div className="col-12 d-flex justify-content-center">
-                            <button className="btn-purple">Save</button>
-                        </div>
+        <Layout spinner={false} pageName='Resume Builder'>
+            <div className="container resume-builder">
+                <div className="row mt-4">
+                    <div className="col-12 d-flex justify-content-center">
+                        <button className="btn-purple">Save</button>
                     </div>
-                    <div className="row mt-4 pt-2">
-                        <div className="col-12 col-xl-6 d-none d-lg-block">
-                        <PDFViewer height='97%' width='100%'>
-                            {template === 1
-                                ? <Template1 leftOrder={leftOrder} rightOrder={rightOrder} user={user} currentTrack={currentTrack}></Template1>
-                                : <Template2 leftOrder={leftOrder} rightOrder={rightOrder}></Template2>
-                            }
-                        </PDFViewer>
+                </div>
+                <div className="row mt-4 pt-2">
+                    <div className="col-12 col-xl-6 d-none d-lg-block">
+                    <PDFViewer height='97%' width='100%'>
+                        {template === 1
+                            ? <Template1 leftOrder={leftOrder} rightOrder={rightOrder} user={user} currentTrack={currentTrack}></Template1>
+                            : <Template2 leftOrder={leftOrder} rightOrder={rightOrder}></Template2>
+                        }
+                    </PDFViewer>
+                    </div>
+                    <div className="col-12 col-xl-6 text-center">
+                        <div className="mb-4 px-4 mx-1">
+                            <h5>Template</h5>
+                            <div className="row mt-3">
+                                <Form.Select
+                                    onChange={(event) => {setTemplate(Number(event.target.value))}}
+                                    aria-label="Default select template"
+                                >
+                                    <option value={1}>Template 1</option>
+                                    <option value={2}>Template 2</option>
+                                </Form.Select>
+                            </div>
                         </div>
-                        <div className="col-12 col-xl-6 text-center">
-                            <div className="mb-4 px-4 mx-1">
-                                <h5>Template</h5>
-                                <div className="row mt-3">
-                                    <Form.Select
-                                        onChange={(event) => {setTemplate(Number(event.target.value))}}
-                                        aria-label="Default select template"
-                                    >
-                                        <option value={1}>Template 1</option>
-                                        <option value={2}>Template 2</option>
-                                    </Form.Select>
-                                </div>
-                            </div>
-                            <div className="mb-4 px-3">
-                                <h5>Left Column</h5>
-                                <ColumnList
-                                    distance={1}
-                                    items={leftOrder}
-                                    onSortEnd={onLeftSortEnd}
-                                    hide={hideLeftElement}
-                                    edit={editElement}
-                                />
-                            </div>
-                            <div className="mb-4 px-3">
-                                <h5>Right Column</h5>
-                                <ColumnList
-                                    distance={1}
-                                    items={rightOrder}
-                                    onSortEnd={onRightSortEnd}
-                                    hide={hideRightElement}
-                                    edit={editElement}
-                                />
-                            </div>
+                        <div className="mb-4 px-3">
+                            <h5>Left Column</h5>
+                            <ColumnList
+                                distance={1}
+                                items={leftOrder}
+                                onSortEnd={onLeftSortEnd}
+                                hide={hideLeftElement}
+                                edit={editElement}
+                            />
+                        </div>
+                        <div className="mb-4 px-3">
+                            <h5>Right Column</h5>
+                            <ColumnList
+                                distance={1}
+                                items={rightOrder}
+                                onSortEnd={onRightSortEnd}
+                                hide={hideRightElement}
+                                edit={editElement}
+                            />
                         </div>
                     </div>
                 </div>
@@ -222,13 +225,11 @@ const ResumeBuilder = ({ sidebar, darkmode, user, currentTrack }) => {
                 element={elementToEdit}
                 update={updateRightElement}
             />
-        </div>
+        </Layout>
     )
 }
 const mapStateToProps = state => {
     return {
-        sidebar: state.sidebar,
-        darkmode: state.darkmode,
         user: state.user,
         currentTrack: state.currentTrack,
     }
