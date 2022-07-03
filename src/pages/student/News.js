@@ -11,7 +11,7 @@ const News = ({ currentTrack }) => {
   const searchArticle = async (trackName) => {
     const response = await fetch(`${API_URL}&q=${trackName}`)
     const data = await response.json()
-    console.log(data.articles)
+    // console.log(data.articles)
     setNews(data.articles)
   }
   useEffect(() => {
