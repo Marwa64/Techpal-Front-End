@@ -1,7 +1,7 @@
 import Sidebar from '../../components/admin/Sidebar'
 import Header from '../../components/common/Header'
 import PurpleBar from '../../components/common/PurpleBar'
-import Spinner from '../../components/common/Spinner'
+// import Spinner from '../../components/common/Spinner'
 import MentorDetailsModal from '../../components/common/MentorDetailsModal'
 
 import { useState } from 'react'
@@ -10,8 +10,6 @@ import { connect } from 'react-redux'
 import { Helmet } from 'react-helmet'
 
 const AdminMentors = ({ darkmode, sidebar }) => {
-  const [spinner, setSpinner] = useState(false)
-  setSpinner(false)
   const [viewMentor, setViewMentor] = useState(false)
   const [currentMentor, setCurrentMentor] = useState(null)
 
@@ -47,7 +45,7 @@ const AdminMentors = ({ darkmode, sidebar }) => {
             <Helmet>
                 <title>TechPal | Mentors</title>
             </Helmet>
-            {spinner ? <Spinner /> : <></>}
+            {/* {spinner ? <Spinner /> : <></>} */}
             <Sidebar />
             <div className={`content ${sidebar ? 'shift' : ''}`}>
                 <Header />

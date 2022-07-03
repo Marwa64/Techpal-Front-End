@@ -1,12 +1,9 @@
 import Layout from './Layout'
 import PurpleBar from '../../components/common/PurpleBar'
 
-import { useState } from 'react'
 import { connect } from 'react-redux'
 
 const Sessions = () => {
-  const [spinner, setSpinner] = useState(false)
-  setSpinner(false)
   const sessions = [
     {
       mentor: 'Samar Ashraf',
@@ -23,7 +20,7 @@ const Sessions = () => {
   ]
 
   return (
-        <Layout spinner={spinner} pageName='Sessions'>
+        <Layout spinner={false} pageName='Sessions'>
             <PurpleBar title="Upcoming Sessions" button={true} buttonName="View Completed Sessions" path="/completed-sessions" />
             <div className="container p-5 table-container">
                 <table className="table">

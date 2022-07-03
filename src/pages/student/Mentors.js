@@ -8,8 +8,6 @@ import { useState } from 'react'
 import { connect } from 'react-redux'
 
 const Mentors = () => {
-  const [spinner, setSpinner] = useState(false)
-  setSpinner(false)
   const [bookSession, setBookSession] = useState(false)
   const [reportMentor, setReportMentor] = useState(false)
   const [viewMentor, setViewMentor] = useState(false)
@@ -50,7 +48,7 @@ const Mentors = () => {
   }
 
   return (
-        <Layout spinner={spinner} pageName='Mentors'>
+        <Layout spinner={false} pageName='Mentors'>
             <PurpleBar title="List of Mentors" button={false} />
             <div className="container p-5 table-container">
                 <table className="table">

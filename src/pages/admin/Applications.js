@@ -1,17 +1,13 @@
 import Sidebar from '../../components/admin/Sidebar'
 import Header from '../../components/common/Header'
 import PurpleBar from '../../components/common/PurpleBar'
-import Spinner from '../../components/common/Spinner'
+// import Spinner from '../../components/common/Spinner'
 
-import { useState } from 'react'
 import { connect } from 'react-redux'
 
 import { Helmet } from 'react-helmet'
 
 const Applications = ({ darkmode, sidebar }) => {
-  const [spinner, setSpinner] = useState(false)
-  setSpinner(false)
-
   const applications = [
     {
       name: 'Samar Ashraf',
@@ -28,7 +24,7 @@ const Applications = ({ darkmode, sidebar }) => {
             <Helmet>
                 <title>TechPal | Applications</title>
             </Helmet>
-            {spinner ? <Spinner /> : <></>}
+            {/* {spinner ? <Spinner /> : <></>} */}
             <Sidebar />
             <div className={`content ${sidebar ? 'shift' : ''}`}>
                 <Header />

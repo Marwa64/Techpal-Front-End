@@ -3,13 +3,9 @@ import PurpleBar from '../../components/common/PurpleBar'
 
 import Course from '../../components/student/Course'
 
-import { useState } from 'react'
 import { connect } from 'react-redux'
 
 const CompletedCourses = ({ currentTrack }) => {
-  const [spinner, setSpinner] = useState(false)
-  setSpinner(false)
-
   const completed = [
     {
       id: '1',
@@ -21,7 +17,7 @@ const CompletedCourses = ({ currentTrack }) => {
   ]
 
   return (
-        <Layout spinner={spinner} pageName='Completed Courses'>
+        <Layout spinner={false} pageName='Completed Courses'>
             <PurpleBar title={`Completed Courses in ${currentTrack.name}`} button={true} buttonName="View Recommendations" path="/courses" />
             <div className="container">
                 <div className="row p-5">
