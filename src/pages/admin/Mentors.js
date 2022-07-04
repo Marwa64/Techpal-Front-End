@@ -2,23 +2,17 @@ import Layout from './Layout'
 import PurpleBar from '../../components/common/PurpleBar'
 import MentorDetailsModal from '../../components/common/MentorDetailsModal'
 
-import { useState } from 'react'
-import { connect } from 'react-redux'
+import { getAcceptedMentors, removeMentor } from '../../store/actions'
 
-const AdminMentors = () => {
+import { useState, useEffect } from 'react'
+import { connect, useDispatch } from 'react-redux'
+
+const AdminMentors = ({ acceptedMentors }) => {
+  const dispatch = useDispatch()
+
   const [viewMentor, setViewMentor] = useState(false)
   const [currentMentor, setCurrentMentor] = useState(null)
-
-  const mentors = [
-    {
-      name: 'Samar Ashraf',
-      calendly: 'https://calendly.com/'
-    },
-    {
-      name: 'Neimat Soliman',
-      calendly: 'https://calendly.com/'
-    }
-  ]
+  const [spinner, setSpinner] = useState(false)
 
   const setMentor = (mentor) => {
     if (!mentor) {
@@ -32,12 +26,21 @@ const AdminMentors = () => {
     setViewMentor(true)
   }
 
-  const remove = (mentor) => {
-    console.log(`remove ${mentor.name}`)
+  const remove = async (mentor) => {
+    setSpinner(true)
+    await dispatch(removeMentor(mentor.User_id))
+    await dispatch(getAcceptedMentors())
+    setSpinner(false)
   }
 
+  useEffect(async () => {
+    setSpinner(true)
+    await dispatch(getAcceptedMentors())
+    setSpinner(false)
+  }, [])
+
   return (
-    <Layout spinner={false} pageName='Mentors'>
+    <Layout spinner={spinner} pageName='Mentors'>
             <PurpleBar title="List of Mentors" button={false} />
             <div className="container p-5 table-container">
                 <table className="table">
@@ -50,11 +53,11 @@ const AdminMentors = () => {
                         </tr>
                     </thead>
                     <tbody className="bg-white">
-                        {mentors.map((mentor, index) => {
+                        {acceptedMentors.map((mentor, index) => {
                           return (
-                                <tr key={`${index}-${mentor.name}`}>
+                                <tr key={`${index}-${mentor.full_name}`}>
                                     <td>{index + 1}</td>
-                                    <td>{mentor.name}</td>
+                                    <td>{mentor.full_name}</td>
                                     <td><button onClick={() => view(mentor)} className="btn red-link text-decoration-underline p-0">View</button></td>
                                     <td>
                                         <button onClick={() => remove(mentor)} className="btn">
@@ -76,7 +79,7 @@ const AdminMentors = () => {
 
 const mapStateToProps = state => {
   return {
-
+    acceptedMentors: state.acceptedMentors
   }
 }
 

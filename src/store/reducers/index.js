@@ -7,6 +7,8 @@ import tracksReducer from './tracksReducer'
 import currentProfileReducer from './currentProfileReducer'
 import currentTrackReducer from './currentTrackReducer'
 import profilesReducer from './profilesReducer'
+import acceptedMentorsReducer from './acceptedMentorsReducer'
+import notAcceptedMentorsReducer from './notAcceptedMentorsReducer'
 
 const allReducers = combineReducers({
   sidebar: sidebarReducer,
@@ -16,7 +18,9 @@ const allReducers = combineReducers({
   tracks: tracksReducer,
   currentProfile: currentProfileReducer,
   currentTrack: currentTrackReducer,
-  profiles: profilesReducer
+  profiles: profilesReducer,
+  acceptedMentors: acceptedMentorsReducer,
+  notAcceptedMentors: notAcceptedMentorsReducer
 })
 
 export default allReducers

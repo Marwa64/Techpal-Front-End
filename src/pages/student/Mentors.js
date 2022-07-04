@@ -4,25 +4,19 @@ import BookSessionModal from '../../components/student/BookSessionModal'
 import ReportMentorModal from '../../components/student/ReportMentorModal'
 import MentorDetailsModal from '../../components/common/MentorDetailsModal'
 
-import { useState } from 'react'
-import { connect } from 'react-redux'
+import { getAcceptedMentors } from '../../store/actions'
 
-const Mentors = () => {
+import { useState, useEffect } from 'react'
+import { connect, useDispatch } from 'react-redux'
+
+const Mentors = ({ acceptedMentors }) => {
+  const dispatch = useDispatch()
+
   const [bookSession, setBookSession] = useState(false)
   const [reportMentor, setReportMentor] = useState(false)
   const [viewMentor, setViewMentor] = useState(false)
   const [currentMentor, setCurrentMentor] = useState(null)
-
-  const mentors = [
-    {
-      name: 'Samar Ashraf',
-      calendly: 'https://calendly.com/'
-    },
-    {
-      name: 'Neimat Soliman',
-      calendly: 'https://calendly.com/'
-    }
-  ]
+  const [spinner, setSpinner] = useState(false)
 
   const setMentor = (mentor) => {
     if (!mentor) {
@@ -33,7 +27,7 @@ const Mentors = () => {
 
   const book = (mentor) => {
     setMentor(mentor)
-    window.open(mentor.calendly, '_blank')
+    window.open(mentor.calendly_id, '_blank')
     setBookSession(true)
   }
 
@@ -47,8 +41,14 @@ const Mentors = () => {
     setViewMentor(true)
   }
 
+  useEffect(async () => {
+    setSpinner(true)
+    await dispatch(getAcceptedMentors())
+    setSpinner(false)
+  }, [])
+
   return (
-        <Layout spinner={false} pageName='Mentors'>
+        <Layout spinner={spinner} pageName='Mentors'>
             <PurpleBar title="List of Mentors" button={false} />
             <div className="container p-5 table-container">
                 <table className="table">
@@ -62,11 +62,11 @@ const Mentors = () => {
                         </tr>
                     </thead>
                     <tbody className="bg-white">
-                        {mentors.map((mentor, index) => {
+                        {acceptedMentors.map((mentor, index) => {
                           return (
-                                <tr key={`${index}-${mentor.name}`}>
+                                <tr key={`${index}-${mentor.full_name}`}>
                                     <td>{index + 1}</td>
-                                    <td>{mentor.name}</td>
+                                    <td>{mentor.full_name}</td>
                                     <td><button onClick={() => view(mentor)} className="btn red-link text-decoration-underline p-0">View</button></td>
                                     <td><button onClick={() => book(mentor)} className="btn red-link text-decoration-underline p-0">Book</button></td>
                                     <td>
@@ -92,7 +92,7 @@ const Mentors = () => {
 
 const mapStateToProps = state => {
   return {
-
+    acceptedMentors: state.acceptedMentors
   }
 }
 

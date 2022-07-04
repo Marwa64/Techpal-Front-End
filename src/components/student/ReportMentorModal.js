@@ -3,7 +3,6 @@ import { Modal, Form } from 'react-bootstrap'
 import { useRef } from 'react'
 
 const ReportMentorModal = ({ show, handleClose, selectedMentor }) => {
-  const mentor = useRef(null)
   const session = useRef(null)
   const reason = useRef(null)
 
@@ -21,16 +20,19 @@ const ReportMentorModal = ({ show, handleClose, selectedMentor }) => {
         <Modal.Body>
             <h5 className='mt-3'>Report a Mentor</h5>
             <div className="container py-4 px-0 mt-3">
-                <div className="row">
-                    <div className="col-4 col-lg-3 offset-lg-2 text-start mt-2">
-                        Mentor
+                {selectedMentor
+                  ? <div className="row">
+                        <div className="col-4 col-lg-3 offset-lg-2 text-start mt-2">
+                            Mentor
+                        </div>
+                        <div className="col-8 col-lg-5">
+                            <Form.Select disabled aria-label="Default select example">
+                                <option value="test-mentor">{selectedMentor.full_name}</option>
+                            </Form.Select>
+                        </div>
                     </div>
-                    <div className="col-8 col-lg-5">
-                        <Form.Select ref={mentor} aria-label="Default select example">
-                            <option value="test-mentor">Test Mentor</option>
-                        </Form.Select>
-                    </div>
-                </div>
+                  : <></>
+                }
                 <div className="row mt-4">
                     <div className="col-4 col-lg-3 offset-lg-2 text-start mt-2">
                         Session ID
