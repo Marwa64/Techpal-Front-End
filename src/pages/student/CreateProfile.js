@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 
-import Track from '../../components/student/Track'
+import Track from '../../components/common/Track'
 import Skills from '../../components/student/Skills'
 import { getTracks, createProfile } from '../../store/actions'
 import { useDispatch, connect } from 'react-redux'

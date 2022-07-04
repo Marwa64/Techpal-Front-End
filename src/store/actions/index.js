@@ -1,5 +1,10 @@
 import axios from 'axios'
-import { TOGGLE_SIDEBAR, TOGGLE_MODE, SET_USER, SET_TOKEN, REMOVE_TOKEN, SET_TRACKS, SET_CURRENT_PROFILE, SET_CURRENT_TRACK, SET_PROFILES, REMOVE_PROFILE } from './types'
+import {
+  TOGGLE_SIDEBAR, TOGGLE_MODE, SET_USER,
+  SET_TOKEN, REMOVE_TOKEN, SET_TRACKS,
+  SET_CURRENT_PROFILE, SET_CURRENT_TRACK,
+  SET_PROFILES, REMOVE_PROFILE, ADD_TRACK
+} from './types'
 
 const url = 'http://localhost:8080/api'
 
@@ -83,6 +88,14 @@ export const removeToken = () => {
 export const getTracks = () => async dispatch => {
   return axios.get(`${url}/getalltracks`).then(res => {
     dispatch({ type: SET_TRACKS, data: res.data })
+  }).catch(err => {
+    console.log(err)
+  })
+}
+
+export const addTrack = (track) => async dispatch => {
+  return axios.post(`${url}/addTrack`, track).then(async (res) => {
+    dispatch({ type: ADD_TRACK, data: res.data })
   }).catch(err => {
     console.log(err)
   })
