@@ -528,6 +528,24 @@ h5 {
     margin-bottom: 4px;
     color: #4439F0;
 }
+
+/*------------------------------------------------------------------*/
+
+.admin-tracks .track {
+    opacity: 1;
+    width: 280px;
+}
+.admin-tracks .track-container {
+    width: 280px;
+    background-color: #0000005c;
+    position: absolute;
+    margin-top: 12px;
+    height: 140px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
    
 @media (max-width: 768px) {
     nav {

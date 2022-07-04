@@ -1,5 +1,12 @@
 import axios from 'axios'
-import { TOGGLE_SIDEBAR, TOGGLE_MODE, SET_USER, SET_TOKEN, REMOVE_TOKEN, SET_TRACKS, SET_CURRENT_PROFILE, SET_CURRENT_TRACK, SET_PROFILES, REMOVE_PROFILE } from './types'
+import {
+  TOGGLE_SIDEBAR, TOGGLE_MODE, SET_USER,
+  SET_TOKEN, REMOVE_TOKEN, SET_TRACKS,
+  SET_CURRENT_PROFILE, SET_CURRENT_TRACK,
+  SET_PROFILES, REMOVE_PROFILE, ADD_TRACK,
+  SET_ACCEPTED_MENTORS, ADD_ACCEPTED_MENTOR,
+  SET_NOT_ACCEPTED_MENTORS
+} from './types'
 
 const url = 'http://localhost:8080/api'
 
@@ -88,6 +95,14 @@ export const getTracks = () => async dispatch => {
   })
 }
 
+export const addTrack = (track) => async dispatch => {
+  return axios.post(`${url}/addTrack`, track).then(async (res) => {
+    dispatch({ type: ADD_TRACK, data: res.data })
+  }).catch(err => {
+    console.log(err)
+  })
+}
+
 export const createProfile = (user_id, track_id, completed_skills) => async dispatch => {
   return axios.post(`${url}/createprofile/${user_id}`, { track_id, completed_skills, level: completed_skills.length }).then(async (res) => {
     await dispatch(getCurrentTrack(res.data.Track_id))
@@ -138,6 +153,52 @@ export const switchProfile = (user_id, profile_id) => async dispatch => {
   return axios.post(`${url}/switchprofile/${user_id}`, { profile_id }).then(async (res) => {
     await dispatch(getCurrentTrack(res.data.Track_id))
     await dispatch({ type: SET_CURRENT_PROFILE, data: res.data })
+  }).catch(err => {
+    console.log(err)
+  })
+}
+
+export const getNotAcceptedMentors = () => async dispatch => {
+  return axios.get(`${url}/getnotacceptedmentors`).then(async (res) => {
+    if (res.data) {
+      await dispatch({ type: SET_NOT_ACCEPTED_MENTORS, data: res.data })
+    } else {
+      await dispatch({ type: SET_NOT_ACCEPTED_MENTORS, data: [] })
+    }
+  }).catch(err => {
+    console.log(err)
+  })
+}
+
+export const getAcceptedMentors = () => async dispatch => {
+  return axios.get(`${url}/getacceptedmentors`).then(async (res) => {
+    if (res.data) {
+      await dispatch({ type: SET_ACCEPTED_MENTORS, data: res.data })
+    } else {
+      await dispatch({ type: SET_ACCEPTED_MENTORS, data: [] })
+    }
+  }).catch(err => {
+    console.log(err)
+  })
+}
+
+export const acceptMentor = (mentor_email) => async dispatch => {
+  return axios.post(`${url}/acceptmentor`, { email: mentor_email }).then(async (res) => {
+    await dispatch({ type: ADD_ACCEPTED_MENTOR, data: res.data })
+  }).catch(err => {
+    console.log(err)
+  })
+}
+
+export const removeMentor = (user_id) => async dispatch => {
+  return axios.delete(`${url}/removementor/${user_id}`).then((res) => {
+  }).catch(err => {
+    console.log(err)
+  })
+}
+
+export const reportMentor = ({ message, session_id }) => async dispatch => {
+  return axios.post(`${url}/reportmentor`, { message, session_id }).then((res) => {
   }).catch(err => {
     console.log(err)
   })
