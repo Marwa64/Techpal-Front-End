@@ -5,7 +5,7 @@ import {
   SET_CURRENT_PROFILE, SET_CURRENT_TRACK,
   SET_PROFILES, REMOVE_PROFILE, ADD_TRACK,
   SET_ACCEPTED_MENTORS, ADD_ACCEPTED_MENTOR,
-  SET_NOT_ACCEPTED_MENTORS
+  SET_NOT_ACCEPTED_MENTORS, SET_NEWS
 } from './types'
 
 const url = 'http://localhost:8080/api'
@@ -199,6 +199,15 @@ export const removeMentor = (user_id) => async dispatch => {
 
 export const reportMentor = ({ message, session_id }) => async dispatch => {
   return axios.post(`${url}/reportmentor`, { message, session_id }).then((res) => {
+  }).catch(err => {
+    console.log(err)
+  })
+}
+
+export const getNews = (track_name, numberOfArticles) => async dispatch => {
+  const API_URL = 'https://newsapi.org/v2/everything?apiKey=4c815a8efe264f8ba724edc7b68523d6&language=en&sortBy=publishedAt'
+  return axios.get(`${API_URL}&pageSize=${numberOfArticles}&q=${track_name}`).then(async (res) => {
+    await dispatch({ type: SET_NEWS, data: res.data.articles })
   }).catch(err => {
     console.log(err)
   })
