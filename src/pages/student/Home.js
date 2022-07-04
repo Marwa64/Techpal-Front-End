@@ -3,24 +3,30 @@ import Avatar from '../../assets/avatar.jpg'
 import Progress from '../../components/student/Progress'
 import StepProgress from '../../components/student/StepProgress'
 import { useEffect, useState } from 'react'
-import { connect } from 'react-redux'
+import { connect, useDispatch } from 'react-redux'
 import { Popover, OverlayTrigger } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
+
+import { getNews } from '../../store/actions'
+
 // import Template1 from '../../components/student/resumes/Template1'
 // import Template2 from '../../components/student/resumes/Template2'
 // import { PDFDownloadLink } from '@react-pdf/renderer'
 
-const StudentHome = ({ darkmode, currentProfile, currentTrack }) => {
+const StudentHome = ({ darkmode, currentProfile, currentTrack, news }) => {
+  const dispatch = useDispatch()
+
   const [spinner, setSpinner] = useState(true)
   const [totalLevels, setTotalLevels] = useState(0)
   const [skills, setSkills] = useState([])
 
   const navigate = useNavigate()
 
-  useEffect(() => {
+  useEffect(async () => {
     if (Object.keys(currentProfile).length === 0 || Object.keys(currentTrack).length === 0) {
       setSpinner(true)
     } else {
+      await dispatch(getNews(currentTrack.name, 2))
       setTotalLevels(Object.keys(currentTrack.skills).length)
       let orderSkills = []
       if (currentProfile.completedSkills) {
@@ -35,21 +41,6 @@ const StudentHome = ({ darkmode, currentProfile, currentTrack }) => {
       setSpinner(false)
     }
   }, [currentProfile, currentTrack])
-
-  const news = [
-    {
-      id: 1,
-      title: 'Headline Title',
-      content: 'Lorem ipsum dolor sit amet, consectetur ipsum dolor sit amet, consectetur',
-      link: '/news'
-    },
-    {
-      id: 2,
-      title: 'Headline Title',
-      content: 'Lorem ipsum dolor sit amet, consectetur ipsum dolor sit amet, consectetur',
-      link: '/news'
-    }
-  ]
 
   const sessions = [
     {
@@ -147,15 +138,15 @@ const StudentHome = ({ darkmode, currentProfile, currentTrack }) => {
                             <div className="col-12 col-lg-6">
                                 <div className={`section shadow pt-4 pb-4 ${darkmode ? 'sidebar-dark' : ''}`}>
                                     <h5 className="pb-1 mb-4">News Highlights</h5>
-                                    {news.map(element => {
+                                    {news.map((article, index) => {
                                       return (
-                                            <div key={element.id} className="row text-start mb-4">
+                                            <div key={`${article.author}${index}`} className="row text-start mb-4">
                                                 <div className="col-1 d-none d-md-block">
-                                                    #{element.id}
+                                                    #{index + 1}
                                                 </div>
                                                 <div className="col-12 col-md-11">
-                                                    <h6 className="mb-0">{element.title}</h6>
-                                                    <small><div className="cut-text">{element.content}</div> <a className="readmore red-link" href={element.link}>Read more </a> </small>
+                                                    <h6 className="mb-1">{article.title}</h6>
+                                                    <small><div className="cut-text">{article.content}</div> <a className="readmore red-link" href={article.url}>Read more </a> </small>
                                                 </div>
                                             </div>
                                       )
@@ -210,7 +201,8 @@ const mapStateToProps = state => {
   return {
     darkmode: state.darkmode,
     currentProfile: state.currentProfile,
-    currentTrack: state.currentTrack
+    currentTrack: state.currentTrack,
+    news: state.news
   }
 }
 

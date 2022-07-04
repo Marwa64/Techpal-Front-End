@@ -34,7 +34,7 @@ const News = ({ currentTrack, news }) => {
           news?.length > 0
             ? (
             <div className=' container'>
-              { news.map((article, index) => <NewsCard key={`${article.auther}${index}`} article={article} onClick={() => { window.open(article.url, '_blank').focus() }} />) }
+              { news.map((article, index) => <NewsCard key={`${article.author}${index}`} article={article} onClick={() => { window.open(article.url, '_blank').focus() }} />) }
             </div>)
             : (
                 <>
