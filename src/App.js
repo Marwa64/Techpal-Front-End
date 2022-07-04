@@ -26,6 +26,7 @@ import ProtectedRoute from './pages/ProtectedRoute'
 
 import { getUser, getCurrentProfile } from './store/actions'
 import Landing from './pages/common/Landing'
+import News from './pages/student/News'
 
 function App () {
   const dispatch = useDispatch()
@@ -61,6 +62,7 @@ function App () {
           <Route path="/loading" element={ <Loading /> } />
           <Route path="/mentors" element={ <ProtectedRoute><Mentors /></ProtectedRoute> } />
           <Route path="/completed-sessions" element={ <ProtectedRoute><CompletedSessions /></ProtectedRoute> } />
+          <Route path="/news" element={ <ProtectedRoute><News /></ProtectedRoute> } />
           <Route path="/sessions" element={ <ProtectedRoute><Sessions /></ProtectedRoute> } />
           <Route path="/jobs" element={ <ProtectedRoute><Jobs /></ProtectedRoute> } />
           <Route path="/completed-courses" element={ <ProtectedRoute><CompletedCourses /></ProtectedRoute> } />
