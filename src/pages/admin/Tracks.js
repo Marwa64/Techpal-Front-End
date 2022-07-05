@@ -5,7 +5,7 @@ import TrackContainer from '../../components/admin/TrackContainer'
 import AddTrackModal from '../../components/admin/AddTrackModal'
 import ViewTrackModal from '../../components/admin/ViewTrackModal'
 
-import { getTracks } from '../../store/actions'
+import { getTracks, removeTrack } from '../../store/actions'
 
 import { useState, useEffect } from 'react'
 import { useDispatch, connect } from 'react-redux'
@@ -21,6 +21,13 @@ const Tracks = ({ tracks }) => {
   const viewTrackDetails = (track) => {
     selectTrack(track)
     setViewTrack(true)
+  }
+
+  const deleteTrack = async (track) => {
+    setSpinner(true)
+    await dispatch(removeTrack(track.ID))
+    await dispatch(getTracks())
+    setSpinner(false)
   }
 
   useEffect(async () => {
@@ -47,6 +54,7 @@ const Tracks = ({ tracks }) => {
                   className='col'
                   track={track}
                   view={viewTrackDetails}
+                  deleteTrack={deleteTrack}
                 >
                   <Track name={track.name} color1={track.color1} color2={track.color2} />
                 </TrackContainer>

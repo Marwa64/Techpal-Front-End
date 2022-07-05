@@ -5,7 +5,7 @@ import {
   SET_CURRENT_PROFILE, SET_CURRENT_TRACK,
   SET_PROFILES, REMOVE_PROFILE, ADD_TRACK,
   SET_ACCEPTED_MENTORS, ADD_ACCEPTED_MENTOR,
-  SET_NOT_ACCEPTED_MENTORS, SET_NEWS
+  SET_NOT_ACCEPTED_MENTORS, SET_NEWS, REMOVE_TRACK
 } from './types'
 
 const url = 'http://localhost:8080/api'
@@ -103,6 +103,14 @@ export const addTrack = (track) => async dispatch => {
   })
 }
 
+export const removeTrack = (track_id) => async dispatch => {
+  return axios.delete(`${url}/deletetrack`, { data: { track_id } }).then(async (res) => {
+    dispatch({ type: REMOVE_TRACK, data: track_id })
+  }).catch(err => {
+    console.log(err)
+  })
+}
+
 export const createProfile = (user_id, track_id, completed_skills) => async dispatch => {
   return axios.post(`${url}/createprofile/${user_id}`, { track_id, completed_skills, level: completed_skills.length }).then(async (res) => {
     await dispatch(getCurrentTrack(res.data.Track_id))
@@ -153,6 +161,13 @@ export const switchProfile = (user_id, profile_id) => async dispatch => {
   return axios.post(`${url}/switchprofile/${user_id}`, { profile_id }).then(async (res) => {
     await dispatch(getCurrentTrack(res.data.Track_id))
     await dispatch({ type: SET_CURRENT_PROFILE, data: res.data })
+  }).catch(err => {
+    console.log(err)
+  })
+}
+
+export const applyMentor = (mentor) => async dispatch => {
+  return axios.post(`${url}/applymentor`, mentor).then(async (res) => {
   }).catch(err => {
     console.log(err)
   })

@@ -51,7 +51,7 @@ const Applications = ({ notAcceptedMentors }) => {
                                 <tr key={`application-${index}`}>
                                     <td>{index + 1}</td>
                                     <td>{mentor.full_name}</td>
-                                    <td><a href={mentor.resumeLink} className="red-link">View</a></td>
+                                    <td><a href={mentor.resume} className="red-link">View</a></td>
                                     <td>
                                         <button onClick={() => accept(mentor)} className="btn">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="18.716" height="15.499" viewBox="0 0 18.716 15.499">

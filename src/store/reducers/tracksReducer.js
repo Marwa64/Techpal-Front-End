@@ -1,4 +1,4 @@
-import { SET_TRACKS, ADD_TRACK } from '../actions/types'
+import { SET_TRACKS, ADD_TRACK, REMOVE_TRACK } from '../actions/types'
 
 const tracksReducer = (state = [], action) => {
   switch (action.type) {
@@ -9,6 +9,8 @@ const tracksReducer = (state = [], action) => {
         ...state,
         action.data
       ]
+    case REMOVE_TRACK:
+      return state.filter(track => track.ID !== action.data)
     default:
       return state
   }
