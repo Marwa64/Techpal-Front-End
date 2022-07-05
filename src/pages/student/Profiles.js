@@ -11,17 +11,6 @@ const Profiles = ({ user, tracks, profiles, currentProfile }) => {
 
   const [spinner, setSpinner] = useState(false)
 
-  const initProfiles = async () => {
-    if (tracks.length < 1) {
-      setSpinner(true)
-      await dispatch(getTracks())
-    }
-    if (!(Object.keys(user).length === 0) && tracks.length > 0) {
-      await dispatch(getProfiles(user.ID))
-      setSpinner(false)
-    }
-  }
-
   const deleteProfile = async (profile_id) => {
     setSpinner(true)
     await dispatch(removeProfile(user.ID, profile_id))
@@ -29,15 +18,20 @@ const Profiles = ({ user, tracks, profiles, currentProfile }) => {
   }
 
   const switchProfileLocal = async (profile_id) => {
-    // setSpinner(true);
     await dispatch(switchProfile(user.ID, profile_id))
-    // setSpinner(false);
     window.location.reload()
   }
 
-  useEffect(() => {
-    initProfiles()
-  })
+  useEffect(async () => {
+    if (tracks.length < 1) {
+      setSpinner(true)
+      await dispatch(getTracks())
+      setSpinner(false)
+    }
+    if (!(Object.keys(user).length === 0) && tracks.length > 0) {
+      await dispatch(getProfiles(user.ID))
+    }
+  }, [user, tracks])
 
   return (
         <Layout spinner={spinner} pageName='Profiles'>
