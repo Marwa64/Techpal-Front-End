@@ -17,6 +17,7 @@ import Applications from './pages/admin/Applications'
 import AdminMentors from './pages/admin/Mentors'
 import Tracks from './pages/admin/Tracks'
 import ResumeBuilder from './pages/student/ResumeBuilder'
+import ApplicationSent from './pages/mentor/ApplicationSent'
 
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
@@ -71,6 +72,7 @@ function App () {
           <Route path="/profiles" element={ <ProtectedRoute><Profiles /></ProtectedRoute> } />
           <Route path="/account" element={ <ProtectedRoute><Account /></ProtectedRoute> } />
           <Route path="/login" element={ <Login />} />
+          <Route path="/applicationsent" element={ <ProtectedRoute><ApplicationSent /></ProtectedRoute> } />
           <Route path="/applymentor" element={ <ApplyMentor /> } />
           <Route path="/signup" element={ <Signup />} />
           <Route path="/home" element={ <Landing /> } />
