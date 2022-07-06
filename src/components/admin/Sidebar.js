@@ -1,10 +1,16 @@
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 
+import Logo from '../../assets/logo.png'
+
 const Sidebar = ({ sidebar, darkmode }) => {
   return (
         <div className={`sidebar shadow ${sidebar ? 'show' : ''} ${darkmode ? 'sidebar-dark' : ''}`}>
-            <ul className="list-group p-4 pt-5 mt-3">
+            <div className='logo-container d-flex flex-column align-items-center px-3'>
+                <img className="logo me-1" src={Logo} alt="logo" />
+                <h2 className='logo-title'>TechPal</h2>
+            </div>
+            <ul className="list-group p-4 pt-5">
                 <NavLink to="/admin/applications"><li className="list-group-item"><svg className="me-3" xmlns="http://www.w3.org/2000/svg" width="25" height="20" viewBox="0 0 16.264 17.433">
                     <path id="Icon_metro-files-empty" data-name="Icon metro-files-empty" d="M20,8.007a15.777,15.777,0,0,0-1.582-1.7A16.2,16.2,0,0,0,16.6,4.825a3,3,0,0,0-1.65-.718H8.274A1.411,1.411,0,0,0,6.822,5.469V18a1.411,1.411,0,0,0,1.452,1.362H19.311A1.411,1.411,0,0,0,20.763,18V9.555c0-.244-.079-.67-.766-1.548Zm-2.4-.927A15.217,15.217,0,0,1,18.91,8.465H16.116V5.845A15.554,15.554,0,0,1,17.593,7.08ZM19.6,18a.286.286,0,0,1-.29.272H8.274A.286.286,0,0,1,7.984,18V5.469a.286.286,0,0,1,.29-.272h6.68V9.01a.564.564,0,0,0,.581.545H19.6ZM14.281,2.646a3,3,0,0,0-1.65-.718H5.951A1.411,1.411,0,0,0,4.5,3.29V15.82A1.389,1.389,0,0,0,5.66,17.154V3.29a.286.286,0,0,1,.29-.272h8.838c-.175-.135-.345-.26-.507-.371Z" transform="translate(-4.499 -1.928)" fill="#403f3f"/></svg>
                 Applications</li></NavLink>

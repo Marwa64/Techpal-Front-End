@@ -1,4 +1,5 @@
 import { Modal } from 'react-bootstrap'
+import { InlineWidget } from 'react-calendly'
 
 const MentorDetailsModal = ({ show, handleClose, mentor }) => {
   return (
@@ -28,6 +29,9 @@ const MentorDetailsModal = ({ show, handleClose, mentor }) => {
                             <div className="col-8 col-lg-6 data pb-3">
                                 {mentor.about || <span className='fst-italic'>No information available yet..</span> }
                             </div>
+                        </div>
+                        <div className="App">
+                            <InlineWidget url="https://calendly.com/marwa64/mentorship-session" />
                         </div>
                     </div>
                   : <></>

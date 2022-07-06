@@ -73,9 +73,9 @@ const ApplyMentor = () => {
                                 </div>
                             </div>
                             <div className="mb-3 row">
-                                <label htmlFor="inputCalendyID" className="col-md-3 col-form-label fw-bold">Calendly ID</label>
+                                <label htmlFor="inputCalendyID" className="col-md-3 col-form-label fw-bold">Calendly Event Link</label>
                                 <div className="col-md-9">
-                                  <input type="text" placeholder="Calendly ID" className="form-control" name="calendly_id" ref={calendly} />
+                                  <input type="text" placeholder="Event Link" className="form-control" name="calendly_id" ref={calendly} />
                                 </div>
                             </div>
                             <div className="mb-3 row">

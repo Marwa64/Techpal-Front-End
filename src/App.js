@@ -49,7 +49,7 @@ function App () {
 
   useEffect(() => {
     getUserData()
-  })
+  }, [user])
 
   return (
     <div className={`App ${darkmode ? 'header-dark' : ''}`}>

@@ -9,11 +9,9 @@ import { useNavigate } from 'react-router-dom'
 
 import { getNews } from '../../store/actions'
 
-// import Template1 from '../../components/student/resumes/Template1'
-// import Template2 from '../../components/student/resumes/Template2'
-// import { PDFDownloadLink } from '@react-pdf/renderer'
+import ResumeDownload from '../../components/student/ResumeDownload'
 
-const StudentHome = ({ darkmode, currentProfile, currentTrack, news }) => {
+const StudentHome = ({ darkmode, currentProfile, currentTrack, news, user }) => {
   const dispatch = useDispatch()
 
   const [spinner, setSpinner] = useState(true)
@@ -22,24 +20,25 @@ const StudentHome = ({ darkmode, currentProfile, currentTrack, news }) => {
 
   const navigate = useNavigate()
 
-  useEffect(async () => {
-    if (Object.keys(currentProfile).length === 0 || Object.keys(currentTrack).length === 0) {
-      setSpinner(true)
-    } else {
-      await dispatch(getNews(currentTrack.name, 2))
-      setTotalLevels(Object.keys(currentTrack.skills).length)
-      let orderSkills = []
-      if (currentProfile.completedSkills) {
-        orderSkills = [...currentProfile.completedSkills]
-      }
-      Object.keys(currentTrack.skills).forEach(key => {
-        if (!orderSkills.includes(key)) {
-          orderSkills.push(key)
+  useEffect(() => {
+    setTimeout(async () => {
+      if (Object.keys(currentProfile).length > 0 && Object.keys(currentTrack).length > 0) {
+        setSpinner(true)
+        await dispatch(getNews(currentTrack.name, 2))
+        setTotalLevels(Object.keys(currentTrack.skills).length)
+        let orderSkills = []
+        if (currentProfile.completedSkills) {
+          orderSkills = [...currentProfile.completedSkills]
         }
-      })
-      setSkills(orderSkills)
-      setSpinner(false)
-    }
+        Object.keys(currentTrack.skills).forEach(key => {
+          if (!orderSkills.includes(key)) {
+            orderSkills.push(key)
+          }
+        })
+        setSkills(orderSkills)
+        setSpinner(false)
+      }
+    }, 500)
   }, [currentProfile, currentTrack])
 
   const sessions = [
@@ -105,16 +104,8 @@ const StudentHome = ({ darkmode, currentProfile, currentTrack, news }) => {
                                             <h5 className="mb-1">Download Your {currentTrack.name} Resume</h5>
                                             <small>The resume can be edited in the profiles page</small>
                                         </div>
-                                        <div className="col-12 col-lg-3 mt-4 mt-lg-2 d-flex justify-content-center">
-                                            {/* <PDFDownloadLink
-                                                document={<Template1 />}
-                                                fileName="Resume.pdf"
-                                                className="btn-purple"
-                                            >
-                                                {({ blob, url, loading, error }) =>
-                                                loading ? "Loading document..." : "Download"
-                                                }
-                                            </PDFDownloadLink> */}
+                                        <div className="col-12 col-lg-3 mt-4 mt-lg-1 d-flex justify-content-center">
+                                            <ResumeDownload user={user} currentTrack={currentTrack} currentProfile={currentProfile} />
                                         </div>
                                     </div>
                                 </div>
@@ -130,7 +121,7 @@ const StudentHome = ({ darkmode, currentProfile, currentTrack, news }) => {
                                     </OverlayTrigger>
                                     <h5 style={{ marginTop: '-32px' }}>Current Points</h5>
                                     <div className="points">{currentProfile.points}</div>
-                                    <small className="fw-light">Points To Unlock Next Skill: 120</small>
+                                    <small className="fw-light">Complete more courses to gain points</small>
                                 </div>
                             </div>
                         </div>
@@ -202,7 +193,8 @@ const mapStateToProps = state => {
     darkmode: state.darkmode,
     currentProfile: state.currentProfile,
     currentTrack: state.currentTrack,
-    news: state.news
+    news: state.news,
+    user: state.user
   }
 }
 

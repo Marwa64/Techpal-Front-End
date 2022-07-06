@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap');
+
 html, body, #root, .App {
     height: 100%;
     color: #707070;
+    
 }
 
 /*------------------------------------------------------------------*/
@@ -50,7 +53,7 @@ html, body, #root, .App {
     left: 0;
     background-color: white;
     overflow-x: hidden;
-    padding-top: 60px;
+    padding-top: 25px;
     transition: 0.5s;
     opacity: 0;
 }
@@ -82,6 +85,20 @@ html, body, #root, .App {
 }
 
 /*------------------------------------------------------------------*/
+
+.logo-container {
+    margin-left: -5px;
+}
+.logo {
+    height: 47px;
+    width: 45px;
+}
+.logo-title {
+    font-family: 'Roboto Mono', monospace;
+    color: black;
+    font-size: 26px;
+    color: #4300bc;
+}
 
 @keyframes spinner {
     0% {
@@ -338,6 +355,9 @@ h5 {
     width: 55%;
     opacity: 1;
     font-size: 19px;
+}
+.slick-track {
+    height: 580px !important;
 }
 
 .skills {

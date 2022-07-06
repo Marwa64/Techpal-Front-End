@@ -10,6 +10,7 @@ import profilesReducer from './profilesReducer'
 import acceptedMentorsReducer from './acceptedMentorsReducer'
 import notAcceptedMentorsReducer from './notAcceptedMentorsReducer'
 import newsReducer from './newsReducer'
+import resumeReducer from './resumeReducer'
 
 const allReducers = combineReducers({
   sidebar: sidebarReducer,
@@ -22,7 +23,8 @@ const allReducers = combineReducers({
   profiles: profilesReducer,
   acceptedMentors: acceptedMentorsReducer,
   notAcceptedMentors: notAcceptedMentorsReducer,
-  news: newsReducer
+  news: newsReducer,
+  resume: resumeReducer
 })
 
 export default allReducers

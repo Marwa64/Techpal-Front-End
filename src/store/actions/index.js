@@ -1,11 +1,14 @@
 import axios from 'axios'
+import { DefaultResume } from '../../components/student/defaultResume'
+
 import {
   TOGGLE_SIDEBAR, TOGGLE_MODE, SET_USER,
   SET_TOKEN, REMOVE_TOKEN, SET_TRACKS,
   SET_CURRENT_PROFILE, SET_CURRENT_TRACK,
   SET_PROFILES, REMOVE_PROFILE, ADD_TRACK,
   SET_ACCEPTED_MENTORS, ADD_ACCEPTED_MENTOR,
-  SET_NOT_ACCEPTED_MENTORS, SET_NEWS, REMOVE_TRACK
+  SET_NOT_ACCEPTED_MENTORS, SET_NEWS, REMOVE_TRACK,
+  SET_RESUME
 } from './types'
 
 const url = 'http://localhost:8080/api'
@@ -214,6 +217,41 @@ export const removeMentor = (user_id) => async dispatch => {
 
 export const reportMentor = ({ message, session_id }) => async dispatch => {
   return axios.post(`${url}/reportmentor`, { message, session_id }).then((res) => {
+  }).catch(err => {
+    console.log(err)
+  })
+}
+
+export const getResume = (profile_id) => async dispatch => {
+  if (profile_id) {
+    return axios.get(`${url}/getresume/${profile_id}`).then(async (res) => {
+      if (!res.data.leftorder) {
+        await dispatch({ type: SET_RESUME, data: DefaultResume })
+      } else {
+        await dispatch({ type: SET_RESUME, data: res.data })
+      }
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+}
+
+export const addResume = (profile_id, resume) => async dispatch => {
+  return axios.post(`${url}/addresume`, {
+    profile_id,
+    template: resume.template,
+    leftorder: resume.leftorder,
+    rightorder: resume.rightorder
+  }).then(res => {
+    dispatch({ type: SET_RESUME, data: res.data })
+  }).catch(err => {
+    console.log(err)
+  })
+}
+
+export const updateResume = (profile_id, resume) => async dispatch => {
+  return axios.post(`${url}/updateresume/${profile_id}`, resume).then(res => {
+    dispatch({ type: SET_RESUME, data: res.data })
   }).catch(err => {
     console.log(err)
   })
