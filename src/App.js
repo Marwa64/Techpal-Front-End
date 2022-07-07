@@ -42,7 +42,10 @@ function App () {
       if (Object.keys(user).length === 0) {
         await dispatch(getUser(userId))
         if (!profiles.length) {
-          await dispatch(getProfiles(userId))
+          const res = await dispatch(getProfiles(userId))
+          if (!res.length && window.location.pathname !== '/createprofile') {
+            window.location.href = '/createprofile'
+          }
         }
       }
       if (profiles.length && (Object.keys(currentProfile).length === 0 || Object.keys(currentTrack).length === 0)) {

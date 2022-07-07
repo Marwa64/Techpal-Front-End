@@ -91,6 +91,15 @@ export const removeToken = () => {
   }
 }
 
+export const logout = () => async dispatch => {
+  await dispatch({ type: REMOVE_TOKEN })
+  await dispatch({ type: SET_USER, data: {} })
+  await dispatch({ type: SET_PROFILES, data: [] })
+  await dispatch({ type: SET_RESUME, data: {} })
+  await dispatch({ type: SET_CURRENT_TRACK, data: {} })
+  await dispatch({ type: SET_CURRENT_PROFILE, data: {} })
+}
+
 export const getTracks = () => async dispatch => {
   return axios.get(`${url}/getalltracks`).then(res => {
     dispatch({ type: SET_TRACKS, data: res.data })
@@ -145,8 +154,10 @@ export const getProfiles = (user_id) => async dispatch => {
   return axios.get(`${url}/getallprofiles/${user_id}`).then(async (res) => {
     if (res.data) {
       await dispatch({ type: SET_PROFILES, data: res.data })
+      return res.data
     } else {
       await dispatch({ type: SET_PROFILES, data: [] })
+      return []
     }
   }).catch(err => {
     console.log(err)

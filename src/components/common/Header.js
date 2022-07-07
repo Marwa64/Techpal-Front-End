@@ -1,6 +1,6 @@
 import Avatar from '../../assets/avatar.jpg'
 import { Dropdown } from 'react-bootstrap'
-import { toggleSidebar, toggleMode, removeToken } from '../../store/actions'
+import { toggleSidebar, toggleMode, logout } from '../../store/actions'
 import { connect, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
@@ -8,10 +8,10 @@ const Header = ({ darkmode, user }) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const logOut = () => {
+  const logOut = async () => {
     localStorage.removeItem('token')
     localStorage.removeItem('userId')
-    dispatch(removeToken())
+    await dispatch(logout())
     navigate('/login')
   }
 
