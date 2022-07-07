@@ -90,16 +90,14 @@ const ResumeBuilder = ({ user, currentTrack, currentProfile, resume }) => {
   }
 
   const editElement = (element) => {
+    setEditElement(element)
     if (['About Me', 'Contact', 'Education'].includes(element.name)) {
       navigate('/account')
     } else if (element.name === 'Skills') {
-      setEditElement(element)
       setEditSkills(true)
     } else if (element.name === 'Certifications') {
-      setEditElement(element)
       setEditCertifications(true)
     } else {
-      setEditElement(element)
       setEditResume(true)
     }
   }
@@ -171,7 +169,7 @@ const ResumeBuilder = ({ user, currentTrack, currentProfile, resume }) => {
       setRightOrder(newRightOrder)
       setSpinner(false)
     }
-  }, [currentProfile])
+  }, [currentProfile, resume])
 
   return (
         <Layout spinner={spinner} pageName='Resume Builder'>
@@ -196,7 +194,7 @@ const ResumeBuilder = ({ user, currentTrack, currentProfile, resume }) => {
                               <h5>Template</h5>
                               <div className="row mt-3">
                                   <Form.Select
-                                      onChange={(event) => { setTemplate(Number(event.target.value)) }}
+                                      onChange={(event) => { setTemplate(event.target.value) }}
                                       aria-label="Default select template"
                                   >
                                       <option value={'1'}>Template 1</option>
@@ -229,24 +227,34 @@ const ResumeBuilder = ({ user, currentTrack, currentProfile, resume }) => {
               </div>
             : <></>
           }
-            <EditSkillsModal
+          {editSkills
+            ? <EditSkillsModal
                 show={editSkills}
                 handleClose={() => setEditSkills(false)}
                 element={elementToEdit}
                 update={updateSkills}
             />
-            <EditResumeModal
-                show={editResume}
-                handleClose={() => setEditResume(false)}
-                element={elementToEdit}
-                update={updateRightElement}
-            />
-            <EditCertificationsModal
-                show={editCertifications}
-                handleClose={() => setEditCertifications(false)}
-                element={elementToEdit}
-                update={updateRightElement}
-            />
+            : <></>
+          }
+            {editResume
+              ? <EditResumeModal
+                  show={editResume}
+                  handleClose={() => setEditResume(false)}
+                  element={elementToEdit}
+                  update={updateRightElement}
+              />
+              : <></>
+            }
+            {editCertifications
+              ? <EditCertificationsModal
+                  show={editCertifications}
+                  handleClose={() => setEditCertifications(false)}
+                  element={elementToEdit}
+                  update={updateRightElement}
+              />
+              : <></>
+            }
+
         </Layout>
   )
 }
