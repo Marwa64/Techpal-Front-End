@@ -8,7 +8,7 @@ import {
   SET_PROFILES, REMOVE_PROFILE, ADD_TRACK,
   SET_ACCEPTED_MENTORS, ADD_ACCEPTED_MENTOR,
   SET_NOT_ACCEPTED_MENTORS, SET_NEWS, REMOVE_TRACK,
-  SET_RESUME
+  SET_RESUME, DISPLAY_MESSAGE, REMOVE_MESSAGE
 } from './types'
 
 const url = 'http://localhost:8080/api'
@@ -22,6 +22,12 @@ export const toggleSidebar = () => {
 export const toggleMode = () => {
   return {
     type: TOGGLE_MODE
+  }
+}
+
+export const removeMessage = () => {
+  return {
+    type: REMOVE_MESSAGE
   }
 }
 
@@ -39,7 +45,7 @@ export const signup = (user) => async dispatch => {
     await dispatch({ type: SET_USER, data: userData })
     await dispatch({ type: SET_TOKEN, data: token })
   }).catch(err => {
-    console.log(err)
+    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
   })
 }
 
@@ -57,8 +63,9 @@ export const login = (user) => async dispatch => {
     await dispatch({ type: SET_USER, data: userData })
     await dispatch({ type: SET_TOKEN, data: token })
     await dispatch(getProfiles(userData.ID))
+    await dispatch({ type: DISPLAY_MESSAGE, data: { message: 'Login Success', error: false } })
   }).catch(err => {
-    console.log(err)
+    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
   })
 }
 
@@ -66,15 +73,16 @@ export const getUser = (userId) => async dispatch => {
   return axios.get(`${url}/getuser/${userId}`).then(res => {
     dispatch({ type: SET_USER, data: res.data })
   }).catch(err => {
-    console.log(err)
+    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
   })
 }
 
 export const updateStudent = (userId, user) => async dispatch => {
-  return axios.post(`${url}/updatestudent/${userId}`, user).then(res => {
-    dispatch({ type: SET_USER, data: res.data })
+  return axios.post(`${url}/updatestudent/${userId}`, user).then(async (res) => {
+    await dispatch({ type: SET_USER, data: res.data })
+    await dispatch({ type: DISPLAY_MESSAGE, data: { message: 'Data Updated Successfully', error: false } })
   }).catch(err => {
-    console.log(err)
+    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
   })
 }
 
@@ -104,32 +112,35 @@ export const getTracks = () => async dispatch => {
   return axios.get(`${url}/getalltracks`).then(res => {
     dispatch({ type: SET_TRACKS, data: res.data })
   }).catch(err => {
-    console.log(err)
+    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
   })
 }
 
 export const addTrack = (track) => async dispatch => {
   return axios.post(`${url}/addTrack`, track).then(async (res) => {
     dispatch({ type: ADD_TRACK, data: res.data })
+    await dispatch({ type: DISPLAY_MESSAGE, data: { message: 'Track Added Successfully', error: false } })
   }).catch(err => {
-    console.log(err)
+    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
   })
 }
 
 export const removeTrack = (track_id) => async dispatch => {
   return axios.delete(`${url}/deletetrack`, { data: { track_id } }).then(async (res) => {
-    dispatch({ type: REMOVE_TRACK, data: track_id })
+    await dispatch({ type: REMOVE_TRACK, data: track_id })
+    await dispatch({ type: DISPLAY_MESSAGE, data: { message: 'Track Removed Successfully', error: false } })
   }).catch(err => {
-    console.log(err)
+    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
   })
 }
 
 export const createProfile = (user_id, track_id, completed_skills) => async dispatch => {
   return axios.post(`${url}/createprofile/${user_id}`, { track_id, completed_skills, level: completed_skills.length }).then(async (res) => {
     await dispatch(getCurrentTrack(res.data.Track_id))
-    dispatch({ type: SET_CURRENT_PROFILE, data: res.data })
+    await dispatch({ type: SET_CURRENT_PROFILE, data: res.data })
+    await dispatch({ type: DISPLAY_MESSAGE, data: { message: 'Profile Created Successfully', error: false } })
   }).catch(err => {
-    console.log(err)
+    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
   })
 }
 
@@ -138,7 +149,7 @@ export const getCurrentProfile = (user_id) => async dispatch => {
     await dispatch(getCurrentTrack(res.data.Track_id))
     dispatch({ type: SET_CURRENT_PROFILE, data: res.data })
   }).catch(err => {
-    console.log(err)
+    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
   })
 }
 
@@ -146,7 +157,7 @@ export const getCurrentTrack = (track_id) => async dispatch => {
   return axios.get(`${url}/gettrack/${track_id}`).then(res => {
     dispatch({ type: SET_CURRENT_TRACK, data: res.data })
   }).catch(err => {
-    console.log(err)
+    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
   })
 }
 
@@ -160,15 +171,16 @@ export const getProfiles = (user_id) => async dispatch => {
       return []
     }
   }).catch(err => {
-    console.log(err)
+    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
   })
 }
 
 export const removeProfile = (user_id, profile_id) => async dispatch => {
   return axios.delete(`${url}/deleteprofile/${user_id}`, { data: { profile_id } }).then(async (res) => {
     await dispatch({ type: REMOVE_PROFILE, data: res.data })
+    await dispatch({ type: DISPLAY_MESSAGE, data: { message: 'Profile Removed Successfully', error: false } })
   }).catch(err => {
-    console.log(err)
+    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
   })
 }
 
@@ -176,15 +188,16 @@ export const switchProfile = (user_id, profile_id) => async dispatch => {
   return axios.post(`${url}/switchprofile/${user_id}`, { profile_id }).then(async (res) => {
     await dispatch(getCurrentTrack(res.data.Track_id))
     await dispatch({ type: SET_CURRENT_PROFILE, data: res.data })
+    await dispatch({ type: DISPLAY_MESSAGE, data: { message: 'Profile Switched Successfully', error: false } })
   }).catch(err => {
-    console.log(err)
+    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
   })
 }
 
 export const applyMentor = (mentor) => async dispatch => {
   return axios.post(`${url}/applymentor`, mentor).then(async (res) => {
   }).catch(err => {
-    console.log(err)
+    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
   })
 }
 
@@ -196,7 +209,7 @@ export const getNotAcceptedMentors = () => async dispatch => {
       await dispatch({ type: SET_NOT_ACCEPTED_MENTORS, data: [] })
     }
   }).catch(err => {
-    console.log(err)
+    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
   })
 }
 
@@ -208,7 +221,7 @@ export const getAcceptedMentors = () => async dispatch => {
       await dispatch({ type: SET_ACCEPTED_MENTORS, data: [] })
     }
   }).catch(err => {
-    console.log(err)
+    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
   })
 }
 
@@ -216,21 +229,21 @@ export const acceptMentor = (mentor_email) => async dispatch => {
   return axios.post(`${url}/acceptmentor`, { email: mentor_email }).then(async (res) => {
     await dispatch({ type: ADD_ACCEPTED_MENTOR, data: res.data })
   }).catch(err => {
-    console.log(err)
+    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
   })
 }
 
 export const removeMentor = (user_id) => async dispatch => {
   return axios.delete(`${url}/removementor/${user_id}`).then((res) => {
   }).catch(err => {
-    console.log(err)
+    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
   })
 }
 
 export const reportMentor = ({ message, session_id }) => async dispatch => {
   return axios.post(`${url}/reportmentor`, { message, session_id }).then((res) => {
   }).catch(err => {
-    console.log(err)
+    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
   })
 }
 
@@ -243,7 +256,7 @@ export const getResume = (profile_id) => async dispatch => {
         await dispatch({ type: SET_RESUME, data: res.data })
       }
     }).catch(err => {
-      console.log(err)
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
     })
   }
 }
@@ -254,18 +267,20 @@ export const addResume = (profile_id, resume) => async dispatch => {
     template: resume.template,
     leftorder: resume.leftorder,
     rightorder: resume.rightorder
-  }).then(res => {
-    dispatch({ type: SET_RESUME, data: res.data })
+  }).then(async (res) => {
+    await dispatch({ type: SET_RESUME, data: res.data })
+    await dispatch({ type: DISPLAY_MESSAGE, data: { message: 'Resume Updated Successfully', error: false } })
   }).catch(err => {
-    console.log(err)
+    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
   })
 }
 
 export const updateResume = (profile_id, resume) => async dispatch => {
-  return axios.post(`${url}/updateresume/${profile_id}`, resume).then(res => {
-    dispatch({ type: SET_RESUME, data: res.data })
+  return axios.post(`${url}/updateresume/${profile_id}`, resume).then(async (res) => {
+    await dispatch({ type: SET_RESUME, data: res.data })
+    await dispatch({ type: DISPLAY_MESSAGE, data: { message: 'Resume Updated Successfully', error: false } })
   }).catch(err => {
-    console.log(err)
+    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
   })
 }
 
@@ -274,6 +289,6 @@ export const getNews = (track_name, numberOfArticles) => async dispatch => {
   return axios.get(`${API_URL}&pageSize=${numberOfArticles}&q=${track_name}`).then(async (res) => {
     await dispatch({ type: SET_NEWS, data: res.data.articles })
   }).catch(err => {
-    console.log(err)
+    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
   })
 }

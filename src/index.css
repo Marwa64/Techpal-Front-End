@@ -86,6 +86,30 @@ html, body, #root, .App {
 
 /*------------------------------------------------------------------*/
 
+.message-container {
+    position: fixed;
+    padding: 10px;
+    background-color: #75ffb0;
+    min-width: 300px;
+    min-height: 60px;
+    font-size: 17px;
+    font-weight: lighter;
+    color: black;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    right: 0;
+    z-index: 200;
+    margin-top: 10px;
+    margin-right: 10px;
+    transition: 1s;
+}
+.message-container .closeMessage {
+    cursor: pointer;
+}
+
+/*------------------------------------------------------------------*/
+
 .logo-container {
     margin-left: -5px;
 }
@@ -99,6 +123,8 @@ html, body, #root, .App {
     font-size: 26px;
     color: #4300bc;
 }
+
+/*------------------------------------------------------------------*/
 
 @keyframes spinner {
     0% {
