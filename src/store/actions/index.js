@@ -38,7 +38,6 @@ export const signup = (user) => async dispatch => {
     // save user data and token in state
     await dispatch({ type: SET_USER, data: userData })
     await dispatch({ type: SET_TOKEN, data: token })
-    await dispatch({ type: SET_PROFILES, data: [] })
   }).catch(err => {
     console.log(err)
   })

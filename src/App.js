@@ -24,7 +24,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import ProtectedRoute from './pages/ProtectedRoute'
 
-import { getUser, getCurrentProfile } from './store/actions'
+import { getUser, getCurrentProfile, getProfiles } from './store/actions'
 import Landing from './pages/common/Landing'
 import News from './pages/student/News'
 
@@ -41,6 +41,9 @@ function App () {
       const userId = localStorage.getItem('userId')
       if (Object.keys(user).length === 0) {
         await dispatch(getUser(userId))
+        if (!profiles.length) {
+          await dispatch(getProfiles(userId))
+        }
       }
       if (profiles.length && (Object.keys(currentProfile).length === 0 || Object.keys(currentTrack).length === 0)) {
         await dispatch(getCurrentProfile(userId))
@@ -50,7 +53,7 @@ function App () {
 
   useEffect(() => {
     getUserData()
-  }, [user])
+  }, [user, profiles])
 
   return (
     <div className={`App ${darkmode ? 'header-dark' : ''}`}>
