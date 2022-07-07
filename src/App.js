@@ -32,6 +32,7 @@ function App () {
   const dispatch = useDispatch()
   const darkmode = useSelector(state => state.darkmode)
   const user = useSelector(state => state.user)
+  const profiles = useSelector(state => state.profiles)
   const currentProfile = useSelector(state => state.currentProfile)
   const currentTrack = useSelector(state => state.currentTrack)
 
@@ -41,7 +42,7 @@ function App () {
       if (Object.keys(user).length === 0) {
         await dispatch(getUser(userId))
       }
-      if (Object.keys(currentProfile).length === 0 || Object.keys(currentTrack).length === 0) {
+      if (profiles.length && (Object.keys(currentProfile).length === 0 || Object.keys(currentTrack).length === 0)) {
         await dispatch(getCurrentProfile(userId))
       }
     }

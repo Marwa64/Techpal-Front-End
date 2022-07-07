@@ -26,7 +26,7 @@ export const toggleMode = () => {
 }
 
 export const signup = (user) => async dispatch => {
-  return axios.post(`${url}/signup`, user).then(res => {
+  return axios.post(`${url}/signup`, user).then(async (res) => {
     // extract user data and token
     let token = res.data.split('{')[0]
     token = token.replaceAll('"', '')
@@ -36,15 +36,16 @@ export const signup = (user) => async dispatch => {
     localStorage.setItem('userId', userData.ID)
 
     // save user data and token in state
-    dispatch({ type: SET_USER, data: userData })
-    dispatch({ type: SET_TOKEN, data: token })
+    await dispatch({ type: SET_USER, data: userData })
+    await dispatch({ type: SET_TOKEN, data: token })
+    await dispatch({ type: SET_PROFILES, data: [] })
   }).catch(err => {
     console.log(err)
   })
 }
 
 export const login = (user) => async dispatch => {
-  return axios.post(`${url}/login`, user).then(res => {
+  return axios.post(`${url}/login`, user).then(async (res) => {
     // extract user data and token
     let token = res.data.split('{')[0]
     token = token.replaceAll('"', '')
@@ -54,8 +55,9 @@ export const login = (user) => async dispatch => {
     localStorage.setItem('userId', userData.ID)
 
     // save user data and token in state
-    dispatch({ type: SET_USER, data: userData })
-    dispatch({ type: SET_TOKEN, data: token })
+    await dispatch({ type: SET_USER, data: userData })
+    await dispatch({ type: SET_TOKEN, data: token })
+    await dispatch(getProfiles(userData.ID))
   }).catch(err => {
     console.log(err)
   })
