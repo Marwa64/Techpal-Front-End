@@ -27,7 +27,7 @@ const Mentors = ({ acceptedMentors }) => {
 
   const book = (mentor) => {
     setMentor(mentor)
-    window.open(mentor.calendly_id, '_blank')
+    // window.open(mentor.calendly_id, '_blank')
     setBookSession(true)
   }
 

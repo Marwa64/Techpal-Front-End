@@ -113,7 +113,7 @@ html, body, #root, .App {
 .logo-container {
     margin-left: -5px;
 }
-.logo {
+.logo-container .logo {
     height: 47px;
     width: 45px;
 }
@@ -122,6 +122,14 @@ html, body, #root, .App {
     color: black;
     font-size: 26px;
     color: #4300bc;
+}
+
+.header-logo .logo {
+    height: 41px;
+    width: 40px;
+}
+.header-logo .logo-title {
+    font-size: 24px;
 }
 
 /*------------------------------------------------------------------*/
