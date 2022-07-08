@@ -86,10 +86,35 @@ html, body, #root, .App {
 
 /*------------------------------------------------------------------*/
 
+.message-container {
+    position: fixed;
+    padding: 10px;
+    background-color: #75ffb0;
+    min-width: 300px;
+    min-height: 60px;
+    font-size: 17px;
+    font-weight: lighter;
+    color: black;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    right: 0;
+    z-index: 200;
+    margin-top: 10px;
+    margin-right: 10px;
+    transition: 1s;
+}
+.message-container .closeMessage {
+    cursor: pointer;
+}
+
+/*------------------------------------------------------------------*/
+
 .logo-container {
     margin-left: -5px;
+    text-decoration: none;
 }
-.logo {
+.logo-container .logo {
     height: 47px;
     width: 45px;
 }
@@ -99,6 +124,27 @@ html, body, #root, .App {
     font-size: 26px;
     color: #4300bc;
 }
+
+.header-logo {
+    text-decoration: none;
+}
+
+.header-logo .logo {
+    height: 41px;
+    width: 40px;
+}
+.header-logo .logo-title {
+    font-size: 24px;
+}
+
+/*------------------------------------------------------------------*/
+
+.white-block {
+    border-radius: 30px;
+    background-color: white;
+}
+
+/*------------------------------------------------------------------*/
 
 @keyframes spinner {
     0% {
@@ -392,8 +438,13 @@ h5 {
   }
   
   .login .box {
-    width: 70px;
-    height: 70px;
+    width: 82px;
+    height: 82px;
+  }
+
+  .getStarted-container .box{
+    margin-left: 6px;
+    border: 2px solid #3f3f3f;
   }
 
   .login .container {
@@ -407,6 +458,11 @@ h5 {
   
   .login .text-violet {
     color: #4439F0;
+  }
+
+  nav .active {
+    color: #4439F0 !important;
+    font-weight: bold !important;
   }
   
   .btn-violet:hover,
@@ -422,9 +478,11 @@ h5 {
   
   .login nav a {
     color: #6C757D;
+    font-weight: lighter;
+    font-size: 17px;
   }
   
-  .login nav a:hover, nav a:active {
+  .login nav a:hover {
     color: #4439F0 !important;
   }
   
@@ -436,6 +494,13 @@ h5 {
     box-shadow: 1px 1px 7px #ff000094;
   }
   
+  .getStarted {
+    transform: scaleX(-1);
+    height: 550px;
+    width: 400px;
+    margin-top: -10px;
+  }
+
 /*------------------------------------------------------------------*/
 
 .course {

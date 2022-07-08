@@ -3,12 +3,14 @@ import Spinner from '../../components/common/Spinner'
 
 import { applyMentor } from '../../store/actions'
 
+import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { Helmet } from 'react-helmet'
 import { useRef, useState } from 'react'
 
 const ApplyMentor = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const name = useRef(null)
   const email = useRef(null)
@@ -45,6 +47,7 @@ const ApplyMentor = () => {
       calendly.current.value = ''
       resume.current.value = ''
       setSpinner(false)
+      navigate('/applicationsent')
     }
   }
 
@@ -55,11 +58,11 @@ const ApplyMentor = () => {
             </Helmet>
             <Navbar />
             {spinner ? <Spinner /> : <></>}
-            <div className="container">
+            <div className="container mt-5">
                 <div className="row align-items-center justify-content-center  ">
-                    <div className="  col  col-md-8  bg-white   shadow-lg  rounded-3 p-5 ms-5 me-5">
-                        <h1 className=" h1 text-center mb-5">Application Mentor</h1>
-                        <form id="mentorForm">
+                    <div className="col col-md-8 bg-white shadow p-5 ms-5 me-5 white-block">
+                        <h2 className="text-center mb-5">Application Mentor</h2>
+                        <form id="mentorForm" className='px-5'>
                             <div className="mb-3 row">
                                 <label htmlFor="inputName" className="col-md-3   col-form-label fw-bold">Full Name</label>
                                 <div className=" col-md-9">
@@ -84,7 +87,9 @@ const ApplyMentor = () => {
                                   <input type="text" placeholder="Resume Link" className="form-control" name="resume" ref={resume} />
                                 </div>
                             </div>
-                            <button onClick={submit} className="btn btn-violet d-block  fw-bold   col-md-6 m-auto mt-5" type="submit">Submit Application</button>
+                            <div className='d-flex justify-content-center mt-5'>
+                              <button onClick={submit} className="btn-purple" type="submit">Submit Application</button>
+                            </div>
                         </form>
                     </div>
                 </div>

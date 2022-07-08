@@ -62,11 +62,11 @@ const Signup = () => {
             </Helmet>
             <Navbar />
             {spinner ? <Spinner /> : <></>}
-            <div className="container">
+            <div className="container mt-5">
                 <div className="row align-items-center justify-content-center  ">
-                    <div className="col  col-md-8  bg-white   shadow-lg  rounded-3 p-5 ms-5 me-5">
-                        <h1 className=" h1 text-center mb-5">Create a New Account</h1>
-                        <form onSubmit={submit}>
+                    <div className="col  col-md-8 shadow white-block p-5 ms-5 me-5">
+                        <h2 className="text-center mb-5">Create a New Account</h2>
+                        <form onSubmit={submit} className='px-5'>
                             <div className="mb-3 row">
                                 <label htmlFor="inputName" className="col-md-3   col-form-label fw-bold">Full Name</label>
                                 <div className=" col-md-9">
@@ -91,7 +91,9 @@ const Signup = () => {
                                 <input type="password" placeholder="Password" ref={confirmPassword} className='form-control' onChange={() => { handleChange(confirmPassword) }} />
                                 </div>
                             </div>
-                            <button className="btn btn-violet d-block  fw-bold   col-md-6  m-auto mt-5">Sign up</button>
+                            <div className='d-flex justify-content-center mt-5'>
+                              <button className="btn-purple px-5">Sign up</button>
+                            </div>
                             <p className=" text-center mt-3  ">Already have an account?   <NavLink to="/login"className=" text-danger">Login</NavLink></p>
                         </form>
                     </div>

@@ -1,56 +1,25 @@
 import { Modal } from 'react-bootstrap'
-
-import { useState } from 'react'
+import { InlineWidget } from 'react-calendly'
 
 const BookSessionModal = ({ show, handleClose, mentor }) => {
-  const [booked, setBooked] = useState(false)
-
-  const confirm = () => {
-    console.log(booked)
-    handleClose()
-    setBooked(false)
-  }
-
   return (
         <Modal
             show={show}
             onHide={handleClose}
-            size="lg"
+            size="xl"
             centered
         >
         <Modal.Body>
-            Have you successfully booked a session with { mentor ? mentor.name : '' }?
-            <div className='d-flex flex-column align-items-center mt-4'>
-                <div className='d-flex justify-content-between'>
-                    <div className="form-check mr-5">
-                        <input
-                            className="form-check-input"
-                            type="radio"
-                            name="book"
-                            value={true}
-                            checked={booked === true}
-                            onChange={() => setBooked(true)}
-                        />
-                        <label className="form-check-label" htmlFor="book-yes">
-                            Yes
-                        </label>
-                    </div>
-                    <div className="form-check ms-5 ps-5">
-                        <input
-                            className="form-check-input"
-                            type="radio"
-                            name="book"
-                            value={false}
-                            checked={booked === false}
-                            onChange={() => setBooked(false)}
-                        />
-                        <label className="form-check-label" htmlFor="book-no">
-                            No
-                        </label>
-                    </div>
+            {mentor
+              ? <div className='px-5'>
+                    <InlineWidget url={mentor.calendly_id} />
                 </div>
-                <button onClick={confirm} className="btn-purple mt-4">Confirm</button>
+              : <></>
+            }
+            <div className='d-flex flex-row align-items-center justify-content-center'>
+                <button onClick={handleClose} className="btn-purple rounded px-4 mt-4">Close</button>
             </div>
+
         </Modal.Body>
       </Modal>
   )

@@ -1,11 +1,9 @@
-import Sidebar from '../../components/admin/Sidebar'
 import Header from '../../components/common/Header'
 import Spinner from '../../components/common/Spinner'
 
 import Message from '../../components/common/Message'
 
 import { connect } from 'react-redux'
-
 import { Helmet } from 'react-helmet'
 
 const Layout = ({ darkmode, sidebar, pageName, spinner, children }) => {
@@ -15,10 +13,9 @@ const Layout = ({ darkmode, sidebar, pageName, spinner, children }) => {
           <title>TechPal | {pageName}</title>
       </Helmet>
       {spinner ? <Spinner /> : <></>}
-      <Sidebar />
-      <div className={`content ${sidebar ? 'shift' : ''}`}>
+      <div className={'content'}>
           <Message />
-          <Header admin={true} />
+          <Header mentor={true} />
           {children}
       </div>
     </div>
