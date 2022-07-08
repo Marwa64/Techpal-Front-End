@@ -17,6 +17,7 @@ import Applications from './pages/admin/Applications'
 import AdminMentors from './pages/admin/Mentors'
 import Tracks from './pages/admin/Tracks'
 import ResumeBuilder from './pages/student/ResumeBuilder'
+import ApplicationSent from './pages/mentor/ApplicationSent'
 import MentorAccount from './pages/mentor/Account'
 
 import { useEffect } from 'react'
@@ -84,6 +85,7 @@ function App () {
               : <ProtectedRoute><MentorAccount /></ProtectedRoute>
             } />
           <Route path="/login" element={ <Login />} />
+          <Route path="/applicationsent" element={ <ApplicationSent />} />
           <Route path="/applymentor" element={ <ApplyMentor /> } />
           <Route path="/signup" element={ <Signup />} />
           <Route path="/home" element={ <Landing /> } />
