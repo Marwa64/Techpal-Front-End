@@ -89,9 +89,10 @@ const ResumeBuilder = ({ user, currentTrack, currentProfile, resume }) => {
     setRightOrder(order)
   }
 
-  const editElement = (element) => {
+  const editElement = async (element) => {
     setEditElement(element)
     if (['About Me', 'Contact', 'Education'].includes(element.name)) {
+      await saveResume()
       navigate('/account')
     } else if (element.name === 'Skills') {
       setEditSkills(true)
@@ -141,7 +142,28 @@ const ResumeBuilder = ({ user, currentTrack, currentProfile, resume }) => {
     } else {
       await dispatch(updateResume(currentProfile.ID, updatedResume))
     }
+    await fetchResume()
     setSpinner(false)
+  }
+
+  const fetchResume = async () => {
+    const fetchedResume = await dispatch(getResume(currentProfile.ID))
+    setTemplate(fetchedResume.template)
+    setLeftOrder(fetchedResume.leftorder)
+    const newRightOrder = []
+    fetchedResume.rightorder.forEach(element => {
+      const newElement = {
+        name: element.name,
+        hide: element.hide
+      }
+      const data = []
+      element.data.forEach(oldData => {
+        data.push(JSON.parse(oldData))
+      })
+      newElement.data = data
+      newRightOrder.push(newElement)
+    })
+    setRightOrder(newRightOrder)
   }
 
   useEffect(async () => {

@@ -14,6 +14,7 @@ const Profiles = ({ user, tracks, profiles, currentProfile }) => {
   const deleteProfile = async (profile_id) => {
     setSpinner(true)
     await dispatch(removeProfile(user.ID, profile_id))
+    await dispatch(getProfiles(user.ID))
     setSpinner(false)
   }
 

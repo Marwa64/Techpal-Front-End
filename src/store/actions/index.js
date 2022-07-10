@@ -343,8 +343,8 @@ export const removeMentor = (user_id) => async dispatch => {
   })
 }
 
-export const reportMentor = ({ message, session_id }) => async dispatch => {
-  return axios.post(`${url}/reportmentor`, { message, session_id }).then((res) => {
+export const reportMentor = ({ mentor_email, message }) => async dispatch => {
+  return axios.post(`${url}/reportmentor`, { message }).then((res) => {
     dispatch({ type: DISPLAY_MESSAGE, data: { message: 'Mentor Reported Successfully', error: false } })
     return true
   }).catch(err => {
@@ -362,10 +362,11 @@ export const getResume = (profile_id) => async dispatch => {
     return axios.get(`${url}/getresume/${profile_id}`).then(async (res) => {
       if (!res.data.leftorder) {
         await dispatch({ type: SET_RESUME, data: DefaultResume })
+        return DefaultResume
       } else {
         await dispatch({ type: SET_RESUME, data: res.data })
+        return res.data
       }
-      return true
     }).catch(err => {
       if (err.response.data) {
         dispatch({ type: DISPLAY_MESSAGE, data: { message: err.response.data.Error, error: true } })
