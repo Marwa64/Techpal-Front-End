@@ -90,7 +90,7 @@ const StudentHome = ({ darkmode, currentProfile, currentTrack, news, user }) => 
                                         </div>
                                     </div>
                                     <div className="row px-5">
-                                        <StepProgress current={currentProfile.level} total={totalLevels - 1} skills={skills}/>
+                                        <StepProgress current={currentProfile.level - 1} total={totalLevels - 1} skills={skills}/>
                                     </div>
                                 </div>
 

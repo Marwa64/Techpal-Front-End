@@ -16,8 +16,8 @@ const StepProgress = (props) => {
                     <Step key={`step-desktop-${keyIndex}`}>
                     {({ accomplished, index }) => (
                       <div className="d-flex flex-column align-items-center">
-                        <Level unlocked={accomplished} index={index} />
-                        <small className={`level-name ${accomplished ? (darkmode ? 'dark-level-name' : 'purple') : ''}`}>{skill}</small>
+                        <Level unlocked={props.current >= keyIndex} index={index} />
+                        <small className={`level-name ${props.current >= keyIndex ? (darkmode ? 'dark-level-name' : 'purple') : ''}`}>{skill}</small>
                       </div>
                     )}
                   </Step>)}

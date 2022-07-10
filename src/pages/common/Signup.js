@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet'
 import { useRef, useState } from 'react'
 import { signup } from '../../store/actions'
 import { useDispatch } from 'react-redux'
-
+import Message from '../../components/common/Message'
 import Spinner from '../../components/common/Spinner'
 
 const Signup = () => {
@@ -50,9 +50,11 @@ const Signup = () => {
         user_type: 'student'
       }
       setSpinner(true)
-      await dispatch(signup(user))
+      const res = await dispatch(signup(user))
+      if (res) {
+        nav('/createprofile')
+      }
       setSpinner(false)
-      nav('/createprofile')
     }
   }
   return (
@@ -60,6 +62,7 @@ const Signup = () => {
             <Helmet>
                 <title>TechPal | Sign Up</title>
             </Helmet>
+            <Message />
             <Navbar />
             {spinner ? <Spinner /> : <></>}
             <div className="container mt-5">

@@ -7,6 +7,7 @@ import { Helmet } from 'react-helmet'
 
 import Track from '../../components/common/Track'
 import Skills from '../../components/student/Skills'
+import Logo from '../../components/common/Logo'
 import { getTracks, createProfile } from '../../store/actions'
 import { useDispatch, connect } from 'react-redux'
 
@@ -100,8 +101,8 @@ const CreateProfile = ({ user, tracks }) => {
                 <title>TechPal | Create Profile</title>
             </Helmet>
             <div className="container pb-5">
-                <div className="row p-5 px-2">
-                    <h5 className="fw-normal">Logo</h5>
+                <div className="d-flex p-5 px-0">
+                  <Logo path={'/home'} />
                 </div>
                 <div className="row mt-1 d-flex justify-content-center text-center">
                     <div className="col-12 col-lg-6">
@@ -124,10 +125,9 @@ const CreateProfile = ({ user, tracks }) => {
                         <Slider {...skillSettings} asNavFor={trackNav} ref={slider => { skillSlider = slider }}>
                             {localTracks.map(track => {
                               return (
-                                    <div key={`skill${track.Track_id}`} className="d-flex justify-content-center align-items-center">
-                                        <Skills id={track.Track_id} skills={track.skills} updateSkill={updateSkill} isSkillCompleted={isSkillCompleted} />
-                                        {/* <Skills id={track.Track_id} skills={track.skills} updateSkill={updateSkill} /> */}
-                                    </div>
+                                <div key={`skill${track.Track_id}`} className="d-flex justify-content-center align-items-center">
+                                    <Skills id={track.Track_id} skills={track.skills} updateSkill={updateSkill} isSkillCompleted={isSkillCompleted} />
+                                </div>
                               )
                             })}
                             </Slider>

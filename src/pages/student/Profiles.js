@@ -19,7 +19,7 @@ const Profiles = ({ user, tracks, profiles, currentProfile }) => {
 
   const switchProfileLocal = async (profile_id) => {
     await dispatch(switchProfile(user.ID, profile_id))
-    window.location.reload()
+    window.location.href = '/home'
   }
 
   useEffect(async () => {

@@ -44,8 +44,14 @@ export const signup = (user) => async dispatch => {
     // save user data and token in state
     await dispatch({ type: SET_USER, data: userData })
     await dispatch({ type: SET_TOKEN, data: token })
-  }).catch(err => {
-    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    return true
+  }).catch((err) => {
+    if (err.response.data) {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.response.data.Error, error: true } })
+    } else {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    }
+    return false
   })
 }
 
@@ -62,18 +68,25 @@ export const login = (user) => async dispatch => {
     // save user data and token in state
     await dispatch({ type: SET_USER, data: userData })
     await dispatch({ type: SET_TOKEN, data: token })
-    await dispatch(getProfiles(userData.ID))
     await dispatch({ type: DISPLAY_MESSAGE, data: { message: 'Login Success', error: false } })
+    return true
   }).catch(err => {
-    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.response.data.Error, error: true } })
+    return false
   })
 }
 
 export const getUser = (userId) => async dispatch => {
   return axios.get(`${url}/getuser/${userId}`).then(res => {
     dispatch({ type: SET_USER, data: res.data })
+    return res.data
   }).catch(err => {
-    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    if (err.response.data) {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.response.data.Error, error: true } })
+    } else {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    }
+    return false
   })
 }
 
@@ -81,8 +94,14 @@ export const updateStudent = (userId, user) => async dispatch => {
   return axios.post(`${url}/updatestudent/${userId}`, user).then(async (res) => {
     await dispatch({ type: SET_USER, data: res.data })
     await dispatch({ type: DISPLAY_MESSAGE, data: { message: 'Data Updated Successfully', error: false } })
+    return true
   }).catch(err => {
-    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    if (err.response.data) {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.response.data.Error, error: true } })
+    } else {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    }
+    return false
   })
 }
 
@@ -111,8 +130,14 @@ export const logout = () => async dispatch => {
 export const getTracks = () => async dispatch => {
   return axios.get(`${url}/getalltracks`).then(res => {
     dispatch({ type: SET_TRACKS, data: res.data })
+    return true
   }).catch(err => {
-    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    if (err.response.data) {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.response.data.Error, error: true } })
+    } else {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    }
+    return false
   })
 }
 
@@ -120,8 +145,14 @@ export const addTrack = (track) => async dispatch => {
   return axios.post(`${url}/addTrack`, track).then(async (res) => {
     dispatch({ type: ADD_TRACK, data: res.data })
     await dispatch({ type: DISPLAY_MESSAGE, data: { message: 'Track Added Successfully', error: false } })
+    return true
   }).catch(err => {
-    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    if (err.response.data) {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.response.data.Error, error: true } })
+    } else {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    }
+    return false
   })
 }
 
@@ -129,8 +160,14 @@ export const removeTrack = (track_id) => async dispatch => {
   return axios.delete(`${url}/deletetrack`, { data: { track_id } }).then(async (res) => {
     await dispatch({ type: REMOVE_TRACK, data: track_id })
     await dispatch({ type: DISPLAY_MESSAGE, data: { message: 'Track Removed Successfully', error: false } })
+    return true
   }).catch(err => {
-    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    if (err.response.data) {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.response.data.Error, error: true } })
+    } else {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    }
+    return false
   })
 }
 
@@ -139,8 +176,14 @@ export const createProfile = (user_id, track_id, completed_skills) => async disp
     await dispatch(getCurrentTrack(res.data.Track_id))
     await dispatch({ type: SET_CURRENT_PROFILE, data: res.data })
     await dispatch({ type: DISPLAY_MESSAGE, data: { message: 'Profile Created Successfully', error: false } })
+    return true
   }).catch(err => {
-    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    if (err.response.data) {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.response.data.Error, error: true } })
+    } else {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    }
+    return false
   })
 }
 
@@ -148,16 +191,28 @@ export const getCurrentProfile = (user_id) => async dispatch => {
   return axios.get(`${url}/getcurrentprofile/${user_id}`).then(async (res) => {
     await dispatch(getCurrentTrack(res.data.Track_id))
     dispatch({ type: SET_CURRENT_PROFILE, data: res.data })
+    return true
   }).catch(err => {
-    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    if (err.response.data) {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.response.data.Error, error: true } })
+    } else {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    }
+    return false
   })
 }
 
 export const getCurrentTrack = (track_id) => async dispatch => {
   return axios.get(`${url}/gettrack/${track_id}`).then(res => {
     dispatch({ type: SET_CURRENT_TRACK, data: res.data })
+    return true
   }).catch(err => {
-    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    if (err.response.data) {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.response.data.Error, error: true } })
+    } else {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    }
+    return false
   })
 }
 
@@ -171,7 +226,12 @@ export const getProfiles = (user_id) => async dispatch => {
       return []
     }
   }).catch(err => {
-    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    if (err.response.data) {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.response.data.Error, error: true } })
+    } else {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    }
+    return []
   })
 }
 
@@ -179,8 +239,14 @@ export const removeProfile = (user_id, profile_id) => async dispatch => {
   return axios.delete(`${url}/deleteprofile/${user_id}`, { data: { profile_id } }).then(async (res) => {
     await dispatch({ type: REMOVE_PROFILE, data: res.data })
     await dispatch({ type: DISPLAY_MESSAGE, data: { message: 'Profile Removed Successfully', error: false } })
+    return true
   }).catch(err => {
-    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    if (err.response.data) {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.response.data.Error, error: true } })
+    } else {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    }
+    return false
   })
 }
 
@@ -189,15 +255,27 @@ export const switchProfile = (user_id, profile_id) => async dispatch => {
     await dispatch(getCurrentTrack(res.data.Track_id))
     await dispatch({ type: SET_CURRENT_PROFILE, data: res.data })
     await dispatch({ type: DISPLAY_MESSAGE, data: { message: 'Profile Switched Successfully', error: false } })
+    return true
   }).catch(err => {
-    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    if (err.response.data) {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.response.data.Error, error: true } })
+    } else {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    }
+    return false
   })
 }
 
 export const applyMentor = (mentor) => async dispatch => {
-  return axios.post(`${url}/applymentor`, mentor).then(async (res) => {
+  return axios.post(`${url}/applymentor`, mentor).then(() => {
+    return true
   }).catch(err => {
-    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    if (err.response.data) {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.response.data.Error, error: true } })
+    } else {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    }
+    return false
   })
 }
 
@@ -208,8 +286,14 @@ export const getNotAcceptedMentors = () => async dispatch => {
     } else {
       await dispatch({ type: SET_NOT_ACCEPTED_MENTORS, data: [] })
     }
+    return true
   }).catch(err => {
-    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    if (err.response.data) {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.response.data.Error, error: true } })
+    } else {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    }
+    return false
   })
 }
 
@@ -220,30 +304,56 @@ export const getAcceptedMentors = () => async dispatch => {
     } else {
       await dispatch({ type: SET_ACCEPTED_MENTORS, data: [] })
     }
+    return true
   }).catch(err => {
-    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    if (err.response.data) {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.response.data.Error, error: true } })
+    } else {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    }
+    return false
   })
 }
 
 export const acceptMentor = (mentor_email) => async dispatch => {
   return axios.post(`${url}/acceptmentor`, { email: mentor_email }).then(async (res) => {
     await dispatch({ type: ADD_ACCEPTED_MENTOR, data: res.data })
+    return true
   }).catch(err => {
-    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    if (err.response.data) {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.response.data.Error, error: true } })
+    } else {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    }
+    return false
   })
 }
 
 export const removeMentor = (user_id) => async dispatch => {
   return axios.delete(`${url}/removementor/${user_id}`).then((res) => {
+    dispatch({ type: DISPLAY_MESSAGE, data: { message: 'Mentor Removed Successfully', error: false } })
+    return true
   }).catch(err => {
-    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    if (err.response.data) {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.response.data.Error, error: true } })
+    } else {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    }
+    return false
   })
 }
 
 export const reportMentor = ({ message, session_id }) => async dispatch => {
   return axios.post(`${url}/reportmentor`, { message, session_id }).then((res) => {
+    dispatch({ type: DISPLAY_MESSAGE, data: { message: 'Mentor Reported Successfully', error: false } })
+    return true
   }).catch(err => {
-    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    if (err.response.data) {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.response.data.Error, error: true } })
+    } else {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    }
+    return false
   })
 }
 
@@ -255,8 +365,14 @@ export const getResume = (profile_id) => async dispatch => {
       } else {
         await dispatch({ type: SET_RESUME, data: res.data })
       }
+      return true
     }).catch(err => {
-      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+      if (err.response.data) {
+        dispatch({ type: DISPLAY_MESSAGE, data: { message: err.response.data.Error, error: true } })
+      } else {
+        dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+      }
+      return false
     })
   }
 }
@@ -270,8 +386,14 @@ export const addResume = (profile_id, resume) => async dispatch => {
   }).then(async (res) => {
     await dispatch({ type: SET_RESUME, data: res.data })
     await dispatch({ type: DISPLAY_MESSAGE, data: { message: 'Resume Updated Successfully', error: false } })
+    return true
   }).catch(err => {
-    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    if (err.response.data) {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.response.data.Error, error: true } })
+    } else {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    }
+    return false
   })
 }
 
@@ -279,8 +401,14 @@ export const updateResume = (profile_id, resume) => async dispatch => {
   return axios.post(`${url}/updateresume/${profile_id}`, resume).then(async (res) => {
     await dispatch({ type: SET_RESUME, data: res.data })
     await dispatch({ type: DISPLAY_MESSAGE, data: { message: 'Resume Updated Successfully', error: false } })
+    return true
   }).catch(err => {
-    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    if (err.response.data) {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.response.data.Error, error: true } })
+    } else {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    }
+    return false
   })
 }
 

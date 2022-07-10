@@ -5,6 +5,7 @@ import { login } from '../../store/actions'
 import { useDispatch } from 'react-redux'
 import { NavLink, useNavigate } from 'react-router-dom'
 import Spinner from '../../components/common/Spinner'
+import Message from '../../components/common/Message'
 
 const Login = () => {
   const nav = useNavigate()
@@ -35,9 +36,11 @@ const Login = () => {
         password: password.current.value
       }
       setSpinner(true)
-      await dispatch(login(user))
+      const result = await dispatch(login(user))
+      if (result) {
+        nav('/')
+      }
       setSpinner(false)
-      nav('/')
     }
   }
   return (
@@ -45,6 +48,7 @@ const Login = () => {
             <Helmet>
                 <title>TechPal | Login</title>
             </Helmet>
+            <Message />
             <Navbar />
             {spinner ? <Spinner /> : <></>}
             <div className="container mt-5">

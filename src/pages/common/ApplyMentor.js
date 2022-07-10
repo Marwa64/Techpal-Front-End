@@ -1,5 +1,6 @@
 import Navbar from '../../components/common/Navbar'
 import Spinner from '../../components/common/Spinner'
+import Message from '../../components/common/Message'
 
 import { applyMentor } from '../../store/actions'
 
@@ -41,13 +42,15 @@ const ApplyMentor = () => {
         resume: resume.current.value
       }
       setSpinner(true)
-      await dispatch(applyMentor(mentor))
-      name.current.value = ''
-      email.current.value = ''
-      calendly.current.value = ''
-      resume.current.value = ''
+      const res = await dispatch(applyMentor(mentor))
+      if (res) {
+        name.current.value = ''
+        email.current.value = ''
+        calendly.current.value = ''
+        resume.current.value = ''
+        navigate('/applicationsent')
+      }
       setSpinner(false)
-      navigate('/applicationsent')
     }
   }
 
@@ -56,6 +59,7 @@ const ApplyMentor = () => {
             <Helmet>
                 <title>TechPal | Apply as a Mentor</title>
             </Helmet>
+            <Message />
             <Navbar />
             {spinner ? <Spinner /> : <></>}
             <div className="container mt-5">

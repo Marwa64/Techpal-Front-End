@@ -21,85 +21,83 @@ import ApplicationSent from './pages/mentor/ApplicationSent'
 import MentorAccount from './pages/mentor/Account'
 
 import { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch, connect } from 'react-redux'
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import ProtectedRoute from './pages/ProtectedRoute'
 
-import { getUser, getCurrentProfile, getProfiles } from './store/actions'
+import StudentProtected from './pages/StudentProtected'
+import MentorProtected from './pages/MentorProtected'
+import AdminProtected from './pages/AdminProtected'
+import IsLoggedIn from './pages/IsLoggedIn'
+
+import { getUser } from './store/actions'
 import Landing from './pages/common/Landing'
 import News from './pages/student/News'
 
-function App () {
+function App ({ user, darkmode }) {
   const dispatch = useDispatch()
-  const darkmode = useSelector(state => state.darkmode)
-  const user = useSelector(state => state.user)
-  const profiles = useSelector(state => state.profiles)
-  const currentProfile = useSelector(state => state.currentProfile)
-  const currentTrack = useSelector(state => state.currentTrack)
 
   const getUserData = async () => {
     if (localStorage.getItem('userId')) {
       const userId = localStorage.getItem('userId')
       if (Object.keys(user).length === 0) {
         await dispatch(getUser(userId))
-        if (!profiles.length) {
-          const res = await dispatch(getProfiles(userId))
-          if (!res.length && window.location.pathname !== '/createprofile') {
-            window.location.href = '/createprofile'
-          }
-        }
-      }
-      if (profiles.length && (Object.keys(currentProfile).length === 0 || Object.keys(currentTrack).length === 0)) {
-        await dispatch(getCurrentProfile(userId))
       }
     }
   }
 
   useEffect(() => {
     getUserData()
-  }, [user, profiles])
+  }, [])
 
   return (
     <div className={`App ${darkmode ? 'header-dark' : ''}`}>
       <Router>
         <Routes>
           <Route path="/mentor-home" element={ <MentorHome /> } />
-          <Route path="/resume-builder" element={ <ProtectedRoute><ResumeBuilder /></ProtectedRoute> } />
-          <Route path="/admin/tracks" element={ <Tracks /> } />
-          <Route path="/admin/mentors" element={ <AdminMentors /> } />
-          <Route path="/admin/applications" element={ <Applications /> } />
-          <Route path="/loading" element={ <Loading /> } />
-          <Route path="/mentors" element={ <ProtectedRoute><Mentors /></ProtectedRoute> } />
-          <Route path="/completed-sessions" element={ <ProtectedRoute><CompletedSessions /></ProtectedRoute> } />
-          <Route path="/news" element={ <ProtectedRoute><News /></ProtectedRoute> } />
-          <Route path="/sessions" element={ <ProtectedRoute><Sessions /></ProtectedRoute> } />
-          <Route path="/jobs" element={ <ProtectedRoute><Jobs /></ProtectedRoute> } />
-          <Route path="/completed-courses" element={ <ProtectedRoute><CompletedCourses /></ProtectedRoute> } />
-          <Route path="/courses" element={ <ProtectedRoute><Courses /></ProtectedRoute> } />
-          <Route path="/createprofile" element={ <ProtectedRoute><CreateProfile /></ProtectedRoute> } />
-          <Route path="/profiles" element={ <ProtectedRoute><Profiles /></ProtectedRoute> } />
+          <Route path="/resume-builder" element={ <StudentProtected><ResumeBuilder /></StudentProtected> } />
+          <Route path="/admin/tracks" element={ <AdminProtected><Tracks /></AdminProtected> } />
+          <Route path="/admin/mentors" element={ <AdminProtected><AdminMentors /></AdminProtected> } />
+          <Route path="/admin/applications" element={ <AdminProtected><Applications /> </AdminProtected>} />
+          <Route path="/mentors" element={ <StudentProtected><Mentors /></StudentProtected> } />
+          <Route path="/completed-sessions" element={ <StudentProtected><CompletedSessions /></StudentProtected> } />
+          <Route path="/news" element={ <StudentProtected><News /></StudentProtected> } />
+          <Route path="/sessions" element={ <StudentProtected><Sessions /></StudentProtected> } />
+          <Route path="/jobs" element={ <StudentProtected><Jobs /></StudentProtected> } />
+          <Route path="/completed-courses" element={ <StudentProtected><CompletedCourses /></StudentProtected> } />
+          <Route path="/courses" element={ <StudentProtected><Courses /></StudentProtected> } />
+          <Route path="/createprofile" element={ <CreateProfile /> } />
+          <Route path="/profiles" element={ <StudentProtected><Profiles /></StudentProtected> } />
           <Route path="/account" element=
-            { user.user_type === 'student'
-              ? <ProtectedRoute><StudentAccount /></ProtectedRoute>
-              : <ProtectedRoute><MentorAccount /></ProtectedRoute>
-            } />
-          <Route path="/login" element={ <Login />} />
-          <Route path="/applicationsent" element={ <ApplicationSent />} />
-          <Route path="/applymentor" element={ <ApplyMentor /> } />
-          <Route path="/signup" element={ <Signup />} />
-          <Route path="/home" element={ <Landing /> } />
-          <Route path="/" element=
             { user.user_type === 'student' || user.User_type === 'student'
-              ? <ProtectedRoute><StudentHome /></ProtectedRoute>
+              ? <StudentProtected><StudentAccount /></StudentProtected>
+              : <MentorProtected><MentorAccount /></MentorProtected>
+            } />
+          <Route path="/login" element={ <IsLoggedIn><Login /></IsLoggedIn>} />
+          <Route path="/applicationsent" element={ <ApplicationSent />} />
+          <Route path="/applymentor" element={ <IsLoggedIn><ApplyMentor /></IsLoggedIn> } />
+          <Route path="/signup" element={ <IsLoggedIn><Signup /></IsLoggedIn>} />
+          <Route path="/home" element=
+            { user.user_type === 'student' || user.User_type === 'student'
+              ? <StudentProtected><StudentHome /></StudentProtected>
               : user.user_type === 'mentor' || user.User_type === 'mentor'
-                ? <ProtectedRoute><MentorHome /></ProtectedRoute>
-                : <ProtectedRoute><Loading /></ProtectedRoute>}
+                ? <MentorProtected><MentorHome /></MentorProtected>
+                : user.user_type === 'admin' || user.User_type === 'admin'
+                  ? <AdminProtected><Applications /> </AdminProtected>
+                  : <Loading />}
           />
+          <Route path="/" element={ <IsLoggedIn><Landing /></IsLoggedIn> } />
         </Routes>
       </Router>
     </div>
   )
 }
 
-export default App
+const mapStateToProps = state => {
+  return {
+    user: state.user,
+    darkmode: state.darkmode
+  }
+}
+
+export default connect(mapStateToProps)(App)
