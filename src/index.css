@@ -6,6 +6,9 @@ html, body, #root, .App {
     
 }
 
+.dark-purple{
+    color: #6155AC;
+}
 /*------------------------------------------------------------------*/
 /*dark mode*/
 .header-dark, .header.header-dark .dropdown button {
