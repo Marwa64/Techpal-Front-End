@@ -35,6 +35,7 @@ import IsLoggedIn from './pages/IsLoggedIn'
 import { getUser } from './store/actions'
 import Landing from './pages/common/Landing'
 import News from './pages/student/News'
+import NotFound from './pages/common/404'
 
 function App ({ user, darkmode }) {
   const dispatch = useDispatch()
@@ -56,6 +57,7 @@ function App ({ user, darkmode }) {
     <div className={`App ${darkmode ? 'header-dark' : ''}`}>
       <Router>
         <Routes>
+          <Route path='/404' element={<NotFound/>}/>
           <Route path="/resume-builder" element={ <StudentProtected><ResumeBuilder /></StudentProtected> } />
           <Route path="/admin/tracks" element={ <AdminProtected><Tracks /></AdminProtected> } />
           <Route path="/admin/mentors" element={ <AdminProtected><AdminMentors /></AdminProtected> } />
