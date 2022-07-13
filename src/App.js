@@ -91,6 +91,7 @@ function App ({ user, darkmode }) {
                   : <Loading />}
           />
           <Route path="/" element={ <IsLoggedOut><Landing /></IsLoggedOut> } />
+          <Route path="*" element={<Navigate to="/404" />} />
         </Routes>
       </Router>
     </div>
