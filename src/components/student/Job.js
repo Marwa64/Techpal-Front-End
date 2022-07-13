@@ -1,28 +1,34 @@
-import Linkedin from '../../assets/linkedin.png'
 
-const Job = () => {
+import { viewJob } from '../../store/actions'
+
+import { useDispatch } from 'react-redux'
+
+const Job = ({ job, profileId }) => {
+  const dispatch = useDispatch()
+
+  const goToJob = async () => {
+    window.open(job.url, '_blank')
+    await dispatch(viewJob(profileId, job))
+  }
+
   return (
-        <div className="row mb-5 pb-2 mx-1">
-            <div className="col-1 d-flex align-items-center justify-content-center">
-                <div>
-                    <img src={Linkedin} alt="Linkedin logo" height={60} width={100} />
-                </div>
-            </div>
+        <div className="job row mb-5 mx-1">
             <div className="col px-4">
                 <div className="row mx-1 fw-bold">
-                    Job Title - Location
+                    {job.title} - {job.location}
                 </div>
                 <div className="row mx-1">
-                    Company Name
+                    {job.company}
                 </div>
-                <div className="row mx-1 fw-light d-inline">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi volutpat lobortis sodales.
-                Pellentesque consequat eget diam id consequat. Duis vel augue aliquam, pellentesque velit ut,
-                 maximus neque... <a className="red-link" href="https://google.com"> Read more</a>
+                <div className="row mx-1 fw-light">
+                    <div className="col-12 p-0 mt-1">
+                        {job.summary}
+                        <button className="btn mb-1 red-link" onClick={goToJob}> Read more</button>
+                    </div>
                 </div>
             </div>
-            <div className="col-2 d-flex align-items-center justify-content-center mt-4">
-                <button className="btn-purple">Apply</button>
+            <div className="col-12 col-lg-2 d-flex align-items-center justify-content-center mt-2">
+                <button onClick={goToJob} className="btn-purple">Apply</button>
             </div>
         </div>
   )

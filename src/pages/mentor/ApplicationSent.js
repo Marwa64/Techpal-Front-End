@@ -13,7 +13,7 @@ const ApplicationSent = () => {
                         <div className='col col-md-8 m-auto shadow text-center white-block p-5 pb-4'>
                             <h2 className="mb-4">Mentor Application Received</h2>
                             <p className="mb-5">Thank you for applying, we appreciate your interest to be part of the TechPal Community!<br/>
-                            We will let you know the outcome of your application after 2 weeks</p>
+                            We will let you know the outcome of your application within a week</p>
                         </div>
                     </div>
                 </div>

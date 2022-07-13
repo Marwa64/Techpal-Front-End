@@ -6,7 +6,7 @@ const AdminProtected = ({ children, user }) => {
     return <Navigate to="/login" replace />
   }
 
-  if (user.user_type !== 'admin') {
+  if (user.user_type !== 'admin' && user.User_type !== 'admin') {
     return <Navigate to="/" replace />
   }
 

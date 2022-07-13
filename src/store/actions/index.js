@@ -8,7 +8,8 @@ import {
   SET_PROFILES, REMOVE_PROFILE, ADD_TRACK,
   SET_ACCEPTED_MENTORS, ADD_ACCEPTED_MENTOR,
   SET_NOT_ACCEPTED_MENTORS, SET_NEWS, REMOVE_TRACK,
-  SET_RESUME, DISPLAY_MESSAGE, REMOVE_MESSAGE
+  SET_RESUME, DISPLAY_MESSAGE, REMOVE_MESSAGE,
+  SET_JOBS, SET_SESSIONS, ADD_SESSION, REMOVE_SESSION
 } from './types'
 
 const url = 'http://localhost:8080/api'
@@ -66,9 +67,10 @@ export const login = (user) => async dispatch => {
     localStorage.setItem('userId', userData.ID)
 
     // save user data and token in state
-    await dispatch({ type: SET_USER, data: userData })
     await dispatch({ type: SET_TOKEN, data: token })
     await dispatch({ type: DISPLAY_MESSAGE, data: { message: 'Login Success', error: false } })
+
+    await dispatch(getUser(userData.ID))
     return true
   }).catch(err => {
     dispatch({ type: DISPLAY_MESSAGE, data: { message: err.response.data.Error, error: true } })
@@ -92,8 +94,38 @@ export const getUser = (userId) => async dispatch => {
 
 export const updateStudent = (userId, user) => async dispatch => {
   return axios.post(`${url}/updatestudent/${userId}`, user).then(async (res) => {
-    await dispatch({ type: SET_USER, data: res.data })
+    await dispatch(getUser(userId))
     await dispatch({ type: DISPLAY_MESSAGE, data: { message: 'Data Updated Successfully', error: false } })
+    return true
+  }).catch(err => {
+    if (err.response.data) {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.response.data.Error, error: true } })
+    } else {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    }
+    return false
+  })
+}
+
+export const updateMentor = (userId, user) => async dispatch => {
+  return axios.post(`${url}/updatementor/${userId}`, user).then(async (res) => {
+    await dispatch(getUser(userId))
+    await dispatch({ type: DISPLAY_MESSAGE, data: { message: 'Data Updated Successfully', error: false } })
+    return true
+  }).catch(err => {
+    if (err.response.data) {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.response.data.Error, error: true } })
+    } else {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    }
+    return false
+  })
+}
+
+export const changePassword = (userId, payload) => async dispatch => {
+  return axios.post(`${url}/changepassword/${userId}`, payload).then(async (res) => {
+    await dispatch(getUser(userId))
+    await dispatch({ type: DISPLAY_MESSAGE, data: { message: 'Password Changed Successfully', error: false } })
     return true
   }).catch(err => {
     if (err.response.data) {
@@ -318,6 +350,7 @@ export const getAcceptedMentors = () => async dispatch => {
 export const acceptMentor = (mentor_email) => async dispatch => {
   return axios.post(`${url}/acceptmentor`, { email: mentor_email }).then(async (res) => {
     await dispatch({ type: ADD_ACCEPTED_MENTOR, data: res.data })
+    dispatch({ type: DISPLAY_MESSAGE, data: { message: 'Mentor Accepted', error: false } })
     return true
   }).catch(err => {
     if (err.response.data) {
@@ -343,8 +376,8 @@ export const removeMentor = (user_id) => async dispatch => {
   })
 }
 
-export const reportMentor = ({ mentor_email, message }) => async dispatch => {
-  return axios.post(`${url}/reportmentor`, { message }).then((res) => {
+export const reportMentor = (mentor_email, message) => async dispatch => {
+  return axios.post(`${url}/reportmentor/${mentor_email}`, { message }).then((res) => {
     dispatch({ type: DISPLAY_MESSAGE, data: { message: 'Mentor Reported Successfully', error: false } })
     return true
   }).catch(err => {
@@ -413,11 +446,97 @@ export const updateResume = (profile_id, resume) => async dispatch => {
   })
 }
 
+export const addSession = (mentorId, session) => async dispatch => {
+  return axios.post(`${url}/addsession/${mentorId}`, session).then(async (res) => {
+    dispatch({ type: ADD_SESSION, data: res.data })
+    await dispatch({ type: DISPLAY_MESSAGE, data: { message: 'Session Added Successfully', error: false } })
+    return true
+  }).catch(err => {
+    if (err.response.data) {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.response.data.Error, error: true } })
+    } else {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    }
+    return false
+  })
+}
+
+export const removeSession = (session_id) => async dispatch => {
+  return axios.delete(`${url}/removesession/${session_id}`).then(async (res) => {
+    await dispatch({ type: REMOVE_SESSION, data: session_id })
+    await dispatch({ type: DISPLAY_MESSAGE, data: { message: 'Session Removed Successfully', error: false } })
+    return true
+  }).catch(err => {
+    if (err.response.data) {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.response.data.Error, error: true } })
+    } else {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    }
+    return false
+  })
+}
+
+export const getAllSessions = () => async dispatch => {
+  return axios.get(`${url}/getallsessions`).then(async (res) => {
+    if (res.data) {
+      await dispatch({ type: SET_SESSIONS, data: res.data })
+    } else {
+      await dispatch({ type: SET_SESSIONS, data: [] })
+    }
+    return true
+  }).catch(err => {
+    if (err.response.data) {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.response.data.Error, error: true } })
+    } else {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    }
+    return false
+  })
+}
+
+export const getMentorSessions = (mentorId) => async dispatch => {
+  return axios.get(`${url}/getallsessions/${mentorId}`).then(async (res) => {
+    if (res.data) {
+      await dispatch({ type: SET_SESSIONS, data: res.data })
+    } else {
+      await dispatch({ type: SET_SESSIONS, data: [] })
+    }
+    return true
+  }).catch(err => {
+    if (err.response.data) {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.response.data.Error, error: true } })
+    } else {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    }
+    return false
+  })
+}
+
 export const getNews = (track_name, numberOfArticles) => async dispatch => {
   const API_URL = 'https://newsapi.org/v2/everything?apiKey=4c815a8efe264f8ba724edc7b68523d6&language=en&sortBy=publishedAt'
   return axios.get(`${API_URL}&pageSize=${numberOfArticles}&q=${track_name}`).then(async (res) => {
     await dispatch({ type: SET_NEWS, data: res.data.articles })
   }).catch(err => {
     dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+  })
+}
+
+export const getJobs = (track_name, profile_id) => async dispatch => {
+  const RECOMMENDER_API = 'http://localhost:5000'
+  return axios.post(`${RECOMMENDER_API}/jobs/${track_name}`, { profile_id }).then(async (res) => {
+    await dispatch({ type: SET_JOBS, data: res.data })
+    return res.data
+  }).catch(err => {
+    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+  })
+}
+
+export const viewJob = (profile_id, job) => async dispatch => {
+  const RECOMMENDER_API = 'http://localhost:5000'
+  return axios.post(`${RECOMMENDER_API}/job_viewed/${profile_id}`, job).then(async (res) => {
+    return true
+  }).catch(err => {
+    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    return false
   })
 }

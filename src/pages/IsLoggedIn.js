@@ -2,10 +2,10 @@ import { Navigate } from 'react-router-dom'
 
 const IsLoggedIn = ({ children }) => {
   if (localStorage.getItem('token')) {
-    return <Navigate to="/home" replace />
+    return children
   }
 
-  return children
+  return <Navigate to="/login" replace />
 }
 
 export default IsLoggedIn

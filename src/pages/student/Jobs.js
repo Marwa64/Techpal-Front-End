@@ -3,77 +3,45 @@ import PurpleBar from '../../components/common/PurpleBar'
 
 import Job from '../../components/student/Job'
 
-import { connect } from 'react-redux'
+import { getJobs } from '../../store/actions'
 
-const Jobs = ({ currentTrack }) => {
-//   const [spinner, setSpinner] = useState(false)
+import { useState, useEffect } from 'react'
 
-  //   const navigate = useNavigate()
+import { connect, useDispatch } from 'react-redux'
 
-  const recommendations = [
-    {
-      id: '1',
-      name: 'Course 1',
-      rating: 1,
-      link: 'https://www.google.com',
-      img: 'https://cdn.elearningindustry.com/wp-content/uploads/2020/08/5-ways-to-improve-your-course-cover-design-1024x575.png'
-    },
-    {
-      id: '2',
-      name: 'Course 2',
-      rating: 5,
-      link: 'https://www.google.com',
-      img: 'https://cdn.elearningindustry.com/wp-content/uploads/2020/08/5-ways-to-improve-your-course-cover-design-1024x575.png'
-    },
-    {
-      id: '3',
-      name: 'Course 3',
-      rating: 4,
-      link: 'https://www.google.com',
-      img: 'https://cdn.elearningindustry.com/wp-content/uploads/2020/08/5-ways-to-improve-your-course-cover-design-1024x575.png'
-    },
-    {
-      id: '4',
-      name: 'Course 4',
-      rating: 3,
-      link: 'https://www.google.com',
-      img: 'https://cdn.elearningindustry.com/wp-content/uploads/2020/08/5-ways-to-improve-your-course-cover-design-1024x575.png'
-    },
-    {
-      id: '5',
-      name: 'Course 5',
-      rating: 5,
-      link: 'https://www.google.com',
-      img: 'https://cdn.elearningindustry.com/wp-content/uploads/2020/08/5-ways-to-improve-your-course-cover-design-1024x575.png'
-    },
-    {
-      id: '6',
-      name: 'Course 6',
-      rating: 2,
-      link: 'https://www.google.com',
-      img: 'https://cdn.elearningindustry.com/wp-content/uploads/2020/08/5-ways-to-improve-your-course-cover-design-1024x575.png'
+const Jobs = ({ currentProfile, currentTrack, jobs }) => {
+  const dispatch = useDispatch()
+  const [spinner, setSpinner] = useState(false)
+
+  useEffect(async () => {
+    if (Object.keys(currentTrack).length > 0 && jobs.length < 1) {
+      setSpinner(true)
+      await dispatch(getJobs(currentTrack.name, currentProfile.ID))
+      setSpinner(false)
     }
-  ]
+  }, [currentTrack, jobs])
 
   return (
-        <Layout spinner={false} pageName='Jobs'>
+        <Layout spinner={spinner} pageName='Jobs'>
             <PurpleBar title={`Job Recommendations for ${currentTrack.name}`} button={false} />
-            <div className="container mt-5">
-                <div className="row p-5 pt-0">
-                    {recommendations.map(course => {
-                      return (
-                            <Job key={course.id} course={course} enrolled={false} />
-                      )
-                    })}
-                </div>
-            </div>
+                <div className="container mt-5">
+                  <div className="row p-5 pt-0">
+                      {jobs.map((job, index) => {
+                        return (
+                            <Job key={`job-${index}`} profileId={currentProfile.ID} job={job} />
+                        )
+                      })}
+                  </div>
+              </div>
         </Layout>
   )
 }
 
 const mapStateToProps = state => {
   return {
-    currentTrack: state.currentTrack
+    currentProfile: state.currentProfile,
+    currentTrack: state.currentTrack,
+    jobs: state.jobs
   }
 }
 

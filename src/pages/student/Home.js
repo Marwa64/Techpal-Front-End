@@ -1,5 +1,4 @@
 import Layout from './Layout'
-import Avatar from '../../assets/avatar.jpg'
 import Progress from '../../components/student/Progress'
 import StepProgress from '../../components/student/StepProgress'
 import { useEffect, useState } from 'react'
@@ -7,11 +6,11 @@ import { connect, useDispatch } from 'react-redux'
 import { Popover, OverlayTrigger } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 
-import { getNews } from '../../store/actions'
+import { getNews, getAllSessions } from '../../store/actions'
 
 import ResumeDownload from '../../components/student/ResumeDownload'
 
-const StudentHome = ({ darkmode, currentProfile, currentTrack, news, user }) => {
+const StudentHome = ({ darkmode, currentProfile, currentTrack, news, user, sessions }) => {
   const dispatch = useDispatch()
 
   const [spinner, setSpinner] = useState(true)
@@ -25,6 +24,7 @@ const StudentHome = ({ darkmode, currentProfile, currentTrack, news, user }) => 
       if (Object.keys(currentProfile).length > 0 && Object.keys(currentTrack).length > 0) {
         setSpinner(true)
         await dispatch(getNews(currentTrack.name, 2))
+        await dispatch(getAllSessions())
         setTotalLevels(Object.keys(currentTrack.skills).length)
         let orderSkills = []
         if (currentProfile.completedSkills) {
@@ -40,23 +40,6 @@ const StudentHome = ({ darkmode, currentProfile, currentTrack, news, user }) => 
       }
     }, 500)
   }, [currentProfile, currentTrack])
-
-  const sessions = [
-    {
-      id: 1,
-      mentor: 'Samar Ashraf',
-      date: '3/10/2022',
-      time: '02:00 PM',
-      link: 'https://google.com'
-    },
-    {
-      id: 2,
-      mentor: 'Neimat Soliman',
-      date: '4/10/2022',
-      time: '05:00 PM',
-      link: 'https://google.com'
-    }
-  ]
 
   const popoverHoverFocus = (
         <Popover id="popover-trigger" title="Points Info">
@@ -93,7 +76,6 @@ const StudentHome = ({ darkmode, currentProfile, currentTrack, news, user }) => 
                                         <StepProgress current={currentProfile.level - 1} total={totalLevels - 1} skills={skills}/>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                         <div className="row">
@@ -148,33 +130,34 @@ const StudentHome = ({ darkmode, currentProfile, currentTrack, news, user }) => 
 
                             <div className="col-12 col-lg-6">
                                 <div className={`section shadow pt-4 pb-4 ${darkmode ? 'sidebar-dark' : ''}`} id="upcoming">
-                                    <h5 className="mb-4 mb-md-5">Upcoming Sessions</h5>
+                                    <h5 className="mb-4 mb-md-5">Public Sessions</h5>
                                     {sessions.length > 0
-                                      ? sessions.map(session => {
-                                        return (
-                                            <div key={session.id} className="mobile-border row mb-4 mt-4 mt-lg-0">
-                                                <div className="col-12 col-md-1 d-none d-md-block">
-                                                    #{session.id}
+                                      ? sessions.map((session, index) => {
+                                        if (index < 3) {
+                                          return (
+                                                <div key={session.id} className="mobile-border row mb-4 mt-4 mt-lg-0">
+                                                    <div className="col-12 col-md-1 d-none d-md-block">
+                                                        #{index + 1}
+                                                    </div>
+                                                    <div className="col-12 col-md-5 text-center text-lg-start px-0 px-md-4 pe-md-0 mt-2 mt-lg-0">
+                                                        <h6>{session.session_name}</h6>
+                                                    </div>
+                                                    <div className="col-12 col-md-3 mt-2 mt-lg-0">
+                                                        {session.date}
+                                                    </div>
+                                                    <div className="col-12 col-md-2 mt-2 mt-lg-0">
+                                                        {session.time}
+                                                    </div>
+                                                    <div className="col-12 col-md-1 mt-2 mt-lg-0">
+                                                        <a className="red-link" href={session.meeting_link} target="_blank" rel="noreferrer">Link</a>
+                                                    </div>
                                                 </div>
-                                                <div className="col-12 col-md-1">
-                                                    <img className="profile-pic me-2" src={Avatar} alt="avatar" />
-                                                </div>
-                                                <div className="col-12 col-md-4 text-center text-lg-start px-0 px-md-4 pe-md-0 mt-2 mt-lg-0">
-                                                    {session.mentor}
-                                                </div>
-                                                <div className="col-12 col-md-2 mt-2 mt-lg-0">
-                                                    {session.date}
-                                                </div>
-                                                <div className="col-12 col-md-3 mt-2 mt-lg-0">
-                                                    {session.time}
-                                                </div>
-                                                <div className="col-12 col-md-1 mt-2 mt-lg-0">
-                                                    <a className="red-link" href={session.link}>Link</a>
-                                                </div>
-                                            </div>
-                                        )
+                                          )
+                                        } else {
+                                          return <></>
+                                        }
                                       })
-                                      : <div className="mb-4"><h5 className="fst-italic fw-lighter">You haven&apos;t booked any sessions yet</h5></div> }
+                                      : <div className="mb-4"><h5 className="fst-italic fw-lighter">There are no public sessions available yet</h5></div> }
                                     {sessions.length > 0
                                       ? <button onClick={() => navigate('/sessions')} className="btn-purple mt-2 mt-md-4" style={{ fontSize: '13px' }}>View More</button>
                                       : <button onClick={() => navigate('/mentors')} className="btn-purple mt-2 mt-md-4" style={{ fontSize: '13px' }}>View Mentors</button>}
@@ -194,7 +177,8 @@ const mapStateToProps = state => {
     currentProfile: state.currentProfile,
     currentTrack: state.currentTrack,
     news: state.news,
-    user: state.user
+    user: state.user,
+    sessions: state.sessions
   }
 }
 

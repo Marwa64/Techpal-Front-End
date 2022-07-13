@@ -12,6 +12,8 @@ import notAcceptedMentorsReducer from './notAcceptedMentorsReducer'
 import newsReducer from './newsReducer'
 import resumeReducer from './resumeReducer'
 import messageReducer from './messageReducer'
+import jobsReducer from './jobsReducer'
+import sessionsReducer from './sessionsReducer'
 
 const allReducers = combineReducers({
   sidebar: sidebarReducer,
@@ -26,7 +28,9 @@ const allReducers = combineReducers({
   notAcceptedMentors: notAcceptedMentorsReducer,
   news: newsReducer,
   resume: resumeReducer,
-  message: messageReducer
+  message: messageReducer,
+  jobs: jobsReducer,
+  sessions: sessionsReducer
 })
 
 export default allReducers

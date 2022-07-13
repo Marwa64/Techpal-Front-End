@@ -38,7 +38,7 @@ const Login = () => {
       setSpinner(true)
       const result = await dispatch(login(user))
       if (result) {
-        nav('/')
+        nav('/home')
       }
       setSpinner(false)
     }
