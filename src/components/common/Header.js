@@ -17,7 +17,7 @@ const Header = ({ darkmode, user, mentor, admin }) => {
   }
 
   return (
-        <div className={`header d-flex justify-content-between p-3 pe-4 ${darkmode ? 'header-dark' : ''}`}>
+        <div className={`header d-flex flex-column flex-lg-row justify-content-between p-3 pe-4 ${darkmode ? 'header-dark' : ''}`}>
           {
             mentor
               ? <Logo path={'/'} />
@@ -25,7 +25,7 @@ const Header = ({ darkmode, user, mentor, admin }) => {
                 <path id="Icon_material-sort" data-name="Icon material-sort" d="M4.5,26.33h7.481V23.442H4.5ZM4.5,9v2.888H26.943V9Zm0,10.109H19.462V16.221H4.5Z" transform="translate(-4.5 -9)" fill="#4439f0"/></svg>
             </button>
           }
-            <div>
+            <div className='d-flex justify-content-center mt-3 mt-lg-0'>
                 <button className="btn me-3" onClick={() => dispatch(toggleMode())}><li className={`fa fa-moon-o ${darkmode ? 'white' : ''}`}></li></button>
                 <Dropdown>
                     <Dropdown.Toggle variant="info">

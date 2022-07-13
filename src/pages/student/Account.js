@@ -6,7 +6,7 @@ import { Form } from 'react-bootstrap'
 import { useDispatch, connect } from 'react-redux'
 import { useRef, useEffect, useState } from 'react'
 
-import { updateStudent, getUser } from '../../store/actions'
+import { updateStudent } from '../../store/actions'
 
 const Account = ({ user }) => {
   const [spinner, setSpinner] = useState(false)
@@ -62,7 +62,6 @@ const Account = ({ user }) => {
       }
       setSpinner(true)
       await dispatch(updateStudent(user.User_id, updatedUser))
-      await dispatch(getUser(user.User_id))
       setData()
       setSpinner(false)
     } else {

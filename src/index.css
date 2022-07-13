@@ -185,7 +185,9 @@ html, body, #root, .App {
 }
 
 /*------------------------------------------------------------------*/
-
+.no-underline {
+    text-decoration: none !important;
+}
 h5 {
     font-size: 19px !important;
 }

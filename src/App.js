@@ -19,6 +19,7 @@ import Tracks from './pages/admin/Tracks'
 import ResumeBuilder from './pages/student/ResumeBuilder'
 import ApplicationSent from './pages/mentor/ApplicationSent'
 import MentorAccount from './pages/mentor/Account'
+import ChangePassword from './pages/mentor/ChangePassword'
 
 import { useEffect } from 'react'
 import { useDispatch, connect } from 'react-redux'
@@ -28,6 +29,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import StudentProtected from './pages/StudentProtected'
 import MentorProtected from './pages/MentorProtected'
 import AdminProtected from './pages/AdminProtected'
+import IsLoggedOut from './pages/IsLoggedOut'
 import IsLoggedIn from './pages/IsLoggedIn'
 
 import { getUser } from './store/actions'
@@ -54,7 +56,6 @@ function App ({ user, darkmode }) {
     <div className={`App ${darkmode ? 'header-dark' : ''}`}>
       <Router>
         <Routes>
-          <Route path="/mentor-home" element={ <MentorHome /> } />
           <Route path="/resume-builder" element={ <StudentProtected><ResumeBuilder /></StudentProtected> } />
           <Route path="/admin/tracks" element={ <AdminProtected><Tracks /></AdminProtected> } />
           <Route path="/admin/mentors" element={ <AdminProtected><AdminMentors /></AdminProtected> } />
@@ -73,10 +74,11 @@ function App ({ user, darkmode }) {
               ? <StudentProtected><StudentAccount /></StudentProtected>
               : <MentorProtected><MentorAccount /></MentorProtected>
             } />
-          <Route path="/login" element={ <IsLoggedIn><Login /></IsLoggedIn>} />
+          <Route path="/login" element={ <IsLoggedOut><Login /></IsLoggedOut>} />
           <Route path="/applicationsent" element={ <ApplicationSent />} />
-          <Route path="/applymentor" element={ <IsLoggedIn><ApplyMentor /></IsLoggedIn> } />
-          <Route path="/signup" element={ <IsLoggedIn><Signup /></IsLoggedIn>} />
+          <Route path="/changepassword" element={ <IsLoggedIn><ChangePassword /></IsLoggedIn> } />
+          <Route path="/applymentor" element={ <IsLoggedOut><ApplyMentor /></IsLoggedOut> } />
+          <Route path="/signup" element={ <IsLoggedOut><Signup /></IsLoggedOut>} />
           <Route path="/home" element=
             { user.user_type === 'student' || user.User_type === 'student'
               ? <StudentProtected><StudentHome /></StudentProtected>
@@ -86,7 +88,7 @@ function App ({ user, darkmode }) {
                   ? <Navigate to="/admin/applications" replace />
                   : <Loading />}
           />
-          <Route path="/" element={ <IsLoggedIn><Landing /></IsLoggedIn> } />
+          <Route path="/" element={ <IsLoggedOut><Landing /></IsLoggedOut> } />
         </Routes>
       </Router>
     </div>
