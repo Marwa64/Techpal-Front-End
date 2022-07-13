@@ -60,7 +60,7 @@ const Mentors = ({ acceptedMentors }) => {
                             <th>Report</th>
                         </tr>
                     </thead>
-                    <tbody className="bg-white">
+                    <tbody>
                         {acceptedMentors.map((mentor, index) => {
                           return (
                                 <tr key={`${index}-${mentor.full_name}`}>

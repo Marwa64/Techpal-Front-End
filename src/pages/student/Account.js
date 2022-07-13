@@ -4,12 +4,12 @@ import PurpleBar from '../../components/common/PurpleBar'
 import { Form } from 'react-bootstrap'
 
 import { useDispatch, connect } from 'react-redux'
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 
-import { updateStudent } from '../../store/actions'
+import { updateStudent, getUser } from '../../store/actions'
 
 const Account = ({ user }) => {
-//   const [spinner, setSpinner] = useState(false)
+  const [spinner, setSpinner] = useState(false)
   const dispatch = useDispatch()
 
   const name = useRef(null)
@@ -60,11 +60,11 @@ const Account = ({ user }) => {
           linkedin: linkedin.current.value
         }
       }
-      // setSpinner(true);
+      setSpinner(true)
       await dispatch(updateStudent(user.User_id, updatedUser))
-      // setData();
-      // setSpinner(false);
-      window.location.reload()
+      await dispatch(getUser(user.User_id))
+      setData()
+      setSpinner(false)
     } else {
       name.current.style.boxShadow = '1px 1px 7px #ff000094'
     }
@@ -75,7 +75,7 @@ const Account = ({ user }) => {
   })
 
   return (
-        <Layout spinner={false} pageName='Account'>
+        <Layout spinner={spinner} pageName='Account'>
             <PurpleBar title="Account Details" button={false} />
             <div className="container p-5">
                 <div className="row">

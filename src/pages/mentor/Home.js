@@ -79,7 +79,7 @@ const Home = ({ user, darkmode }) => {
                             <th>Meeting</th>
                         </tr>
                     </thead>
-                    <tbody className="bg-white">
+                    <tbody>
                         {sessions.map((session, index) => {
                           return (
                                 <tr key={`session-${index}`}>

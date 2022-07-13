@@ -23,7 +23,7 @@ import MentorAccount from './pages/mentor/Account'
 import { useEffect } from 'react'
 import { useDispatch, connect } from 'react-redux'
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 
 import StudentProtected from './pages/StudentProtected'
 import MentorProtected from './pages/MentorProtected'
@@ -48,7 +48,7 @@ function App ({ user, darkmode }) {
 
   useEffect(() => {
     getUserData()
-  }, [])
+  }, [user])
 
   return (
     <div className={`App ${darkmode ? 'header-dark' : ''}`}>
@@ -83,7 +83,7 @@ function App ({ user, darkmode }) {
               : user.user_type === 'mentor' || user.User_type === 'mentor'
                 ? <MentorProtected><MentorHome /></MentorProtected>
                 : user.user_type === 'admin' || user.User_type === 'admin'
-                  ? <AdminProtected><Applications /> </AdminProtected>
+                  ? <Navigate to="/admin/applications" replace />
                   : <Loading />}
           />
           <Route path="/" element={ <IsLoggedIn><Landing /></IsLoggedIn> } />

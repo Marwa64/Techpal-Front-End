@@ -45,7 +45,7 @@ const Applications = ({ notAcceptedMentors }) => {
                             <th>Deny</th>
                         </tr>
                     </thead>
-                    <tbody className="bg-white">
+                    <tbody>
                         {notAcceptedMentors.map((mentor, index) => {
                           return (
                                 <tr key={`application-${index}`}>

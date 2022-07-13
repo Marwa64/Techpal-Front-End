@@ -8,7 +8,8 @@ import {
   SET_PROFILES, REMOVE_PROFILE, ADD_TRACK,
   SET_ACCEPTED_MENTORS, ADD_ACCEPTED_MENTOR,
   SET_NOT_ACCEPTED_MENTORS, SET_NEWS, REMOVE_TRACK,
-  SET_RESUME, DISPLAY_MESSAGE, REMOVE_MESSAGE
+  SET_RESUME, DISPLAY_MESSAGE, REMOVE_MESSAGE,
+  SET_JOBS
 } from './types'
 
 const url = 'http://localhost:8080/api'
@@ -66,9 +67,10 @@ export const login = (user) => async dispatch => {
     localStorage.setItem('userId', userData.ID)
 
     // save user data and token in state
-    await dispatch({ type: SET_USER, data: userData })
     await dispatch({ type: SET_TOKEN, data: token })
     await dispatch({ type: DISPLAY_MESSAGE, data: { message: 'Login Success', error: false } })
+
+    await dispatch(getUser(userData.ID))
     return true
   }).catch(err => {
     dispatch({ type: DISPLAY_MESSAGE, data: { message: err.response.data.Error, error: true } })
@@ -419,5 +421,25 @@ export const getNews = (track_name, numberOfArticles) => async dispatch => {
     await dispatch({ type: SET_NEWS, data: res.data.articles })
   }).catch(err => {
     dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+  })
+}
+
+export const getJobs = (track_name, profile_id) => async dispatch => {
+  const RECOMMENDER_API = 'http://localhost:5000'
+  return axios.post(`${RECOMMENDER_API}/jobs/${track_name}`, { profile_id }).then(async (res) => {
+    await dispatch({ type: SET_JOBS, data: res.data })
+    return res.data
+  }).catch(err => {
+    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+  })
+}
+
+export const viewJob = (profile_id, job) => async dispatch => {
+  const RECOMMENDER_API = 'http://localhost:5000'
+  return axios.post(`${RECOMMENDER_API}/job_viewed/${profile_id}`, job).then(async (res) => {
+    return true
+  }).catch(err => {
+    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    return false
   })
 }

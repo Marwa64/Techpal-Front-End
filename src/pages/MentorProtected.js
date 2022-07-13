@@ -6,7 +6,7 @@ const MentorProtected = ({ children, user }) => {
     return <Navigate to="/login" replace />
   }
 
-  if (user.user_type !== 'mentor') {
+  if (user.user_type !== 'mentor' && user.User_type !== 'mentor') {
     return <Navigate to="/" replace />
   }
 

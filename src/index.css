@@ -12,7 +12,7 @@ html, body, #root, .App {
     background-color: #22262b !important;
     color: white !important;
 }
-.sidebar-dark, .sidebar-dark .list-group-item, .sidebar-dark .list-group-item svg path {
+.sidebar-dark, .sidebar-dark .list-group-item, .sidebar-dark .list-group-item svg path, .darkgrey-bg .table svg path {
     background-color: #262a2f !important;
     color: white;
     stroke: white;
@@ -35,12 +35,16 @@ html, body, #root, .App {
 .white {
     color: white;
 }
-.darkgrey-bg input, .darkgrey-bg textarea, .darkgrey-bg select, .darkgrey-bg select option {
+.darkgrey-bg input, .darkgrey-bg textarea, .darkgrey-bg select,
+.darkgrey-bg select option, .darkgrey-bg .job, .darkgrey-bg .table tbody td {
     background: rgb(43 46 49);
     color: white;
 }
 .darkgrey-bg .course {
     color: white !important;
+}
+.darkgrey-bg .logo-title {
+    color: #671bf2;
 }
 /*------------------------------------------------------------------*/
 
@@ -539,6 +543,7 @@ h5 {
     overflow: hidden;
     box-shadow: 0 0 5px 2px rgba(71, 71, 71, 0.112) !important;
     color: transparent !important;
+    background-color: white;
 }
 .table tbody td {
     color: #403F3F;
@@ -563,6 +568,15 @@ h5 {
 }
 .table tr {
     text-align: center;
+}
+
+/*------------------------------------------------------------------*/
+
+.job {
+    border: 1px solid #00000033;
+    padding: 20px 10px;
+    border-radius: 15px;
+    background-color: white;
 }
 
 /*------------------------------------------------------------------*/
