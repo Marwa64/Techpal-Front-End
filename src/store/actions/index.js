@@ -345,8 +345,8 @@ export const removeMentor = (user_id) => async dispatch => {
   })
 }
 
-export const reportMentor = ({ mentor_email, message }) => async dispatch => {
-  return axios.post(`${url}/reportmentor`, { message }).then((res) => {
+export const reportMentor = (mentor_email, message) => async dispatch => {
+  return axios.post(`${url}/reportmentor/${mentor_email}`, { message }).then((res) => {
     dispatch({ type: DISPLAY_MESSAGE, data: { message: 'Mentor Reported Successfully', error: false } })
     return true
   }).catch(err => {
