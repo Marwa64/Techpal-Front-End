@@ -33,8 +33,8 @@ const Account = ({ user }) => {
     university.current.value = user.university || null
     degree.current.value = user.degree || null
     major.current.value = user.major || null
-    startYear.current.value = user.startYear || null
-    endYear.current.value = user.endYear || null
+    startYear.current.value = user.start_year || null
+    endYear.current.value = user.end_year || null
     portfolio.current.value = user.websites ? user.websites.portfolio : null
     github.current.value = user.websites ? user.websites.github : null
     linkedin.current.value = user.websites ? user.websites.linkedin : null
@@ -52,8 +52,8 @@ const Account = ({ user }) => {
         university: university.current.value,
         degree: degree.current.value,
         major: major.current.value,
-        startYear: startYear.current.value,
-        endYear: endYear.current.value,
+        start_year: startYear.current.value,
+        end_year: endYear.current.value,
         websites: {
           portfolio: portfolio.current.value,
           github: github.current.value,

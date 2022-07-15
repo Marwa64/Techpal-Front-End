@@ -9,10 +9,17 @@ const CompletedCourses = ({ currentTrack }) => {
   const completed = [
     {
       id: '1',
-      name: 'Master JavaScript',
-      rating: 4,
-      link: 'https://www.google.com',
-      img: 'https://cdn.elearningindustry.com/wp-content/uploads/2020/08/5-ways-to-improve-your-course-cover-design-1024x575.png'
+      course_name: 'Master JavaScript',
+      skill: 'HTML & CSS',
+      course_url: 'https://www.google.com',
+      completed: true
+    },
+    {
+      id: '2',
+      course_name: 'HTML & CSS',
+      skill: 'HTML & CSS',
+      course_url: 'https://www.google.com',
+      completed: true
     }
   ]
 

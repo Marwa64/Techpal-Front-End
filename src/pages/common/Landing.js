@@ -85,7 +85,7 @@ const Landing = () => {
                                     <div className="box position-absolute translate-middle top-50 start-0  bg-violet d-flex align-items-center justify-content-center rounded-circle fs-1 ">1</div>
                                     <div className=" py-4 pe-3 ps-5  ms-3 " >
                                         <h4>Create an Account</h4>
-                                        <p>Click on &apos;Get Started&apos;, and enter your information and wait for the confirmation email</p>
+                                        <p>Click on &apos;Get Started&apos;, and sign up to create a new account as a student</p>
                                     </div>
                                 </div>
                             </div>
@@ -104,8 +104,7 @@ const Landing = () => {
                                     <div className="box position-absolute translate-middle top-50 start-0  bg-violet d-flex align-items-center justify-content-center rounded-circle fs-1 ">3</div>
                                     <div className=" py-4 pe-3 ps-5  ms-3 " >
                                         <h4>Get Started!</h4>
-                                        <p>Now you can explore all the features that Career
-                                            Guidance offers!</p>
+                                        <p>Now you can explore all the features that TechPal offers!</p>
                                     </div>
                                 </div>
                             </div>

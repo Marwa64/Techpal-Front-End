@@ -27,8 +27,8 @@ const StudentHome = ({ darkmode, currentProfile, currentTrack, news, user, sessi
         await dispatch(getAllSessions())
         setTotalLevels(Object.keys(currentTrack.skills).length)
         let orderSkills = []
-        if (currentProfile.completedSkills) {
-          orderSkills = [...currentProfile.completedSkills]
+        if (currentProfile.completed_skills) {
+          orderSkills = [...currentProfile.completed_skills]
         }
         Object.keys(currentTrack.skills).forEach(key => {
           if (!orderSkills.includes(key)) {

@@ -1,69 +1,73 @@
 import Layout from './Layout'
 import PurpleBar from '../../components/common/PurpleBar'
 import Course from '../../components/student/Course'
+import RateCourseModal from '../../components/student/RateCourseModal'
 
 import { connect } from 'react-redux'
+import { useState } from 'react'
 
 const Courses = ({ currentTrack }) => {
+  const [viewRate, setViewRate] = useState(false)
+  const [selectedCourse, setCourse] = useState(null)
+
+  const openRateModal = (course) => {
+    setCourse(course)
+    setViewRate(true)
+  }
+
   const enrolled = [
     {
       id: '1',
-      name: 'Master JavaScript',
-      rating: 4,
-      link: 'https://www.google.com',
-      img: 'https://cdn.elearningindustry.com/wp-content/uploads/2020/08/5-ways-to-improve-your-course-cover-design-1024x575.png'
+      course_name: 'Master JavaScript',
+      skill: 'HTML & CSS',
+      course_url: 'https://www.google.com',
+      completed: false
     },
     {
       id: '2',
-      name: 'HTML & CSS',
-      rating: 5,
-      link: 'https://www.google.com',
-      img: 'https://cdn.elearningindustry.com/wp-content/uploads/2020/08/5-ways-to-improve-your-course-cover-design-1024x575.png'
+      course_name: 'HTML & CSS',
+      skill: 'HTML & CSS',
+      course_url: 'https://www.google.com',
+      completed: false
     }
   ]
 
   const recommendations = [
     {
       id: '1',
-      name: 'Course 1',
-      rating: 1,
-      link: 'https://www.google.com',
-      img: 'https://cdn.elearningindustry.com/wp-content/uploads/2020/08/5-ways-to-improve-your-course-cover-design-1024x575.png'
+      course_name: 'Course 1',
+      skill: 'HTML & CSS',
+      course_url: 'https://www.google.com'
     },
     {
       id: '2',
-      name: 'Course 2',
-      rating: 5,
-      link: 'https://www.google.com',
-      img: 'https://cdn.elearningindustry.com/wp-content/uploads/2020/08/5-ways-to-improve-your-course-cover-design-1024x575.png'
+      course_name: 'Course 2',
+      skill: 'HTML & CSS',
+      course_url: 'https://www.google.com'
     },
     {
       id: '3',
-      name: 'Course 3',
-      rating: 4,
-      link: 'https://www.google.com',
-      img: 'https://cdn.elearningindustry.com/wp-content/uploads/2020/08/5-ways-to-improve-your-course-cover-design-1024x575.png'
+      course_name: 'Course 3',
+      skill: 'HTML & CSS',
+      course_url: 'https://www.google.com'
     },
     {
       id: '4',
-      name: 'Course 4',
-      rating: 3,
-      link: 'https://www.google.com',
-      img: 'https://cdn.elearningindustry.com/wp-content/uploads/2020/08/5-ways-to-improve-your-course-cover-design-1024x575.png'
+      course_name: 'Course 4',
+      skill: 'HTML & CSS',
+      course_url: 'https://www.google.com'
     },
     {
       id: '5',
-      name: 'Course 5',
-      rating: 5,
-      link: 'https://www.google.com',
-      img: 'https://cdn.elearningindustry.com/wp-content/uploads/2020/08/5-ways-to-improve-your-course-cover-design-1024x575.png'
+      course_name: 'Course 5',
+      skill: 'HTML & CSS',
+      course_url: 'https://www.google.com'
     },
     {
       id: '6',
-      name: 'Course 6',
-      rating: 2,
-      link: 'https://www.google.com',
-      img: 'https://cdn.elearningindustry.com/wp-content/uploads/2020/08/5-ways-to-improve-your-course-cover-design-1024x575.png'
+      course_name: 'Course 6',
+      skill: 'HTML & CSS',
+      course_url: 'https://www.google.com'
     }
   ]
 
@@ -77,7 +81,7 @@ const Courses = ({ currentTrack }) => {
                 <div className="row">
                     {enrolled.map(course => {
                       return (
-                            <Course key={course.id} course={course} enrolled={true}/>
+                        <Course key={course.id} course={course} enrolled={true} openRateModal={openRateModal} />
                       )
                     })}
                 </div>
@@ -87,11 +91,12 @@ const Courses = ({ currentTrack }) => {
                 <div className="row">
                     {recommendations.map(course => {
                       return (
-                            <Course key={course.id} course={course} enrolled={false} />
+                        <Course key={course.id} course={course} enrolled={false} />
                       )
                     })}
                 </div>
             </div>
+            <RateCourseModal show={viewRate} handleClose={() => setViewRate(false)} course={selectedCourse} />
         </Layout>
   )
 }
