@@ -6,7 +6,7 @@ const Contact = () => {
     <div className="lightpurple-bg login">
     <div className="container-fluied py-4" >
         <Helmet>
-            <title>TechPal  | Home</title>
+            <title>TechPal  | Contact Us</title>
         </Helmet>
         <Navbar />
         <ContactUs/>
