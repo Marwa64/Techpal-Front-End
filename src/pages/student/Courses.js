@@ -28,7 +28,6 @@ const Courses = ({ user, currentTrack, currentProfile, courses, enrolledCourses 
     }
     await dispatch(enrollCourse(payload))
     await dispatch(getEnrolledCourses(currentProfile.ID))
-    await dispatch(getCourses(payload))
     setSpinner(false)
   }
 

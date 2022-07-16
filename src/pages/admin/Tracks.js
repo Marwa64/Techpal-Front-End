@@ -3,18 +3,20 @@ import PurpleBar from '../../components/common/PurpleBar'
 import Track from '../../components/common/Track'
 import TrackContainer from '../../components/admin/TrackContainer'
 import AddTrackModal from '../../components/admin/AddTrackModal'
+import AddSkillModal from '../../components/admin/AddSkillModal'
 import ViewTrackModal from '../../components/admin/ViewTrackModal'
 
-import { getTracks, removeTrack } from '../../store/actions'
+import { getTracks, removeTrack, getSkills } from '../../store/actions'
 
 import { useState, useEffect } from 'react'
 import { useDispatch, connect } from 'react-redux'
 
-const Tracks = ({ tracks }) => {
+const Tracks = ({ skills, tracks }) => {
   const dispatch = useDispatch()
   const [spinner, setSpinner] = useState(false)
   const [localTracks, setLocalTracks] = useState([])
   const [displayAddTrack, setDisplayAddTrack] = useState(false)
+  const [displayAddSkill, setDisplayAddSkill] = useState(false)
   const [viewTrack, setViewTrack] = useState(false)
   const [selectedTrack, selectTrack] = useState({})
 
@@ -34,6 +36,7 @@ const Tracks = ({ tracks }) => {
     if (tracks.length < 1) {
       setSpinner(true)
       await dispatch(getTracks())
+      await dispatch(getSkills())
       setSpinner(false)
     }
     if (tracks.length > 0) {
@@ -43,7 +46,11 @@ const Tracks = ({ tracks }) => {
 
   return (
     <Layout spinner={spinner} pageName='Tracks'>
-      <PurpleBar title="Tracks" button={true} buttonName={'Add Track'} path='modal' method={() => setDisplayAddTrack(true)} />
+      <PurpleBar title="Tracks" button={false} />
+      <div className='d-flex justify-content-end mt-4 me-3'>
+        <button onClick={() => setDisplayAddSkill(true)} className='btn-purple px-4 me-4'>Add Skill</button>
+        <button onClick={() => setDisplayAddTrack(true)} className='btn-purple px-4 me-4'>Add Track</button>
+      </div>
       <div className='container p-5 admin-tracks'>
         <div className='d-flex flex-wrap row-cols-3'>
           {
@@ -63,13 +70,15 @@ const Tracks = ({ tracks }) => {
           }
         </div>
       </div>
-      <AddTrackModal show={displayAddTrack} handleClose={() => setDisplayAddTrack(false)} />
+      <AddTrackModal show={displayAddTrack} handleClose={() => setDisplayAddTrack(false)} skills={skills} />
+      <AddSkillModal show={displayAddSkill} handleClose={() => setDisplayAddSkill(false)} />
       <ViewTrackModal show={viewTrack} handleClose={() => setViewTrack(false)} skills={selectedTrack.skills} />
     </Layout>
   )
 }
 const mapStateToProps = state => {
   return {
+    skills: state.skills,
     tracks: state.tracks
   }
 }

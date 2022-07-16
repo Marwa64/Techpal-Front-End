@@ -17,6 +17,7 @@ import sessionsReducer from './sessionsReducer'
 import coursesReducer from './coursesReducer'
 import enrolledCoursesReducer from './enrolledCoursesReducer'
 import completedCoursesReducer from './completedCoursesReducer'
+import skillsReducer from './skillsReducer'
 
 const allReducers = combineReducers({
   sidebar: sidebarReducer,
@@ -36,7 +37,8 @@ const allReducers = combineReducers({
   sessions: sessionsReducer,
   courses: coursesReducer,
   enrolledCourses: enrolledCoursesReducer,
-  completedCourses: completedCoursesReducer
+  completedCourses: completedCoursesReducer,
+  skills: skillsReducer
 })
 
 export default allReducers

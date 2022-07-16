@@ -10,7 +10,8 @@ import {
   SET_NOT_ACCEPTED_MENTORS, SET_NEWS, REMOVE_TRACK,
   SET_RESUME, DISPLAY_MESSAGE, REMOVE_MESSAGE,
   SET_JOBS, SET_SESSIONS, ADD_SESSION, REMOVE_SESSION,
-  SET_COURSES, SET_ENROLLED_COURSES, SET_COMPLETED_COURSES
+  SET_COURSES, SET_ENROLLED_COURSES, SET_COMPLETED_COURSES,
+  SET_SKILLS
 } from './types'
 
 const url = 'http://localhost:8080/api'
@@ -158,6 +159,34 @@ export const logout = () => async dispatch => {
   await dispatch({ type: SET_RESUME, data: {} })
   await dispatch({ type: SET_CURRENT_TRACK, data: {} })
   await dispatch({ type: SET_CURRENT_PROFILE, data: {} })
+}
+
+export const getSkills = () => async dispatch => {
+  return axios.get(`${url}/getallskills`).then(res => {
+    dispatch({ type: SET_SKILLS, data: res.data })
+    return true
+  }).catch(err => {
+    if (err.response.data) {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.response.data.Error, error: true } })
+    } else {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    }
+    return false
+  })
+}
+
+export const addSkill = (skill) => async dispatch => {
+  return axios.get(`${url}/addskill/${skill}`).then(async (res) => {
+    await dispatch({ type: DISPLAY_MESSAGE, data: { message: 'Skill Added Successfully', error: false } })
+    return true
+  }).catch(err => {
+    if (err.response.data) {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.response.data.Error, error: true } })
+    } else {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    }
+    return false
+  })
 }
 
 export const getTracks = () => async dispatch => {

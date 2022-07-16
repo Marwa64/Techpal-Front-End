@@ -5,21 +5,21 @@ import { useDispatch } from 'react-redux'
 import { useRef, useState } from 'react'
 import { HexColorPicker } from 'react-colorful'
 
-const AddTrackModal = ({ show, handleClose }) => {
+const AddTrackModal = ({ show, handleClose, skills }) => {
   const dispatch = useDispatch()
 
   const trackName = useRef(null)
   const skillName = useRef(null)
   const skillPoints = useRef(null)
 
-  const [skills, setSkills] = useState({})
+  const [stateSkills, setSkills] = useState({})
   const [skillsArray, setSkillsArray] = useState([])
   const [color1, setColor1] = useState('#aabbcc')
   const [color2, setColor2] = useState('#aabbcc')
 
   const addSkill = () => {
     if (skillName.current.value && skillPoints.current.value) {
-      const updatedSkills = skills
+      const updatedSkills = stateSkills
       updatedSkills[skillName.current.value] = Number(skillPoints.current.value)
       const newSkill = {
         name: skillName.current.value,
@@ -35,7 +35,7 @@ const AddTrackModal = ({ show, handleClose }) => {
   }
 
   const removeSkill = (skillToRemove) => {
-    const updatedSkills = Object.keys(skills).filter(skill => skill !== skillToRemove)
+    const updatedSkills = Object.keys(stateSkills).filter(skill => skill !== skillToRemove)
     setSkills(updatedSkills)
     const updatedArray = skillsArray.filter(skill => skill.name !== skillToRemove)
     setSkillsArray(updatedArray)
@@ -49,7 +49,7 @@ const AddTrackModal = ({ show, handleClose }) => {
       name: trackName.current.value,
       color1,
       color2,
-      skills
+      skills: stateSkills
     }
     await dispatch(addTrack(track))
     await dispatch(getTracks())
@@ -100,7 +100,15 @@ const AddTrackModal = ({ show, handleClose }) => {
                   <div className="col-8 col-lg-5">
                       <div className="row">
                           <div className="col-8">
-                            <input ref={skillName} type="text" placeholder='Name' className="form-control h-3" />
+                            <select ref={skillName} className='form-control h-3'>
+                              {
+                                skills.map((skill, index) => {
+                                  return (
+                                    <option key={`skill-${index}`} value={skill.name}>{skill.name}</option>
+                                  )
+                                })
+                              }
+                              </select>
                           </div>
                           <div className="col-4">
                             <input ref={skillPoints} type="text" placeholder='Points' className="form-control h-3" />
