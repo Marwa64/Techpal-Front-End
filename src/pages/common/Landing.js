@@ -1,4 +1,5 @@
 import Navbar from '../../components/common/Navbar'
+import ContactUs from '../../components/common/ContactUs'
 import { Helmet } from 'react-helmet'
 import { NavLink } from 'react-router-dom'
 
@@ -117,7 +118,7 @@ const Landing = () => {
             {/* <!-- section Get started ends --> */}
 
             {/* <!-- Section conact us start --> */}
-
+            <ContactUs/>
             {/* <!-- Section conact us end --> */}
         </div>
     </div>
