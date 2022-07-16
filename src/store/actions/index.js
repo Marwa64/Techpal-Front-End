@@ -515,7 +515,7 @@ export const getMentorSessions = (mentorId) => async dispatch => {
 
 export const getNews = (track_name, numberOfArticles) => async dispatch => {
   const API_URL = 'https://newsapi.org/v2/everything?apiKey=4c815a8efe264f8ba724edc7b68523d6&language=en&sortBy=publishedAt'
-  return axios.get(`${API_URL}&pageSize=${numberOfArticles}&q=${track_name}`).then(async (res) => {
+  return axios.get(`${API_URL}&pageSize=${numberOfArticles}&q="${track_name}"`).then(async (res) => {
     await dispatch({ type: SET_NEWS, data: res.data.articles })
   }).catch(err => {
     dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
