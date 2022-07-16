@@ -1,8 +1,8 @@
 const ContactUs = () => {
   return (
-    <section id="contactUs " className="pt-5">
+    <section id="contactUs " className="pt-5 lightpurple-bg ">
                 <div className="container">
-                    <div className="row text-center">
+                    <div className="row text-center text-black  ">
                         <h3>Contact Us</h3>
                     </div>
                     <div className="row  align-items-center mt-5">
@@ -39,7 +39,7 @@ const ContactUs = () => {
                         </div>
                     </div>
                 </div>
-            </section>
+    </section>
   )
 }
 
