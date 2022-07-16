@@ -8,7 +8,7 @@ const Landing = () => {
         <div className="container-fluied py-4" >
 
             <Helmet>
-                <title>Techie | Home</title>
+                <title>TechPal  | Home</title>
             </Helmet>
             <Navbar />
             {/* <!-- section home starts --> */}
