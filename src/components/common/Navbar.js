@@ -12,7 +12,7 @@ const Navbar = () => {
                 <nav className=" text-center fw-bold d-md-block d-none bg-white " >
                     <NavLink className="me-3 text-start  mb-3 mt-3 d-block d-md-inline " to="/">Home</NavLink>
                     <NavLink className="me-3 text-start  mb-3 mt-3 d-block d-md-inline " to="/applymentor">Apply as Mentor</NavLink>
-                    <a className="me-3 text-start  mb-3 mt-3 d-block d-md-inline " href="#contact-us">Contact Us</a>
+                    <NavLink className="me-3 text-start  mb-3 mt-3 d-block d-md-inline " to="/contact-us">Contact Us</NavLink>
                     <NavLink className="me-3 text-start  mb-3 mt-3 d-block d-md-inline  " to="/login">Login</NavLink>
 
                 </nav>
