@@ -13,7 +13,6 @@ const Home = ({ user, darkmode, sessions }) => {
 
   const name = useRef(null)
   const date = useRef(null)
-  const time = useRef(null)
   const link = useRef(null)
 
   const handleChange = (ref) => {
@@ -29,21 +28,25 @@ const Home = ({ user, darkmode, sessions }) => {
   }
 
   const add = async () => {
-    if (!checkEmpty(name) && !checkEmpty(date) && !checkEmpty(time) && !checkEmpty(link)) {
+    if (!checkEmpty(name) && !checkEmpty(date) && !checkEmpty(link)) {
       setSpinner(true)
+      const newDate = new Date(date.current.value)
       const session = {
         session_name: name.current.value,
-        date: date.current.value,
-        time: time.current.value,
+        date: newDate,
         meeting_link: link.current.value
       }
       await dispatch(addSession(user.ID, session))
       name.current.value = ''
       date.current.value = ''
-      time.current.value = ''
       link.current.value = ''
       setSpinner(false)
     }
+  }
+
+  const getDate = (date) => {
+    const newDate = new Date(date)
+    return newDate.toLocaleString()
   }
 
   const remove = async (sessionId) => {
@@ -78,18 +81,10 @@ const Home = ({ user, darkmode, sessions }) => {
                             </div>
                             <div className="row mt-4 px-5">
                                 <div className="col-4 col-lg-3 offset-lg-2 text-start mt-2">
-                                  Date
+                                  Date / Time
                                 </div>
                                 <div className="col-8 col-lg-5">
-                                    <input ref={date} type="date" className="form-control " />
-                                </div>
-                            </div>
-                            <div className="row mt-4 px-5">
-                                <div className="col-4 col-lg-3 offset-lg-2 text-start mt-2">
-                                  Time
-                                </div>
-                                <div className="col-8 col-lg-5">
-                                    <input ref={time} type="time" className="form-control " />
+                                    <input ref={date} type="datetime-local" className="form-control " />
                                 </div>
                             </div>
                           <div className="row mt-4 px-5">
@@ -113,8 +108,7 @@ const Home = ({ user, darkmode, sessions }) => {
                         <tr>
                             <th>#</th>
                             <th>Session Name</th>
-                            <th>Date</th>
-                            <th>Time</th>
+                            <th>Date / Time</th>
                             <th>Meeting</th>
                             <th>Remove</th>
                         </tr>
@@ -125,8 +119,7 @@ const Home = ({ user, darkmode, sessions }) => {
                               <tr key={session.ID}>
                                   <td>{index + 1}</td>
                                   <td>{session.session_name}</td>
-                                  <td>{session.date}</td>
-                                  <td>{session.time}</td>
+                                  <td>{getDate(session.date)}</td>
                                   <td><a href={session.meeting_link} target="_blank" className="red-link" rel="noreferrer">Link</a></td>
                                   <td>
                                         <button onClick={() => remove(session.ID)} className="btn p-0 mb-1">

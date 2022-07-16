@@ -17,6 +17,11 @@ const StudentHome = ({ darkmode, currentProfile, currentTrack, news, user, sessi
   const [totalLevels, setTotalLevels] = useState(0)
   const [skills, setSkills] = useState([])
 
+  const getDate = (date) => {
+    const newDate = new Date(date)
+    return newDate.toLocaleString()
+  }
+
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -135,18 +140,15 @@ const StudentHome = ({ darkmode, currentProfile, currentTrack, news, user, sessi
                                       ? sessions.map((session, index) => {
                                         if (index < 3) {
                                           return (
-                                                <div key={session.id} className="mobile-border row mb-4 mt-4 mt-lg-0">
+                                                <div key={session.ID} className="mobile-border row mb-4 mt-4 mt-lg-0">
                                                     <div className="col-12 col-md-1 d-none d-md-block">
                                                         #{index + 1}
                                                     </div>
                                                     <div className="col-12 col-md-5 text-center text-lg-start px-0 px-md-4 pe-md-0 mt-2 mt-lg-0">
                                                         <h6>{session.session_name}</h6>
                                                     </div>
-                                                    <div className="col-12 col-md-3 mt-2 mt-lg-0">
-                                                        {session.date}
-                                                    </div>
-                                                    <div className="col-12 col-md-2 mt-2 mt-lg-0">
-                                                        {session.time}
+                                                    <div className="col-12 col-md-5 mt-2 mt-lg-0">
+                                                        {getDate(session.date)}
                                                     </div>
                                                     <div className="col-12 col-md-1 mt-2 mt-lg-0">
                                                         <a className="red-link" href={session.meeting_link} target="_blank" rel="noreferrer">Link</a>

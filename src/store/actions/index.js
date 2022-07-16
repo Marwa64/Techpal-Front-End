@@ -9,7 +9,8 @@ import {
   SET_ACCEPTED_MENTORS, ADD_ACCEPTED_MENTOR,
   SET_NOT_ACCEPTED_MENTORS, SET_NEWS, REMOVE_TRACK,
   SET_RESUME, DISPLAY_MESSAGE, REMOVE_MESSAGE,
-  SET_JOBS, SET_SESSIONS, ADD_SESSION, REMOVE_SESSION
+  SET_JOBS, SET_SESSIONS, ADD_SESSION, REMOVE_SESSION,
+  SET_COURSES, SET_ENROLLED_COURSES, SET_COMPLETED_COURSES
 } from './types'
 
 const url = 'http://localhost:8080/api'
@@ -123,7 +124,7 @@ export const updateMentor = (userId, user) => async dispatch => {
 }
 
 export const changePassword = (userId, payload) => async dispatch => {
-  return axios.post(`${url}/changepassword/${userId}`, payload).then(async (res) => {
+  return axios.post(`${url}/changementorpassword/${userId}`, payload).then(async (res) => {
     await dispatch(getUser(userId))
     await dispatch({ type: DISPLAY_MESSAGE, data: { message: 'Password Changed Successfully', error: false } })
     return true
@@ -537,6 +538,88 @@ export const viewJob = (profile_id, job) => async dispatch => {
     return true
   }).catch(err => {
     dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    return false
+  })
+}
+
+export const enrollCourse = (payload) => async dispatch => {
+  return axios.post(`${url}/enroll`, payload).then(async (res) => {
+    dispatch({ type: DISPLAY_MESSAGE, data: { message: 'Course Started Successfully', error: false } })
+    return true
+  }).catch(() => {
+    return false
+  })
+}
+
+export const completeCourse = (payload) => async dispatch => {
+  return axios.post(`${url}/markcompleted`, payload).then(async (res) => {
+    return true
+  }).catch(err => {
+    if (err.response.data) {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.response.data.Error, error: true } })
+    } else {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    }
+    return false
+  })
+}
+
+export const rateCourse = (payload) => async dispatch => {
+  return axios.post(`${url}/rate`, payload).then(async (res) => {
+    dispatch({ type: DISPLAY_MESSAGE, data: { message: 'Course Rated Successfully', error: false } })
+    return true
+  }).catch(err => {
+    if (err.response.data) {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.response.data.Error, error: true } })
+    } else {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    }
+    return false
+  })
+}
+
+export const getCourses = (payload) => async dispatch => {
+  const RECOMMENDER_API = 'http://localhost:5000'
+  return axios.post(`${RECOMMENDER_API}/course/recommend`, payload).then(async (res) => {
+    await dispatch({ type: SET_COURSES, data: res.data })
+    return res.data
+  }).catch(err => {
+    dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+  })
+}
+
+export const getEnrolledCourses = (profileId) => async dispatch => {
+  return axios.get(`${url}/getenrolledcourses/${profileId}`).then(async (res) => {
+    if (res.data) {
+      await dispatch({ type: SET_ENROLLED_COURSES, data: res.data })
+    } else {
+      await dispatch({ type: SET_ENROLLED_COURSES, data: [] })
+    }
+    return true
+  }).catch(err => {
+    if (err.response.data) {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.response.data.Error, error: true } })
+    } else {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    }
+    return false
+  })
+}
+
+export const getCompletedCourses = (profileId) => async dispatch => {
+  return axios.get(`${url}/getcompletedcourses/${profileId}`).then(async (res) => {
+    if (res.data) {
+      await dispatch({ type: SET_COMPLETED_COURSES, data: res.data })
+    } else {
+      await dispatch({ type: SET_COMPLETED_COURSES, data: [] })
+    }
+    return true
+  }).catch(err => {
+    if (err.response.data) {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.response.data.Error, error: true } })
+    } else {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    }
     return false
   })
 }

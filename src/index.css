@@ -519,6 +519,7 @@ h5 {
     border-radius: 25px;
     border: 1px solid #ada8ff;
     cursor: pointer;
+    min-height: 300px;
 }
 .course .title {
     font-size: 18px;
@@ -540,7 +541,7 @@ h5 {
 }
 .StarRating-module_star__MMPKi {
     display: inline-block;
-    font-size: 35px;
+    font-size: 38px;
     color: #4439f0;
 }
 /*------------------------------------------------------------------*/

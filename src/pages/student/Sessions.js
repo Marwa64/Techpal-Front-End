@@ -29,6 +29,11 @@ const Sessions = ({ sessions, acceptedMentors }) => {
     return ''
   }
 
+  const getDate = (date) => {
+    const newDate = new Date(date)
+    return newDate.toLocaleString()
+  }
+
   useEffect(async () => {
     setSpinner(true)
     await dispatch(getAllSessions())
@@ -46,15 +51,14 @@ const Sessions = ({ sessions, acceptedMentors }) => {
                         <th>#</th>
                         <th>Mentor</th>
                         <th>Session Name</th>
-                        <th>Date</th>
-                        <th>Time</th>
+                        <th>Date / Time</th>
                         <th>Meeting</th>
                     </tr>
                 </thead>
                 <tbody>
                     {sessions.map((session, index) => {
                       return (
-                        <tr key={`session-${index}`}>
+                        <tr key={session.ID}>
                             <td>{index + 1}</td>
                             <td>
                               <button className='btn purple p-0' onClick={() => view(session.MentorId)}>
@@ -62,8 +66,7 @@ const Sessions = ({ sessions, acceptedMentors }) => {
                               </button>
                             </td>
                             <td>{session.session_name}</td>
-                            <td>{session.date}</td>
-                            <td>{session.time}</td>
+                            <td>{getDate(session.date)}</td>
                             <td><a href={session.meeting_link} target="_blank" className="red-link" rel="noreferrer">Link</a></td>
                         </tr>
                       )

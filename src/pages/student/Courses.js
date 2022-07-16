@@ -2,11 +2,14 @@ import Layout from './Layout'
 import PurpleBar from '../../components/common/PurpleBar'
 import Course from '../../components/student/Course'
 import RateCourseModal from '../../components/student/RateCourseModal'
+import { enrollCourse, completeCourse, rateCourse, getCourses, getEnrolledCourses } from '../../store/actions'
 
-import { connect } from 'react-redux'
-import { useState } from 'react'
+import { connect, useDispatch } from 'react-redux'
+import { useEffect, useState } from 'react'
 
-const Courses = ({ currentTrack }) => {
+const Courses = ({ user, currentTrack, currentProfile, courses, enrolledCourses }) => {
+  const dispatch = useDispatch()
+  const [spinner, setSpinner] = useState(false)
   const [viewRate, setViewRate] = useState(false)
   const [selectedCourse, setCourse] = useState(null)
 
@@ -15,73 +18,80 @@ const Courses = ({ currentTrack }) => {
     setViewRate(true)
   }
 
-  const enrolled = [
-    {
-      id: '1',
-      course_name: 'Master JavaScript',
-      skill: 'HTML & CSS',
-      course_url: 'https://www.google.com',
-      completed: false
-    },
-    {
-      id: '2',
-      course_name: 'HTML & CSS',
-      skill: 'HTML & CSS',
-      course_url: 'https://www.google.com',
+  const enroll = async (courseID) => {
+    setSpinner(true)
+    const payload = {
+      profile_id: currentProfile.ID,
+      user_id: user.ID,
+      course_id: courseID,
       completed: false
     }
-  ]
+    await dispatch(enrollCourse(payload))
+    await dispatch(getEnrolledCourses(currentProfile.ID))
+    await dispatch(getCourses(payload))
+    setSpinner(false)
+  }
 
-  const recommendations = [
-    {
-      id: '1',
-      course_name: 'Course 1',
-      skill: 'HTML & CSS',
-      course_url: 'https://www.google.com'
-    },
-    {
-      id: '2',
-      course_name: 'Course 2',
-      skill: 'HTML & CSS',
-      course_url: 'https://www.google.com'
-    },
-    {
-      id: '3',
-      course_name: 'Course 3',
-      skill: 'HTML & CSS',
-      course_url: 'https://www.google.com'
-    },
-    {
-      id: '4',
-      course_name: 'Course 4',
-      skill: 'HTML & CSS',
-      course_url: 'https://www.google.com'
-    },
-    {
-      id: '5',
-      course_name: 'Course 5',
-      skill: 'HTML & CSS',
-      course_url: 'https://www.google.com'
-    },
-    {
-      id: '6',
-      course_name: 'Course 6',
-      skill: 'HTML & CSS',
-      course_url: 'https://www.google.com'
+  const complete = async (courseID) => {
+    setSpinner(true)
+    const payload = {
+      profile_id: currentProfile.ID,
+      course_id: courseID
     }
-  ]
+    await dispatch(completeCourse(payload))
+    setSpinner(false)
+  }
+
+  const rate = async (courseID, rating) => {
+    setSpinner(true)
+    const payload = {
+      user_id: user.ID,
+      course_id: courseID,
+      rating
+    }
+    await dispatch(rateCourse(payload))
+    await complete(courseID)
+    await dispatch(getEnrolledCourses(currentProfile.ID))
+    setSpinner(false)
+  }
+
+  useEffect(async () => {
+    setSpinner(true)
+    const remainingSkills = []
+    Object.keys(currentTrack.skills).forEach(skill => {
+      if (!currentProfile.completed_skills.includes(skill)) {
+        remainingSkills.push(skill)
+      }
+    })
+    const payload = {
+      user_id: user.ID,
+      skill: remainingSkills[0]
+    }
+    if (enrolledCourses.length < 1) {
+      await dispatch(getEnrolledCourses(currentProfile.ID))
+    }
+    if (courses.length < 1) {
+      await dispatch(getCourses(payload))
+    }
+    setSpinner(false)
+  }, [])
 
   return (
-        <Layout spinner={false} pageName='Courses'>
+        <Layout spinner={spinner} pageName='Courses'>
             <PurpleBar title={`Course Recommendations for ${currentTrack.name}`} button={true} buttonName="View Completed Courses" path="/completed-courses" />
             <div className="container">
                 <div className="row p-5">
                     <h5>Your Currently Enrolled Courses</h5>
                 </div>
                 <div className="row">
-                    {enrolled.map(course => {
+                    {enrolledCourses.map(course => {
                       return (
-                        <Course key={course.id} course={course} enrolled={true} openRateModal={openRateModal} />
+                        <Course
+                          key={course.course_id}
+                          course={course}
+                          enrolled={true}
+                          openRateModal={openRateModal}
+                        />
                       )
                     })}
                 </div>
@@ -89,21 +99,35 @@ const Courses = ({ currentTrack }) => {
                     <h5>Course Recommendations For You</h5>
                 </div>
                 <div className="row">
-                    {recommendations.map(course => {
+                    {courses.map(course => {
                       return (
-                        <Course key={course.id} course={course} enrolled={false} />
+                        <Course
+                          key={course.course_id}
+                          course={course}
+                          enrolled={false}
+                          enroll={enroll}
+                        />
                       )
                     })}
                 </div>
             </div>
-            <RateCourseModal show={viewRate} handleClose={() => setViewRate(false)} course={selectedCourse} />
+            <RateCourseModal
+              show={viewRate}
+              handleClose={() => setViewRate(false)}
+              course={selectedCourse}
+              rate={rate}
+            />
         </Layout>
   )
 }
 
 const mapStateToProps = state => {
   return {
-    currentTrack: state.currentTrack
+    user: state.user,
+    currentTrack: state.currentTrack,
+    currentProfile: state.currentProfile,
+    courses: state.courses,
+    enrolledCourses: state.enrolledCourses
   }
 }
 

@@ -14,6 +14,9 @@ import resumeReducer from './resumeReducer'
 import messageReducer from './messageReducer'
 import jobsReducer from './jobsReducer'
 import sessionsReducer from './sessionsReducer'
+import coursesReducer from './coursesReducer'
+import enrolledCoursesReducer from './enrolledCoursesReducer'
+import completedCoursesReducer from './completedCoursesReducer'
 
 const allReducers = combineReducers({
   sidebar: sidebarReducer,
@@ -30,7 +33,10 @@ const allReducers = combineReducers({
   resume: resumeReducer,
   message: messageReducer,
   jobs: jobsReducer,
-  sessions: sessionsReducer
+  sessions: sessionsReducer,
+  courses: coursesReducer,
+  enrolledCourses: enrolledCoursesReducer,
+  completedCourses: completedCoursesReducer
 })
 
 export default allReducers

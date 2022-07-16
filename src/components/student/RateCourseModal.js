@@ -3,7 +3,7 @@ import { StarsRating } from 'stars-rating-react-hooks'
 
 import { useState } from 'react'
 
-const RateCourseModal = ({ show, handleClose, course }) => {
+const RateCourseModal = ({ show, handleClose, course, rate }) => {
   const config = {
     totalStars: 5,
     initialSelectedValue: 0,
@@ -15,7 +15,12 @@ const RateCourseModal = ({ show, handleClose, course }) => {
 
   const submit = () => {
     console.log(rating)
+    if (rating > 0) {
+      rate(course.course_id, rating)
+      handleClose()
+    }
   }
+
   return (
         <Modal
             show={show}
