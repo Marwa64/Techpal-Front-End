@@ -18,7 +18,7 @@ const Course = ({ course, enrolled, openRateModal, enroll }) => {
 
   return (
         <div className={`${!enrolled ? 'container' : ''} col-12 col-lg-3 mb-4 ms-lg-5`}>
-            <button onClick={goToCourse} className="course bg-white pb-4 container">
+            <button onClick={goToCourse} className="course pb-4 container">
                 <div className="row mt-4">
                     <span className='title text-center'>{ course.course_name }</span>
                 </div>

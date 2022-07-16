@@ -39,7 +39,8 @@ html, body, #root, .App {
     color: white;
 }
 .darkgrey-bg input, .darkgrey-bg textarea, .darkgrey-bg select,
-.darkgrey-bg select option, .darkgrey-bg .job, .darkgrey-bg .table tbody td {
+.darkgrey-bg select option, .darkgrey-bg .job, .darkgrey-bg .table tbody td,
+.darkgrey-bg .course, .darkgrey-bg .course .title, .darkgrey-bg .course .sub-title {
     background: rgb(43 46 49);
     color: white;
 }
@@ -520,10 +521,12 @@ h5 {
     border: 1px solid #ada8ff;
     cursor: pointer;
     min-height: 300px;
+    background-color: white;
 }
 .course .title {
     font-size: 18px;
     color: #202020;
+    word-break: break-word;
 }
 .course .sub-title {
     font-size: 18px;
