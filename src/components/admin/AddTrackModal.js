@@ -28,7 +28,6 @@ const AddTrackModal = ({ show, handleClose, skills }) => {
       const updatedArray = [...skillsArray, newSkill]
       setSkills(updatedSkills)
       setSkillsArray(updatedArray)
-
       skillName.current.value = ''
       skillPoints.current.value = ''
     }
@@ -45,15 +44,25 @@ const AddTrackModal = ({ show, handleClose, skills }) => {
     if (!trackName.current.value) {
       return
     }
+
+    const skillsToSave = {}
+    skillsArray.forEach((skill, index) => {
+      skillsToSave[skill.name] = {
+        points: skill.points,
+        order: index
+      }
+    })
+
     const track = {
       name: trackName.current.value,
       color1,
       color2,
-      skills: stateSkills
+      skills: skillsToSave
     }
-    await dispatch(addTrack(track))
-    await dispatch(getTracks())
-    handleClose()
+    console.log(track)
+    // await dispatch(addTrack(track))
+    // await dispatch(getTracks())
+    // handleClose()
   }
 
   return (

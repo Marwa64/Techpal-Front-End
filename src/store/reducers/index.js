@@ -18,10 +18,13 @@ import coursesReducer from './coursesReducer'
 import enrolledCoursesReducer from './enrolledCoursesReducer'
 import completedCoursesReducer from './completedCoursesReducer'
 import skillsReducer from './skillsReducer'
+import leaderboardReducer from './leaderboardReducer'
+import usersReducer from './usersReducer'
 
 const allReducers = combineReducers({
   sidebar: sidebarReducer,
   darkmode: darkmodeReducer,
+  users: usersReducer,
   user: userReducer,
   token: tokenReducer,
   tracks: tracksReducer,
@@ -38,7 +41,8 @@ const allReducers = combineReducers({
   courses: coursesReducer,
   enrolledCourses: enrolledCoursesReducer,
   completedCourses: completedCoursesReducer,
-  skills: skillsReducer
+  skills: skillsReducer,
+  leaderboard: leaderboardReducer
 })
 
 export default allReducers

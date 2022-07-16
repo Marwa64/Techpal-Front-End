@@ -26,8 +26,14 @@ const Course = ({ course, enrolled, openRateModal, enroll }) => {
                     <div className="col-3 sub-title ">
                         Skills:
                     </div>
-                    <div className="col-4">
-                        <span className="badge rounded-pill bg-success-light">{ course.skill }</span>
+                    <div className="col-4 d-flex">
+                      {
+                        course.skills.map((skill, index) => {
+                          return (
+                            <span key={`skill-${index}`} className="badge rounded-pill bg-success-light me-2">{ skill }</span>
+                          )
+                        })
+                      }
                     </div>
                 </div>
                 {enrolled

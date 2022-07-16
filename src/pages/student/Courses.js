@@ -2,7 +2,7 @@ import Layout from './Layout'
 import PurpleBar from '../../components/common/PurpleBar'
 import Course from '../../components/student/Course'
 import RateCourseModal from '../../components/student/RateCourseModal'
-import { enrollCourse, completeCourse, rateCourse, getCourses, getEnrolledCourses } from '../../store/actions'
+import { enrollCourse, completeCourse, rateCourse, getCourses, getEnrolledCourses, getCurrentProfile } from '../../store/actions'
 
 import { connect, useDispatch } from 'react-redux'
 import { useEffect, useState } from 'react'
@@ -38,6 +38,7 @@ const Courses = ({ user, currentTrack, currentProfile, courses, enrolledCourses 
       course_id: courseID
     }
     await dispatch(completeCourse(payload))
+    await dispatch(getCurrentProfile(user.ID))
     setSpinner(false)
   }
 

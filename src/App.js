@@ -20,6 +20,7 @@ import ResumeBuilder from './pages/student/ResumeBuilder'
 import ApplicationSent from './pages/mentor/ApplicationSent'
 import MentorAccount from './pages/mentor/Account'
 import ChangePassword from './pages/mentor/ChangePassword'
+import Leadership from './pages/student/Leadership'
 
 import { useEffect } from 'react'
 import { useDispatch, connect } from 'react-redux'
@@ -58,6 +59,7 @@ function App ({ user, darkmode }) {
       <Router>
         <Routes>
           <Route path='/404' element={<NotFound/>}/>
+          <Route path="/leadership-board" element={ <StudentProtected><Leadership /></StudentProtected> } />
           <Route path="/resume-builder" element={ <StudentProtected><ResumeBuilder /></StudentProtected> } />
           <Route path="/admin/tracks" element={ <AdminProtected><Tracks /></AdminProtected> } />
           <Route path="/admin/mentors" element={ <AdminProtected><AdminMentors /></AdminProtected> } />
