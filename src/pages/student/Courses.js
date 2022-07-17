@@ -80,7 +80,6 @@ const Courses = ({ user, currentTrack, currentProfile, courses, enrolledCourses 
     remainingSkills.sort((a, b) => {
       return currentTrack.skills[a].order - currentTrack.skills[b].order
     })
-    console.log(remainingSkills[0])
     const payload = {
       user_id: user.ID,
       skill: remainingSkills[0]
