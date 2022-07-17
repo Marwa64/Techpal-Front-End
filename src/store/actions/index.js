@@ -619,6 +619,20 @@ export const viewJob = (profile_id, job) => async dispatch => {
   })
 }
 
+export const removeCourse = (payload) => async dispatch => {
+  return axios.post(`${url}/deletecourse`, payload).then(async (res) => {
+    await dispatch({ type: DISPLAY_MESSAGE, data: { message: 'Course Removed Successfully', error: false } })
+    return true
+  }).catch(err => {
+    if (err.response) {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.response.data.Error, error: true } })
+    } else {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    }
+    return false
+  })
+}
+
 export const enrollCourse = (payload) => async dispatch => {
   return axios.post(`${url}/enroll`, payload).then(async (res) => {
     dispatch({ type: DISPLAY_MESSAGE, data: { message: 'Course Started Successfully', error: false } })

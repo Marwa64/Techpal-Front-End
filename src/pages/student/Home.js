@@ -24,16 +24,6 @@ const StudentHome = ({ darkmode, currentProfile, currentTrack, news, user, sessi
 
   const navigate = useNavigate()
 
-  const sort_order = (a, b) => {
-    if (a.order < b.order) {
-      return -1
-    }
-    if (a.order > b.order) {
-      return 1
-    }
-    return 0
-  }
-
   useEffect(() => {
     setTimeout(async () => {
       if (Object.keys(currentProfile).length > 0 && Object.keys(currentTrack).length > 0) {
@@ -52,7 +42,9 @@ const StudentHome = ({ darkmode, currentProfile, currentTrack, news, user, sessi
             skillsArray.push(key)
           }
         })
-        skillsArray.sort(sort_order)
+        skillsArray.sort((a, b) => {
+          return currentTrack.skills[a].order - currentTrack.skills[b].order
+        })
         orderSkills = [...currentProfile.completed_skills, ...skillsArray]
         setSkills(orderSkills)
         setSpinner(false)
@@ -75,7 +67,7 @@ const StudentHome = ({ darkmode, currentProfile, currentTrack, news, user, sessi
                             <div className="p-5 pt-4 d-flex justify-content-md-between flex-column flex-md-row text-center text-md-start">
                                 <div>
                                     <div className="fw-normal" style={{ fontSize: '20px' }}>Current Profile: {currentTrack.name}</div>
-                                    <span>Current Level: {currentProfile.level + 1}</span>
+                                    <span>Current Level: {currentProfile.level}</span>
                                 </div>
                                 <button onClick={() => navigate('/profiles')} className="btn btn-light px-4 pt-2 pb-2 mt-4 mt-md-2 h-100 shadow">Switch Profile</button>
                             </div>

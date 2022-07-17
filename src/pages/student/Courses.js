@@ -2,7 +2,10 @@ import Layout from './Layout'
 import PurpleBar from '../../components/common/PurpleBar'
 import Course from '../../components/student/Course'
 import RateCourseModal from '../../components/student/RateCourseModal'
-import { enrollCourse, completeCourse, rateCourse, getCourses, getEnrolledCourses, getCurrentProfile } from '../../store/actions'
+import {
+  enrollCourse, completeCourse, rateCourse,
+  getCourses, getEnrolledCourses, getCurrentProfile, removeCourse
+} from '../../store/actions'
 
 import { connect, useDispatch } from 'react-redux'
 import { useEffect, useState } from 'react'
@@ -42,6 +45,17 @@ const Courses = ({ user, currentTrack, currentProfile, courses, enrolledCourses 
     setSpinner(false)
   }
 
+  const remove = async (course_id) => {
+    setSpinner(true)
+    const payload = {
+      course_id,
+      profile_id: currentProfile.ID
+    }
+    await dispatch(removeCourse(payload))
+    await dispatch(getEnrolledCourses(currentProfile.ID))
+    setSpinner(false)
+  }
+
   const rate = async (courseID, rating) => {
     setSpinner(true)
     const payload = {
@@ -63,6 +77,10 @@ const Courses = ({ user, currentTrack, currentProfile, courses, enrolledCourses 
         remainingSkills.push(skill)
       }
     })
+    remainingSkills.sort((a, b) => {
+      return currentTrack.skills[a].order - currentTrack.skills[b].order
+    })
+    console.log(remainingSkills[0])
     const payload = {
       user_id: user.ID,
       skill: remainingSkills[0]
@@ -81,7 +99,7 @@ const Courses = ({ user, currentTrack, currentProfile, courses, enrolledCourses 
             <PurpleBar title={`Course Recommendations for ${currentTrack.name}`} button={true} buttonName="View Completed Courses" path="/completed-courses" />
             <div className="container">
                 <div className="row p-5">
-                    <h5>Your Currently Enrolled Courses</h5>
+                    <h5>The Courses You Started</h5>
                 </div>
                 <div className="row">
                     {enrolledCourses.map(course => {
@@ -91,6 +109,7 @@ const Courses = ({ user, currentTrack, currentProfile, courses, enrolledCourses 
                           course={course}
                           enrolled={true}
                           openRateModal={openRateModal}
+                          remove={remove}
                         />
                       )
                     })}

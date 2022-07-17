@@ -107,7 +107,7 @@ const Landing = () => {
                         <div className="col-12 col-md-6 col-lg-3   p-4 ">
                             <div className="text-center d-flex flex-column align-items-center justify-content-center">
                                 <div className="box d-flex align-items-center justify-content-center  rounded-circle bg-white shadow mb-3">
-                                    <img src={require('../../assets/img/Icon ionic-md-videocam.png')} alt=""/>
+                                    <img src={require('../../assets/img/Icon awesome-file-alt.png')} alt=""/>
                                 </div>
                                 <h5 className=" mb-3">Resume Generator</h5>
                                 <p>We generate robust and highly customizable resumes based on your profile</p>

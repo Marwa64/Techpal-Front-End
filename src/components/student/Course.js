@@ -1,5 +1,5 @@
 
-const Course = ({ course, enrolled, openRateModal, enroll }) => {
+const Course = ({ course, enrolled, openRateModal, enroll, remove }) => {
   const goToCourse = () => {
     window.open(course.course_url, '_blank')
   }
@@ -13,7 +13,7 @@ const Course = ({ course, enrolled, openRateModal, enroll }) => {
   }
   const remove_local = event => {
     event.stopPropagation()
-    console.log('remove')
+    remove(course.course_id)
   }
 
   return (
