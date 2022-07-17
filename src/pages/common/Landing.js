@@ -1,8 +1,55 @@
 import Navbar from '../../components/common/Navbar'
 import { Helmet } from 'react-helmet'
 import { NavLink } from 'react-router-dom'
+import Message from '../../components/common/Message'
+import Spinner from '../../components/common/Spinner'
+
+import { contactUs } from '../../store/actions'
+
+import { useDispatch } from 'react-redux'
+import { useRef, useState } from 'react'
 
 const Landing = () => {
+  const first_name = useRef(null)
+  const last_name = useRef(null)
+  const email = useRef(null)
+  const message = useRef(null)
+
+  const dispatch = useDispatch()
+
+  const [spinner, setSpinner] = useState(false)
+
+  const handleChange = (ref) => {
+    ref.current.style.boxShadow = 'none'
+    if (ref.current.value === '') {
+      ref.current.style.boxShadow = '1px 1px 7px #ff000094'
+    }
+  }
+
+  const checkEmpty = (ref) => {
+    handleChange(ref)
+    return (ref.current.value === '')
+  }
+
+  const submit = async (e) => {
+    e.preventDefault()
+    if (!checkEmpty(first_name) && !checkEmpty(last_name) && !checkEmpty(email) && !checkEmpty(message)) {
+      const messageToSend = {
+        first_name: first_name.current.value,
+        last_name: last_name.current.value,
+        email: email.current.value,
+        message: message.current.value
+      }
+      setSpinner(true)
+      await dispatch(contactUs(messageToSend))
+      first_name.current.value = ''
+      last_name.current.value = ''
+      email.current.value = ''
+      message.current.value = ''
+      setSpinner(false)
+    }
+  }
+
   return (
         <div className="lightpurple-bg login">
         <div className="container-fluied py-4" >
@@ -10,7 +57,9 @@ const Landing = () => {
             <Helmet>
                 <title>TechPal  | Home</title>
             </Helmet>
+            <Message />
             <Navbar />
+            {spinner ? <Spinner /> : <></>}
             {/* <!-- section home starts --> */}
             <section className="home mb-4">
                 <div className="container">
@@ -117,30 +166,30 @@ const Landing = () => {
             {/* <!-- section Get started ends --> */}
 
             {/* <!-- Section conact us start --> */}
-            <section id="contactUs " className="pt-5">
+            <section id="contactUs" className="pt-5">
                 <div className="container">
                     <div className="row text-center">
                         <h3>Contact Us</h3>
                     </div>
                     <div className="row  align-items-center mt-5">
                         <div className="col-12 col-lg-7  p-5 pb-1 pt-1">
-                            <form action="" className='px-4'>
+                            <form onSubmit={submit} className='px-4'>
                                 <div className=" row">
                                     <div className=" col-sm-6 col-xs-12  mb-3 ">
-                                        <input type="text" placeholder="First Name" className="form-control " />
+                                        <input ref={first_name} type="text" placeholder="First Name" className="form-control " />
                                     </div>
                                     <div className=" col-sm-6 col-xs-12 mb-3 ">
-                                        <input type="text" placeholder="Last Name" className="form-control " />
+                                        <input ref={last_name} type="text" placeholder="Last Name" className="form-control " />
                                     </div>
                                 </div>
                                 <div className="mb-3 row">
                                     <div className=" col">
-                                        <input type="email" placeholder="Email" className="form-control " />
+                                        <input ref={email} type="email" placeholder="Email" className="form-control " />
                                     </div>
                                 </div>
                                 <div className="mb-3 row">
                                     <div className=" col">
-                                        <textarea placeholder="Your Message" name="" id="" cols="30" rows="10" className=" form-control"></textarea>
+                                        <textarea ref={message} placeholder="Your Message" name="" id="" cols="30" rows="10" className=" form-control"></textarea>
                                     </div>
                                 </div>
                                 <div className="mb-3 row">

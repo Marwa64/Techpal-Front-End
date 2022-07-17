@@ -691,3 +691,17 @@ export const getCompletedCourses = (profileId) => async dispatch => {
     return false
   })
 }
+
+export const contactUs = (messageToSend) => async dispatch => {
+  return axios.post(`${url}/contact`, messageToSend).then((res) => {
+    dispatch({ type: DISPLAY_MESSAGE, data: { message: 'Message Sent Successfully', error: false } })
+    return true
+  }).catch(err => {
+    if (err.response) {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.response.data.Error, error: true } })
+    } else {
+      dispatch({ type: DISPLAY_MESSAGE, data: { message: err.message, error: true } })
+    }
+    return false
+  })
+}
