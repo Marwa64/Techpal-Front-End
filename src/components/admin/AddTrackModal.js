@@ -59,10 +59,9 @@ const AddTrackModal = ({ show, handleClose, skills }) => {
       color2,
       skills: skillsToSave
     }
-    console.log(track)
-    // await dispatch(addTrack(track))
-    // await dispatch(getTracks())
-    // handleClose()
+    await dispatch(addTrack(track))
+    await dispatch(getTracks())
+    handleClose()
   }
 
   return (

@@ -24,22 +24,36 @@ const StudentHome = ({ darkmode, currentProfile, currentTrack, news, user, sessi
 
   const navigate = useNavigate()
 
+  const sort_order = (a, b) => {
+    if (a.order < b.order) {
+      return -1
+    }
+    if (a.order > b.order) {
+      return 1
+    }
+    return 0
+  }
+
   useEffect(() => {
     setTimeout(async () => {
       if (Object.keys(currentProfile).length > 0 && Object.keys(currentTrack).length > 0) {
         setSpinner(true)
         await dispatch(getNews(currentTrack.name, 2))
         await dispatch(getAllSessions())
+
         setTotalLevels(Object.keys(currentTrack.skills).length)
         let orderSkills = []
         if (currentProfile.completed_skills) {
           orderSkills = [...currentProfile.completed_skills]
         }
+        const skillsArray = []
         Object.keys(currentTrack.skills).forEach(key => {
           if (!orderSkills.includes(key)) {
-            orderSkills.push(key)
+            skillsArray.push(key)
           }
         })
+        skillsArray.sort(sort_order)
+        orderSkills = [...currentProfile.completed_skills, ...skillsArray]
         setSkills(orderSkills)
         setSpinner(false)
       }

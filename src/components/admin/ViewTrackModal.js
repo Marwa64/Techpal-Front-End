@@ -18,7 +18,7 @@ const ViewTrackModal = ({ show, handleClose, skills }) => {
                     <li key={`${key}${skills[key]}`} className='row text-start my-4'>
                         <div className='row'>
                             <div className='col-4 fw-bold'>Skill #{index + 1}:</div>
-                            <div className='col-auto'>{key} - {skills[key]}</div>
+                            <div className='col-auto'>{key} - {skills[key].points}</div>
                         </div>
                     </li>
                     )

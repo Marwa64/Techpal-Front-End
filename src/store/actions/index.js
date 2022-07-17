@@ -181,9 +181,14 @@ export const logout = () => async dispatch => {
 }
 
 export const getSkills = () => async dispatch => {
-  return axios.get(`${url}/getallskills`).then(res => {
-    dispatch({ type: SET_SKILLS, data: res.data })
-    return true
+  return axios.get(`${url}/getallskills`).then(async (res) => {
+    if (res.data) {
+      await dispatch({ type: SET_SKILLS, data: res.data })
+      return res.data
+    } else {
+      await dispatch({ type: SET_SKILLS, data: [] })
+      return []
+    }
   }).catch(err => {
     if (err.response) {
       dispatch({ type: DISPLAY_MESSAGE, data: { message: err.response.data.Error, error: true } })
@@ -209,9 +214,14 @@ export const addSkill = (skill) => async dispatch => {
 }
 
 export const getTracks = () => async dispatch => {
-  return axios.get(`${url}/getalltracks`).then(res => {
-    dispatch({ type: SET_TRACKS, data: res.data })
-    return true
+  return axios.get(`${url}/getalltracks`).then(async (res) => {
+    if (res.data) {
+      await dispatch({ type: SET_TRACKS, data: res.data })
+      return res.data
+    } else {
+      await dispatch({ type: SET_TRACKS, data: [] })
+      return []
+    }
   }).catch(err => {
     if (err.response) {
       dispatch({ type: DISPLAY_MESSAGE, data: { message: err.response.data.Error, error: true } })
