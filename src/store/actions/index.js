@@ -182,6 +182,7 @@ export const logout = () => async dispatch => {
 
 export const getSkills = () => async dispatch => {
   return axios.get(`${url}/getallskills`).then(async (res) => {
+    console.log(res)
     if (res.data) {
       await dispatch({ type: SET_SKILLS, data: res.data })
       return res.data
@@ -592,7 +593,7 @@ export const getMentorSessions = (mentorId) => async dispatch => {
 
 export const getNews = (track_name, numberOfArticles) => async dispatch => {
   const query = track_name.replace(/\d/g, '')
-  const API_URL = 'https://newsapi.org/v2/everything?apiKey=4c815a8efe264f8ba724edc7b68523d6&language=en&sortBy=publishedAt'
+  const API_URL = 'https://newsapi.org/v2/everything?apiKey=56aae84edb544375bd1cd5d3047968b0&language=en&sortBy=publishedAt'
   return axios.get(`${API_URL}&pageSize=${numberOfArticles}&q="${query}"`).then(async (res) => {
     await dispatch({ type: SET_NEWS, data: res.data.articles })
   }).catch(err => {

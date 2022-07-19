@@ -29,13 +29,15 @@ const Course = ({ course, enrolled, openRateModal, enroll, remove }) => {
                     <div className="col-auto ms-3">
                       <div className="row row-col-3">
                         {
-                          course.skills.map((skill, index) => {
-                            return (
+                          course && course.skills
+                            ? course.skills.map((skill, index) => {
+                              return (
                               <div key={`skill-${index}`} className='col'>
                                 <span className="badge rounded-pill bg-success-light me-2">{ skill }</span>
                               </div>
-                            )
-                          })
+                              )
+                            })
+                            : <></>
                         }
                       </div>
                     </div>
