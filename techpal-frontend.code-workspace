@@ -1,0 +1,61 @@
+{
+    "folders": [
+      {
+        "name": "Pages",
+        "path": "src/pages"
+      },
+      {
+        "name": "Components",
+        "path": "src/components"
+      },
+      {
+        "name": "Store",
+        "path": "src/store"
+      },
+      {
+        "name": "Root",
+        "path": "."
+      }
+    ],
+    "settings": {
+      //* cSpell config
+      "cSpell.language": "en",
+      // Enable / Disable the spell checker.
+      "cSpell.enabled": true,
+      // Specify paths/files to ignore.
+      "cSpell.ignorePaths": [
+        ".git",                // Ignore the .git directory
+        "design",
+        "*.code-workspace",
+        "public",
+        "node_modules",        // this will ignore anything the node_modules directory
+        "package.json",
+        "vscode-extension",    //
+        "package-lock.json",
+        "craco.config.js",
+    ],
+      // Display the spell checker status on the status bar.
+      "cSpell.showStatus": true,
+      //* editor
+      "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+      },
+      "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+      "editor.formatOnSave": true,
+      "editor.tabSize": 2,
+      //* eslint
+      "eslint.alwaysShowStatus": true,
+      "eslint.enable": true,
+      "eslint.workingDirectories": [
+        "src/*"
+      ],
+    },
+    "extensions": {
+      "recommendations": [
+        "dbaeumer.vscode-eslint",
+        "eamodio.gitlens",
+        "streetsidesoftware.code-spell-checker",
+      ]
+    }
+  }
+  
