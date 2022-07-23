@@ -14,7 +14,7 @@ import {
   SET_SKILLS, SET_LEADERBOARD, SET_USERS
 } from './types'
 
-const url = 'http://localhost:8080/api'
+const url = 'https://techpal.live/api'
 
 export const toggleSidebar = () => {
   return {
