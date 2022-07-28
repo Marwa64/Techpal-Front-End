@@ -14,7 +14,7 @@ import {
   SET_SKILLS, SET_LEADERBOARD, SET_USERS
 } from './types'
 
-const url = 'https://techpal.live/api'
+const url = 'https://techpal-backend.herokuapp.com/api'
 
 export const toggleSidebar = () => {
   return {
@@ -602,7 +602,7 @@ export const getNews = (track_name, numberOfArticles) => async dispatch => {
 }
 
 export const getJobs = (track_name, profile_id) => async dispatch => {
-  const RECOMMENDER_API = 'http://localhost:5000'
+  const RECOMMENDER_API = 'https://techpal-recommender.herokuapp.com'
   return axios.post(`${RECOMMENDER_API}/jobs/${track_name}`, { profile_id }).then(async (res) => {
     await dispatch({ type: SET_JOBS, data: res.data })
     return res.data
@@ -612,7 +612,7 @@ export const getJobs = (track_name, profile_id) => async dispatch => {
 }
 
 export const viewJob = (profile_id, job) => async dispatch => {
-  const RECOMMENDER_API = 'http://localhost:5000'
+  const RECOMMENDER_API = 'https://techpal-recommender.herokuapp.com'
   return axios.post(`${RECOMMENDER_API}/job_viewed/${profile_id}`, job).then(async (res) => {
     return true
   }).catch(err => {
@@ -672,7 +672,7 @@ export const rateCourse = (payload) => async dispatch => {
 }
 
 export const getCourses = (payload) => async dispatch => {
-  const RECOMMENDER_API = 'http://localhost:5000'
+  const RECOMMENDER_API = 'https://techpal-recommender.herokuapp.com'
   return axios.post(`${RECOMMENDER_API}/course/recommend`, payload).then(async (res) => {
     await dispatch({ type: SET_COURSES, data: res.data })
     return res.data
